@@ -33,3 +33,36 @@ body {
   
 /*  border: 1px solid cornflowerblue;*/
 }
+
+.diamond {
+  display: flex;
+  flex-direction: column;
+}
+
+.diamond-row {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  text-align: center;
+}
+
+.ball {
+  flex: 1;
+/*   border: 1px solid cyan; */
+}
+
+.ball-2 {
+  text-align: right;
+}
+
+.ball-8 {
+  text-align: left;
+}
+
+.ball-4 {
+  text-align: right;
+}
+
+.ball-6 {
+  text-align: left;
+}

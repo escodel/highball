@@ -1,4 +1,5 @@
 const incrementer = require('./modules/incrementer');
+const diamond = require('./modules/diamond');
 
 function component () {
   var element = document.createElement('div');
