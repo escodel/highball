@@ -1,0 +1,35 @@
+body {
+  background: #0c630c;
+  color: white;
+}
+
+.view-container {
+  height: 100vh;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: center;
+  
+/*  border: 3px solid red;*/
+}
+
+.row-middle {
+  flex: 5;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+  
+/*  border: 1px solid cornflowerblue;*/
+}

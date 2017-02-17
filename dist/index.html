@@ -2,22 +2,39 @@
 <html lang="en">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
   
 <body>
-  <div class="container">
-    <button class="increment">+</button>
-    <div class="number">0</div>
-    <button class="decrement">-</button>
-  </div>
-
-  <div class="container">
-    <button class="increment">+</button>
-    <div class="number">0</div>
-    <button class="decrement">-</button>
+<!--  <div class="view view-top"></div>-->
+  
+  <div class="view view-middle">
+    <div class="row row-top">
+      <div class="column">A</div>
+      <div class="column">
+        <div>Innings</div>
+        <button class="increment">+</button>
+        <span class="number">0</span>
+        <button class="decrement">-</button>
+      </div>
+      <div class="column">C</div>
+    </div>
+    <div class="row row-middle">
+      <div class="column">Player 1</div>
+      <div class="column">E</div>
+      <div class="column">Player 2</div>
+    </div>
+    <div class="row row-bottom">
+      <div class="column">H</div>
+      <div class="column">DEAD BALLS</div>
+      <div class="column">J</div>
+    </div>
   </div>
   
+<!--  <div class="view view-bottom"></div>-->
+
   <script src="bundle.js"></script>
 </body>
 </html>
