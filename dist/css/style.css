@@ -47,8 +47,17 @@ body {
 }
 
 .ball {
+  background: silver;
   flex: 1;
-   border: 1px solid cyan; 
+  border: 1px solid cyan;
+}
+
+.ball-active {
+  background: red;
+}
+
+.ball-inactive {
+  background: black;
 }
 
 .ball-2 {
