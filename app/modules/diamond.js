@@ -2,15 +2,27 @@ const diamond = (function () {
   const ball = document.querySelectorAll('.ball');
 
   for (let i = 0; i < ball.length; i++) {
-    const mc = new Hammer(ball[i]);
-
-    mc.on('press', function (ev) {
+//    const mc = new Hammer(ball[i]);
+//
+//    mc.on('press', function (ev) {
+    ball[i].addEventListener('click', function (ev) {
       const evTarget = ev.target;
-      ev.target.classList.add('ball-inactive');
+      if (!evTarget.classList.contains('ball-space')) {
+          ev.target.classList.add('ball-inactive');
+      }
 
       var ballArray = Array.from(ball);
+      var classListArray = Array.from(ev.target.classList);
+      var targetClass = classListArray[1];
 
-      ballArray.forEach(function (b) {
+      ballArray
+        .filter(function(b) {
+          return !b.classList.contains('ball-space');
+      })
+        .filter(function(b) {
+          return b.classList.contains(targetClass);
+      })
+        .forEach(function (b) {
         if (b.classList.contains('ball-active')) {
           b.classList.remove('ball-active');
           b.classList.add('ball-inactive');
@@ -23,22 +35,9 @@ const diamond = (function () {
           b.classList.add('ball-inactive');
           b.classList.remove('ball-active');
         }
-        //        evTarget.nextSibling.classList.toggle('.ball-inactive');
-      });
-
-      //    ball[i].addEventListener('touchstart', function(e) {
-      //      e.dataTransfer.effectAllowed = 'move';
-      //      e.dataTransfer.setData('text', e.target);
-      //      console.log(e);
-      //    });
-      //    
-      //    ball[i].addEventListener('touchend', function(e) {
-      //      console.log(e);
-      //      var data = e.dataTransfer.getData('text');
-      //      console.log(data);
-      //      e.target.appendChild(document.querySelector(data));
-      //    });
-    })
+      })
+    });
+//    })
   }
 })();
 
