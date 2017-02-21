@@ -1,5 +1,6 @@
 const incrementer = require('./modules/incrementer');
 const diamond = require('./modules/diamond');
+const scoring = require('./modules/scoring');
 
 //function component () {
 //  var element = document.createElement('div');

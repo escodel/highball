@@ -1,11 +1,11 @@
-const diamond = (function () {
+const diamond = (function() {
   const ball = document.querySelectorAll('.ball');
 
   for (let i = 0; i < ball.length; i++) {
     // Dead Balls
     const mc = new Hammer(ball[i]);
     
-    mc.on('press', function (ev){
+    mc.on('press', function(ev){
       var deadBallTarget = ev.target;
       var ballArray = Array.from(ball);
       var classListArray = Array.from(ev.target.classList);
@@ -56,9 +56,6 @@ const diamond = (function () {
         }
       });
     });
-    
-
-//    })
   }
 })();
 
