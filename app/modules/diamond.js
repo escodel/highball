@@ -11,28 +11,18 @@ const diamond = (function () {
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
       
-      if (!deadBallTarget.classList.contains('ball-dead')) {
+      if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space')) {
         deadBallTarget.classList.add('ball-dead');
       
         ballArray
-          .filter(function(b) {
-            return b.classList.contains(targetClass);
-          })
-          .forEach(function(b) {
-            b.classList.add('ball-dead');
-          });
-        return false;
+          .filter(b => b.classList.contains(targetClass))
+          .forEach(b => b.classList.add('ball-dead'));
       } else {
         deadBallTarget.classList.remove('ball-dead');
         
         ballArray
-          .filter(function(b) {
-            return b.classList.contains(targetClass);
-          })
-          .forEach(function(b) {
-            b.classList.remove('ball-dead');
-          });
-        return false;
+          .filter(b => b.classList.contains(targetClass))
+          .forEach(b => b.classList.remove('ball-dead'));
       }
     });
     
@@ -48,29 +38,23 @@ const diamond = (function () {
       var targetClass = classListArray[1];
 
       ballArray
-        .filter(function(b) {
-          return !b.classList.contains('ball-space');
-      })
-        .filter(function(b) {
-          return !b.classList.contains('ball-dead');
-      })
-        .filter(function(b) {
-          return b.classList.contains(targetClass);
-      })
+        .filter(b => !b.classList.contains('ball-space'))
+        .filter(b => !b.classList.contains('ball-dead'))
+        .filter(b => b.classList.contains(targetClass))
         .forEach(function (b) {
-        if (b.classList.contains('ball-active')) {
-          b.classList.remove('ball-active');
-          b.classList.add('ball-inactive');
-        } else if (b.classList.contains('ball-inactive')) {
-          b.classList.add('ball-active');
-          b.classList.remove('ball-inactive');
-        }
+          if (b.classList.contains('ball-active')) {
+            b.classList.remove('ball-active');
+            b.classList.add('ball-inactive');
+          } else if (b.classList.contains('ball-inactive')) {
+            b.classList.add('ball-active');
+            b.classList.remove('ball-inactive');
+          }
 
         if (!b.classList.contains('ball-active' || 'ball-inactive' || 'ball-dead')) {
           b.classList.add('ball-inactive');
           b.classList.remove('ball-active');
         }
-      })
+      });
     });
     
 
