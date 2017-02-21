@@ -60,6 +60,10 @@ body {
   background: black;
 }
 
+.ball-dead {
+  background: grey;
+}
+
 .ball-2 {
   text-align: right;
 }
