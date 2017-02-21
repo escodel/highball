@@ -10,16 +10,30 @@ const diamond = (function () {
       var ballArray = Array.from(ball);
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
-      deadBallTarget.classList.add('ball-dead');
       
-      ballArray
-        .filter(function(b) {
-          return b.classList.contains(targetClass);
-      })
-        .forEach(function(b) {
-          b.classList.add('ball-dead');
-      });
-      return false;
+      if (!deadBallTarget.classList.contains('ball-dead')) {
+        deadBallTarget.classList.add('ball-dead');
+      
+        ballArray
+          .filter(function(b) {
+            return b.classList.contains(targetClass);
+          })
+          .forEach(function(b) {
+            b.classList.add('ball-dead');
+          });
+        return false;
+      } else {
+        deadBallTarget.classList.remove('ball-dead');
+        
+        ballArray
+          .filter(function(b) {
+            return b.classList.contains(targetClass);
+          })
+          .forEach(function(b) {
+            b.classList.remove('ball-dead');
+          });
+        return false;
+      }
     });
     
     // Active / Inactive
