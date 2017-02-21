@@ -9,6 +9,8 @@ const scoring = (function() {
       const ballActiveRight = document.querySelectorAll('.diamond-right .ball-active')
       const nineBallLeft = document.querySelector('.diamond-left .ball-9');
       const nineBallRight = document.querySelector('.diamond-right .ball-9');
+      const deadBalls = document.querySelectorAll('.diamond-left .ball-dead');
+      const deadBallScore = document.querySelector('.dead-ball-score');
       
       playerOneScore.innerHTML = ballActiveLeft.length;
       playerTwoScore.innerHTML = ballActiveRight.length;
@@ -18,6 +20,8 @@ const scoring = (function() {
       } else if (nineBallRight.classList.contains('ball-active')) {
         playerTwoScore.innerHTML++
       }
+      
+      deadBallScore.innerHTML = deadBalls.length;
     });
   }
   
