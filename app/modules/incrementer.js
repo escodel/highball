@@ -4,11 +4,11 @@ const incrementer = (function(){
   
   const counter = (increment, context) => {
     if (increment) {
-      var number = context.target.nextElementSibling;
+      var number = context.target.previousElementSibling;
       var numberHtml = number.innerHTML;
       numberHtml++;
     } else {
-      var number = context.target.previousElementSibling;
+      var number = context.target.nextElementSibling;
       var numberHtml = number.innerHTML;
       if (numberHtml === '0') {
         return;
