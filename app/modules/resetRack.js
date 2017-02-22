@@ -1,5 +1,6 @@
 const resetRack = (function() {
   const nineBall = document.querySelectorAll('.ball-9');
+  var rack = document.querySelector('.rack');
   const ballArray = document.querySelectorAll('.ball');
   const resetRackLink = document.querySelector('.reset-rack');
   
@@ -20,7 +21,7 @@ const resetRack = (function() {
     });
   }
   
-  function resetRack() {
+  const resetRack = function() {
     for (let i = 0; i < ballArray.length; i++) {
       ballArray[i].classList.remove('ball-active');
       ballArray[i].classList.remove('ball-inactive');
@@ -28,9 +29,16 @@ const resetRack = (function() {
     }
   }
   
+  const resetInnings = function() {
+    const innings = document.querySelector('.number-innings');
+    innings.innerHTML = 0;
+  }
+  
   document.body.addEventListener('click', function(ev) {
     if (ev.target.classList.contains('reset-rack')) {
       resetRack();
+      resetInnings();
+      rack.innerHTML++;
     }
   });
 
