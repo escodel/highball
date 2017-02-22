@@ -11,7 +11,7 @@ const diamond = (function() {
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
       
-      if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space')) {
+      if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space') && !deadBallTarget.classList.contains('ball-9')) {
         deadBallTarget.classList.add('ball-dead');
         deadBallTarget.classList.remove('ball-active');
         deadBallTarget.classList.remove('ball-inactive');
