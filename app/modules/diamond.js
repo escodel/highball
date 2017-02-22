@@ -12,13 +12,13 @@ const diamond = (function() {
       var targetClass = classListArray[1];
       
       if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space') && !deadBallTarget.classList.contains('ball-9')) {
-        deadBallTarget.classList.add('ball-dead');
-        deadBallTarget.classList.remove('ball-active');
-        deadBallTarget.classList.remove('ball-inactive');
-      
+
         ballArray
           .filter(b => b.classList.contains(targetClass))
-          .forEach(b => b.classList.add('ball-dead'));
+          .forEach(b => {
+            b.classList.add('ball-dead')
+            b.classList.remove('ball-active')
+        });
       } else {
         deadBallTarget.classList.remove('ball-dead');
         
