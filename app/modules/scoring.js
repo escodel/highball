@@ -6,7 +6,7 @@ const scoring = (function() {
   for (let i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function() {
       const ballActiveLeft = document.querySelectorAll('.diamond-left .ball-active');
-      const ballActiveRight = document.querySelectorAll('.diamond-right .ball-active')
+      const ballActiveRight = document.querySelectorAll('.diamond-right .ball-active');
       const nineBallLeft = document.querySelector('.diamond-left .ball-9');
       const nineBallRight = document.querySelector('.diamond-right .ball-9');
       const deadBalls = document.querySelectorAll('.diamond-left .ball-dead');

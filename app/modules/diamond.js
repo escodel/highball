@@ -13,6 +13,8 @@ const diamond = (function() {
       
       if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space')) {
         deadBallTarget.classList.add('ball-dead');
+        deadBallTarget.classList.remove('ball-active');
+        deadBallTarget.classList.remove('ball-inactive');
       
         ballArray
           .filter(b => b.classList.contains(targetClass))
