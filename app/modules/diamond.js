@@ -11,6 +11,8 @@ const diamond = (function() {
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
       
+      /*  Prevents ball-9 and ball-space from being marked dead
+          Toggles ball-dead state */
       if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space') && !deadBallTarget.classList.contains('ball-9')) {
 
         ballArray
