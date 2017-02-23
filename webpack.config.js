@@ -19,10 +19,10 @@ const config = {
       }
     ]
   }
-  ,
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({minimize:true})
-  ]
+//  ,
+//  plugins: [
+//    new webpack.optimize.UglifyJsPlugin({minimize:true})
+//  ]
 };
 
 module.exports = config;

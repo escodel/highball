@@ -52,15 +52,19 @@ body {
   border: 1px solid cyan;
 }
 
-.ball-active {
+.neutral {
+  background: silver;
+}
+
+.active {
   background: red;
 }
 
-.ball-inactive {
+.inactive {
   background: black;
 }
 
-.ball-dead {
+.dead {
   background: grey;
 }
 

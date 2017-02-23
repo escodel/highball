@@ -1,1 +1,342 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var a=n[r]={i:r,l:!1,exports:{}};return e[r].call(a.exports,a,a.exports,t),a.l=!0,a.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=3)}([function(e,t,n){"use strict";var r=function(){for(var e=document.querySelectorAll(".ball"),t=0;t<e.length;t++){var n=new Hammer(e[t]);n.on("press",function(t){var n=t.target,r=Array.from(e),a=Array.from(t.target.classList),l=a[1];n.classList.contains("ball-dead")||n.classList.contains("ball-space")||n.classList.contains("ball-9")?(n.classList.remove("ball-dead"),r.filter(function(e){return e.classList.contains(l)}).forEach(function(e){return e.classList.remove("ball-dead")})):r.filter(function(e){return e.classList.contains(l)}).forEach(function(e){e.classList.add("ball-dead"),e.classList.remove("ball-active")})}),e[t].addEventListener("click",function(t){var n=t.target;n.classList.contains("ball-space")||t.target.classList.add("ball-inactive");var r=Array.from(e),a=Array.from(t.target.classList),l=a[1];r.filter(function(e){return!e.classList.contains("ball-space")}).filter(function(e){return!e.classList.contains("ball-dead")}).filter(function(e){return e.classList.contains(l)}).forEach(function(e){e.classList.contains("ball-active")?(e.classList.remove("ball-active"),e.classList.add("ball-inactive")):e.classList.contains("ball-inactive")&&(e.classList.add("ball-active"),e.classList.remove("ball-inactive")),e.classList.contains("ball-active")||(e.classList.add("ball-inactive"),e.classList.remove("ball-active"))})})}}();e.exports=r},function(e,t,n){"use strict";var r=function(){for(var e=document.querySelectorAll(".increment"),t=document.querySelectorAll(".decrement"),n=function(e,t){if(e){var n=t.target.previousElementSibling,r=n.innerHTML;r++}else{var n=t.target.nextElementSibling,r=n.innerHTML;if("0"===r)return;r--}n.innerHTML=r},r=0;r<e.length;r++)e[r].addEventListener("click",n.bind(null,!0));for(var a=0;a<t.length;a++)t[a].addEventListener("click",n.bind(null,!1))}();e.exports=r},function(e,t,n){"use strict";var r=function(){for(var e=document.querySelectorAll(".ball"),t=document.querySelector(".player-one-score"),n=document.querySelector(".player-two-score"),r=0;r<e.length;r++)e[r].addEventListener("click",function(e){var r=document.querySelectorAll(".diamond-left .ball-active"),a=document.querySelectorAll(".diamond-right .ball-active"),l=document.querySelector(".diamond-left .ball-9"),c=document.querySelector(".diamond-right .ball-9"),i=document.querySelectorAll(".diamond-left .ball-dead"),s=document.querySelector(".dead-ball-score"),o=document.querySelector(".rack").innerHTML;"1"===o?(t.innerHTML=r.length,n.innerHTML=a.length):"1"!==o&&e.target.parentElement.parentElement.classList.contains("diamond-left")?t.innerHTML++:n.innerHTML++,s.innerHTML=i.length,l.classList.contains("ball-active")?t.innerHTML++:c.classList.contains("ball-active")&&n.innerHTML++})}();e.exports=r},function(e,t,n){"use strict";n(1),n(0),n(2),n(4)},function(e,t,n){"use strict";var r=function(){for(var e=document.querySelectorAll(".ball-9"),t=document.querySelector(".rack"),n=document.querySelectorAll(".ball"),r=(document.querySelector(".reset-rack"),0);r<e.length;r++)e[r].addEventListener("click",function(){function e(){var e=document.createElement("a");return e.innerHTML=["Rack","reset"].join(" "),e.href="#",e.classList="reset-rack",e}document.body.appendChild(e())});var a=function(){for(var e=0;e<n.length;e++)n[e].classList.remove("ball-active"),n[e].classList.remove("ball-inactive"),n[e].classList.remove("ball-dead")},l=function(){var e=document.querySelector(".number-innings");e.innerHTML=0};document.body.addEventListener("click",function(e){e.target.classList.contains("reset-rack")&&(a(),l(),t.innerHTML++)})}();e.exports=r}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var diamond = function () {
+  var ball = document.querySelectorAll('.ball');
+
+  for (var i = 0; i < ball.length; i++) {
+    // Dead Balls
+    var mc = new Hammer(ball[i]);
+
+    mc.on('press', function (ev) {
+      var deadBallTarget = ev.target;
+      var ballArray = Array.from(ball);
+      var classListArray = Array.from(ev.target.classList);
+      var targetClass = classListArray[1];
+
+      /*  Prevents ball-9 and ball-space from being marked dead
+          Toggles ball-dead state */
+      if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space') && !deadBallTarget.classList.contains('ball-9')) {
+
+        ballArray.filter(function (b) {
+          return b.classList.contains(targetClass);
+        }).forEach(function (b) {
+          b.classList.add('ball-dead');
+          b.classList.remove('active');
+        });
+      } else {
+        deadBallTarget.classList.remove('ball-dead');
+
+        ballArray.filter(function (b) {
+          return b.classList.contains(targetClass);
+        }).forEach(function (b) {
+          return b.classList.remove('ball-dead');
+        });
+      }
+    });
+
+    // Active / Inactive
+    ball[i].addEventListener('click', function (ev) {
+      var evTarget = ev.target;
+      var ballArray = Array.from(ball);
+      var clickedTargetClassList = ev.target.classList;
+      var targetClass = clickedTargetClassList[1];
+
+      ballArray.filter(function (b) {
+        return !b.classList.contains('ball-space');
+      }).filter(function (b) {
+        return !b.classList.contains('ball-dead');
+      }).filter(function (b) {
+        return b.classList.contains(targetClass);
+      }).forEach(function (b) {
+        if (clickedTargetClassList.contains('neutral')) {
+          if (clickedTargetClassList.contains('left')) {
+            ev.target.classList.add('active');
+            ev.target.classList.remove('neutral');
+            return;
+          }
+          if (clickedTargetClassList.contains('right')) {
+            ev.target.classList.add('active');
+            ev.target.classList.remove('neutral');
+            return;
+          }
+        }
+        if (!clickedTargetClassList.contains('neutral')) {
+          if (clickedTargetClassList.contains('left')) {
+            ev.target.classList.remove('active');
+            ev.target.classList.remove('inactive');
+            ev.target.classList.remove('dead');
+            ev.target.classList.add('neutral');
+            return;
+          }
+          if (clickedTargetClassList.contains('right')) {
+            ev.target.classList.remove('active');
+            ev.target.classList.remove('inactive');
+            ev.target.classList.remove('dead');
+            ev.target.classList.add('neutral');
+            return;
+          }
+        }
+
+        //          if (b.classList.contains('neutral') && b.classList.contains('left')) {
+        //            b.classList.add('active');
+        //            b.classList.remove('neutral');
+        //            return;
+        //          }
+        //          if (b.classList.contains('neutral') && b.classList.contains('right')) {
+        //            b.classList.add('inactive');
+        //            b.classList.remove('neutral');
+        //            return;
+        //          }
+        //          if (ev.target.classList.contains('active')) {
+        //            b.classList.remove('active');
+        //            b.classList.add('neutral');
+        //            return;
+        //          } 
+        //          if (b.classList.contains('inactive')) {
+        //            b.classList.add('neutral');
+        //            b.classList.remove('inactive');
+        //            return;
+        //          }
+
+        //        if (!b.classList.contains('active' || 'inactive' || 'ball-dead')) {
+        //          b.classList.add('inactive');
+        //          b.classList.remove('active');
+        //        }
+      });
+    });
+  }
+}();
+
+module.exports = diamond;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var incrementer = function () {
+  var incrementButton = document.querySelectorAll('.increment');
+  var decrementButton = document.querySelectorAll('.decrement');
+
+  var counter = function counter(increment, context) {
+    if (increment) {
+      var number = context.target.previousElementSibling;
+      var numberHtml = number.innerHTML;
+      numberHtml++;
+    } else {
+      var number = context.target.nextElementSibling;
+      var numberHtml = number.innerHTML;
+      if (numberHtml === '0') {
+        return;
+      }
+      numberHtml--;
+    }
+    number.innerHTML = numberHtml;
+  };
+
+  for (var i = 0; i < incrementButton.length; i++) {
+    incrementButton[i].addEventListener('click', counter.bind(null, true));
+  }
+  for (var _i = 0; _i < decrementButton.length; _i++) {
+    decrementButton[_i].addEventListener('click', counter.bind(null, false));
+  }
+}();
+
+module.exports = incrementer;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var resetRack = function () {
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rack = document.querySelector('.rack');
+  var ballArray = document.querySelectorAll('.ball');
+  var resetRackLink = document.querySelector('.reset-rack');
+
+  // Loop through nine balls
+  for (var i = 0; i < nineBall.length; i++) {
+    nineBall[i].addEventListener('click', function () {
+      // Rack reset confirmation modal
+      function component() {
+        var element = document.createElement('a');
+
+        element.innerHTML = ['Rack', 'reset'].join(' ');
+        element.href = '#';
+        element.classList = 'reset-rack';
+
+        return element;
+      }
+      document.body.appendChild(component());
+    });
+  }
+
+  var resetRack = function resetRack() {
+    for (var _i = 0; _i < ballArray.length; _i++) {
+      ballArray[_i].classList.remove('ball-active');
+      ballArray[_i].classList.remove('ball-inactive');
+      ballArray[_i].classList.remove('ball-dead');
+    }
+  };
+
+  var resetInnings = function resetInnings() {
+    var innings = document.querySelector('.number-innings');
+    innings.innerHTML = 0;
+  };
+
+  document.body.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('reset-rack')) {
+      resetRack();
+      resetInnings();
+      rack.innerHTML++;
+    }
+  });
+}();
+
+module.exports = resetRack;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var scoring = function () {
+  var ball = document.querySelectorAll('.ball');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+
+  for (var i = 0; i < ball.length; i++) {
+    ball[i].addEventListener('click', function (ev) {
+      var ballActiveLeft = document.querySelectorAll('.diamond-left .ball-active');
+      var ballActiveRight = document.querySelectorAll('.diamond-right .ball-active');
+      var nineBallLeft = document.querySelector('.diamond-left .ball-9');
+      var nineBallRight = document.querySelector('.diamond-right .ball-9');
+      var deadBalls = document.querySelectorAll('.diamond-left .ball-dead');
+      var deadBallScore = document.querySelector('.dead-ball-score');
+      var rack = document.querySelector('.rack').innerHTML;
+
+      if (rack === '1') {
+        playerOneScore.innerHTML = ballActiveLeft.length;
+        playerTwoScore.innerHTML = ballActiveRight.length;
+      } else if (rack !== '1' && ev.target.parentElement.parentElement.classList.contains('diamond-left')) {
+        playerOneScore.innerHTML++;
+      } else {
+        playerTwoScore.innerHTML++;
+      }
+      deadBallScore.innerHTML = deadBalls.length;
+
+      if (nineBallLeft.classList.contains('ball-active')) {
+        playerOneScore.innerHTML++;
+      } else if (nineBallRight.classList.contains('ball-active')) {
+        playerTwoScore.innerHTML++;
+      }
+    });
+  }
+}();
+
+module.exports = scoring;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var incrementer = __webpack_require__(1);
+var diamond = __webpack_require__(0);
+var scoring = __webpack_require__(3);
+var resetRack = __webpack_require__(2);
+
+//function component () {
+//  var element = document.createElement('div');
+//
+//  element.innerHTML = ['Hello','individual'].join(' ');
+//
+//  return element;
+//}
+//
+//document.body.appendChild(component());
+
+/***/ })
+/******/ ]);
