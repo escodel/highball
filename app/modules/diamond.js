@@ -2,7 +2,7 @@ const scoring = require('./scoring');
 
 const diamond = (function() {
   const ball = document.querySelectorAll('.ball');
-  console.log(scoring);
+  const deadBallScore = document.querySelector('.dead-ball-score');
 
   for (let i = 0; i < ball.length; i++) {
     // Dead Balls
@@ -14,15 +14,18 @@ const diamond = (function() {
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
       
-      /*  Prevents ball-9 and ball-space from being marked dead
-          Toggles ball-dead state */
-      if (!deadBallTarget.classList.contains('ball-dead') && !deadBallTarget.classList.contains('ball-space') && !deadBallTarget.classList.contains('ball-9')) {
+      /*  Prevents ball-9 from being marked dead
+          Toggles dead state */
+      if (!deadBallTarget.classList.contains('dead') && !deadBallTarget.classList.contains('ball-9')) {
 
         ballArray
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => {
             b.classList.add('dead')
+            b.classList.remove('neutral')
             b.classList.remove('active')
+            b.classList.remove('inactive')
+            
         });
       } else {
         deadBallTarget.classList.remove('dead');
@@ -31,6 +34,9 @@ const diamond = (function() {
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => b.classList.remove('dead'));
       }
+    let deadBalls = document.querySelectorAll('.left-grid .dead');
+    deadBallScore.innerHTML = deadBalls.length;
+
     });
     
     // Active / Inactive
@@ -90,77 +96,6 @@ const diamond = (function() {
         return;        
       }
     })
-    
-//    ball[i].addEventListener('click', function (ev) {
-//      const evTarget = ev.target;
-//      var ballArray = Array.from(ball);
-//      var clickedTargetClassList = ev.target.classList;
-//      var targetClass = clickedTargetClassList[1];
-//
-//      ballArray
-//        .filter(b => !b.classList.contains('ball-space'))
-//        .filter(b => !b.classList.contains('ball-dead'))
-//        .filter(b => b.classList.contains(targetClass))
-//        //not foreach
-//        .forEach(function (b) {
-//        //for clicked ball, activate it and deactivate its opponent equivalent
-//        if (clickedTargetClassList.contains('neutral')){
-//          if (clickedTargetClassList.contains('left')){
-//            ev.target.classList.add('active');
-//            ev.target.classList.remove('neutral');
-//            return;
-//          }
-//          if (clickedTargetClassList.contains('right')){
-//            ev.target.classList.add('active');
-//            ev.target.classList.remove('neutral');
-//            return;
-//          }
-//        }
-//        if (!clickedTargetClassList.contains('neutral')){
-//          if (clickedTargetClassList.contains('left')){
-//            ev.target.classList.remove('active');
-//            ev.target.classList.remove('inactive');
-//            ev.target.classList.remove('dead');
-//            ev.target.classList.add('neutral');
-//            return;
-//          }
-//          if (clickedTargetClassList.contains('right')){
-//            ev.target.classList.remove('active');
-//            ev.target.classList.remove('inactive');
-//            ev.target.classList.remove('dead');
-//            ev.target.classList.add('neutral');
-//            return;
-//          }
-//        }        
-        
-        
-//          if (b.classList.contains('neutral') && b.classList.contains('left')) {
-//            b.classList.add('active');
-//            b.classList.remove('neutral');
-//            return;
-//          }
-//          if (b.classList.contains('neutral') && b.classList.contains('right')) {
-//            b.classList.add('inactive');
-//            b.classList.remove('neutral');
-//            return;
-//          }
-//          if (ev.target.classList.contains('active')) {
-//            b.classList.remove('active');
-//            b.classList.add('neutral');
-//            return;
-//          } 
-//          if (b.classList.contains('inactive')) {
-//            b.classList.add('neutral');
-//            b.classList.remove('inactive');
-//            return;
-//          }
-
-//        if (!b.classList.contains('active' || 'inactive' || 'ball-dead')) {
-//          b.classList.add('inactive');
-//          b.classList.remove('active');
-//        }
-//      });
-//    });
   }
 })();
 

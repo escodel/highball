@@ -11,6 +11,8 @@ const scoring = (function() {
   const increase = obj => obj + 1;
   const decrease = obj => obj - 1;
 
+  
+
   for (let i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function(ev) {
       let evTarget = ev.target;
