@@ -57,7 +57,7 @@ const scoring = (function() {
         if (evTarget.classList.contains('inactive')) {
           playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
             return;
           }               
         }
