@@ -73,10 +73,13 @@
 "use strict";
 
 
+var scoring = __webpack_require__(3);
+
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
+  console.log(scoring);
 
-  for (var i = 0; i < ball.length; i++) {
+  var _loop = function _loop(i) {
     // Dead Balls
     var mc = new Hammer(ball[i]);
 
@@ -93,16 +96,16 @@ var diamond = function () {
         ballArray.filter(function (b) {
           return b.classList.contains(targetClass);
         }).forEach(function (b) {
-          b.classList.add('ball-dead');
+          b.classList.add('dead');
           b.classList.remove('active');
         });
       } else {
-        deadBallTarget.classList.remove('ball-dead');
+        deadBallTarget.classList.remove('dead');
 
         ballArray.filter(function (b) {
           return b.classList.contains(targetClass);
         }).forEach(function (b) {
-          return b.classList.remove('ball-dead');
+          return b.classList.remove('dead');
         });
       }
     });
@@ -110,73 +113,135 @@ var diamond = function () {
     // Active / Inactive
     ball[i].addEventListener('click', function (ev) {
       var evTarget = ev.target;
-      var ballArray = Array.from(ball);
-      var clickedTargetClassList = ev.target.classList;
-      var targetClass = clickedTargetClassList[1];
+      var clickedTargetClassList = evTarget.classList;
+      var ballLeft = ball[i].classList.contains('left');
+      var ballRight = ball[i].classList.contains('right');
 
-      ballArray.filter(function (b) {
-        return !b.classList.contains('ball-space');
-      }).filter(function (b) {
-        return !b.classList.contains('ball-dead');
-      }).filter(function (b) {
-        return b.classList.contains(targetClass);
-      }).forEach(function (b) {
-        if (clickedTargetClassList.contains('neutral')) {
-          if (clickedTargetClassList.contains('left')) {
-            ev.target.classList.add('active');
-            ev.target.classList.remove('neutral');
-            return;
-          }
-          if (clickedTargetClassList.contains('right')) {
-            ev.target.classList.add('active');
-            ev.target.classList.remove('neutral');
-            return;
-          }
-        }
-        if (!clickedTargetClassList.contains('neutral')) {
-          if (clickedTargetClassList.contains('left')) {
-            ev.target.classList.remove('active');
-            ev.target.classList.remove('inactive');
-            ev.target.classList.remove('dead');
-            ev.target.classList.add('neutral');
-            return;
-          }
-          if (clickedTargetClassList.contains('right')) {
-            ev.target.classList.remove('active');
-            ev.target.classList.remove('inactive');
-            ev.target.classList.remove('dead');
-            ev.target.classList.add('neutral');
-            return;
-          }
-        }
-
-        //          if (b.classList.contains('neutral') && b.classList.contains('left')) {
-        //            b.classList.add('active');
-        //            b.classList.remove('neutral');
-        //            return;
-        //          }
-        //          if (b.classList.contains('neutral') && b.classList.contains('right')) {
-        //            b.classList.add('inactive');
-        //            b.classList.remove('neutral');
-        //            return;
-        //          }
-        //          if (ev.target.classList.contains('active')) {
-        //            b.classList.remove('active');
-        //            b.classList.add('neutral');
-        //            return;
-        //          } 
-        //          if (b.classList.contains('inactive')) {
-        //            b.classList.add('neutral');
-        //            b.classList.remove('inactive');
-        //            return;
-        //          }
-
-        //        if (!b.classList.contains('active' || 'inactive' || 'ball-dead')) {
-        //          b.classList.add('inactive');
-        //          b.classList.remove('active');
-        //        }
-      });
+      // Determine left or right, then inactive the opposite
+      if (ballLeft && clickedTargetClassList.contains('neutral')) {
+        var opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        clickedTargetClassList.remove('neutral');
+        opposite.classList.remove('neutral');
+        opposite.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('active')) {
+        var _opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        _opposite.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        _opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('inactive')) {
+        var _opposite2 = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        _opposite2.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        _opposite2.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('neutral')) {
+        var _opposite3 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        clickedTargetClassList.remove('neutral');
+        _opposite3.classList.remove('neutral');
+        _opposite3.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('active')) {
+        var _opposite4 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        _opposite4.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        _opposite4.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('inactive')) {
+        var _opposite5 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        _opposite5.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        _opposite5.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
     });
+
+    //    ball[i].addEventListener('click', function (ev) {
+    //      const evTarget = ev.target;
+    //      var ballArray = Array.from(ball);
+    //      var clickedTargetClassList = ev.target.classList;
+    //      var targetClass = clickedTargetClassList[1];
+    //
+    //      ballArray
+    //        .filter(b => !b.classList.contains('ball-space'))
+    //        .filter(b => !b.classList.contains('ball-dead'))
+    //        .filter(b => b.classList.contains(targetClass))
+    //        //not foreach
+    //        .forEach(function (b) {
+    //        //for clicked ball, activate it and deactivate its opponent equivalent
+    //        if (clickedTargetClassList.contains('neutral')){
+    //          if (clickedTargetClassList.contains('left')){
+    //            ev.target.classList.add('active');
+    //            ev.target.classList.remove('neutral');
+    //            return;
+    //          }
+    //          if (clickedTargetClassList.contains('right')){
+    //            ev.target.classList.add('active');
+    //            ev.target.classList.remove('neutral');
+    //            return;
+    //          }
+    //        }
+    //        if (!clickedTargetClassList.contains('neutral')){
+    //          if (clickedTargetClassList.contains('left')){
+    //            ev.target.classList.remove('active');
+    //            ev.target.classList.remove('inactive');
+    //            ev.target.classList.remove('dead');
+    //            ev.target.classList.add('neutral');
+    //            return;
+    //          }
+    //          if (clickedTargetClassList.contains('right')){
+    //            ev.target.classList.remove('active');
+    //            ev.target.classList.remove('inactive');
+    //            ev.target.classList.remove('dead');
+    //            ev.target.classList.add('neutral');
+    //            return;
+    //          }
+    //        }        
+
+
+    //          if (b.classList.contains('neutral') && b.classList.contains('left')) {
+    //            b.classList.add('active');
+    //            b.classList.remove('neutral');
+    //            return;
+    //          }
+    //          if (b.classList.contains('neutral') && b.classList.contains('right')) {
+    //            b.classList.add('inactive');
+    //            b.classList.remove('neutral');
+    //            return;
+    //          }
+    //          if (ev.target.classList.contains('active')) {
+    //            b.classList.remove('active');
+    //            b.classList.add('neutral');
+    //            return;
+    //          } 
+    //          if (b.classList.contains('inactive')) {
+    //            b.classList.add('neutral');
+    //            b.classList.remove('inactive');
+    //            return;
+    //          }
+
+    //        if (!b.classList.contains('active' || 'inactive' || 'ball-dead')) {
+    //          b.classList.add('inactive');
+    //          b.classList.remove('active');
+    //        }
+    //      });
+    //    });
+  };
+
+  for (var i = 0; i < ball.length; i++) {
+    _loop(i);
   }
 }();
 
@@ -251,9 +316,10 @@ var resetRack = function () {
 
   var resetRack = function resetRack() {
     for (var _i = 0; _i < ballArray.length; _i++) {
-      ballArray[_i].classList.remove('ball-active');
-      ballArray[_i].classList.remove('ball-inactive');
-      ballArray[_i].classList.remove('ball-dead');
+      ballArray[_i].classList.remove('active');
+      ballArray[_i].classList.remove('inactive');
+      ballArray[_i].classList.remove('dead');
+      ballArray[_i].classList.add('neutral');
     }
   };
 
@@ -285,33 +351,122 @@ var scoring = function () {
   var playerOneScore = document.querySelector('.player-one-score');
   var playerTwoScore = document.querySelector('.player-two-score');
 
+  var increase = function increase(obj) {
+    return obj + 1;
+  };
+  var decrease = function decrease(obj) {
+    return obj - 1;
+  };
+
   for (var i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function (ev) {
-      var ballActiveLeft = document.querySelectorAll('.diamond-left .ball-active');
-      var ballActiveRight = document.querySelectorAll('.diamond-right .ball-active');
-      var nineBallLeft = document.querySelector('.diamond-left .ball-9');
-      var nineBallRight = document.querySelector('.diamond-right .ball-9');
-      var deadBalls = document.querySelectorAll('.diamond-left .ball-dead');
-      var deadBallScore = document.querySelector('.dead-ball-score');
-      var rack = document.querySelector('.rack').innerHTML;
-
-      if (rack === '1') {
-        playerOneScore.innerHTML = ballActiveLeft.length;
-        playerTwoScore.innerHTML = ballActiveRight.length;
-      } else if (rack !== '1' && ev.target.parentElement.parentElement.classList.contains('diamond-left')) {
-        playerOneScore.innerHTML++;
-      } else {
-        playerTwoScore.innerHTML++;
+      var evTarget = ev.target;
+      // If ballLeft
+      if (evTarget.classList.contains('left')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+            return;
+          }
+          return;
+        }
+        if (evTarget.classList.contains('active')) {
+          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+            return;
+          }
+          return;
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            return;
+          }
+          return;
+        }
       }
-      deadBallScore.innerHTML = deadBalls.length;
-
-      if (nineBallLeft.classList.contains('ball-active')) {
-        playerOneScore.innerHTML++;
-      } else if (nineBallRight.classList.contains('ball-active')) {
-        playerTwoScore.innerHTML++;
+      // If ballRight
+      if (evTarget.classList.contains('right')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+            return;
+          }
+          return;
+        }
+        if (evTarget.classList.contains('active')) {
+          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            return;
+          }
+          return;
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            return;
+          }
+        }
       }
+
+      //      if (evTarget.classList.contains('neutral') && evTarget.classList.contains('left')) {
+      //        playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+      //        return;
+      //      }
+      //      if (evTarget.classList.contains('active') && evTarget.classList.contains('left')) {
+      //        playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+      //        return;
+      //      }
+      //      if (evTarget.classList.contains('neutral') && evTarget.classList.contains('right')) {
+      //        playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+      //        return;
+      //      }
+      //      if (evTarget.classList.contains('active') && evTarget.classList.contains('right')) {
+      //        playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+      //        return;
+      //      }
     });
   }
+
+  //  for (let i = 0; i < ball.length; i++) {
+  //    ball[i].addEventListener('click', function(ev) {
+  //      const ballActiveLeft = document.querySelectorAll('.diamond-left .ball-active');
+  //      const ballActiveRight = document.querySelectorAll('.diamond-right .ball-active');
+  //      const nineBallLeft = document.querySelector('.diamond-left .ball-9');
+  //      const nineBallRight = document.querySelector('.diamond-right .ball-9');
+  //      const deadBalls = document.querySelectorAll('.diamond-left .ball-dead');
+  //      const deadBallScore = document.querySelector('.dead-ball-score');
+  //      var rack = document.querySelector('.rack').innerHTML;
+  //
+  //      if (rack === '1') {
+  //        playerOneScore.innerHTML = ballActiveLeft.length;
+  //        playerTwoScore.innerHTML = ballActiveRight.length;
+  //      } else if (rack !== '1' && ev.target.parentElement.parentElement.classList.contains('diamond-left')) {
+  //        playerOneScore.innerHTML++;
+  //      } else {
+  //        playerTwoScore.innerHTML++;
+  //      }
+  //      deadBallScore.innerHTML = deadBalls.length;      
+  //      
+  //      if (nineBallLeft.classList.contains('active')) {
+  //        playerOneScore.innerHTML++
+  //      } else if (nineBallRight.classList.contains('active')) {
+  //        playerTwoScore.innerHTML++
+  //      }
+  //    });
+  //  }
+
+  return {
+    playerOneScore: playerOneScore,
+    playerTwoScore: playerTwoScore,
+    increase: increase
+  };
 }();
 
 module.exports = scoring;
@@ -325,7 +480,7 @@ module.exports = scoring;
 
 var incrementer = __webpack_require__(1);
 var diamond = __webpack_require__(0);
-var scoring = __webpack_require__(3);
+//const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(2);
 
 //function component () {

@@ -1,5 +1,8 @@
+const scoring = require('./scoring');
+
 const diamond = (function() {
   const ball = document.querySelectorAll('.ball');
+  console.log(scoring);
 
   for (let i = 0; i < ball.length; i++) {
     // Dead Balls
@@ -18,60 +21,117 @@ const diamond = (function() {
         ballArray
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => {
-            b.classList.add('ball-dead')
+            b.classList.add('dead')
             b.classList.remove('active')
         });
       } else {
-        deadBallTarget.classList.remove('ball-dead');
+        deadBallTarget.classList.remove('dead');
         
         ballArray
           .filter(b => b.classList.contains(targetClass))
-          .forEach(b => b.classList.remove('ball-dead'));
+          .forEach(b => b.classList.remove('dead'));
       }
     });
     
     // Active / Inactive
-    ball[i].addEventListener('click', function (ev) {
+    ball[i].addEventListener('click', function(ev) {
       const evTarget = ev.target;
-      var ballArray = Array.from(ball);
-      var clickedTargetClassList = ev.target.classList;
-      var targetClass = clickedTargetClassList[1];
-
-      ballArray
-        .filter(b => !b.classList.contains('ball-space'))
-        .filter(b => !b.classList.contains('ball-dead'))
-        .filter(b => b.classList.contains(targetClass))
-        //not foreach
-        .forEach(function (b) {
-        //for clicked ball, activate it and deactivate its opponent equivalent
-        if (clickedTargetClassList.contains('neutral')){
-          if (clickedTargetClassList.contains('left')){
-            ev.target.classList.add('active');
-            ev.target.classList.remove('neutral');
-            return;
-          }
-          if (clickedTargetClassList.contains('right')){
-            ev.target.classList.add('active');
-            ev.target.classList.remove('neutral');
-            return;
-          }
-        }
-        if (!clickedTargetClassList.contains('neutral')){
-          if (clickedTargetClassList.contains('left')){
-            ev.target.classList.remove('active');
-            ev.target.classList.remove('inactive');
-            ev.target.classList.remove('dead');
-            ev.target.classList.add('neutral');
-            return;
-          }
-          if (clickedTargetClassList.contains('right')){
-            ev.target.classList.remove('active');
-            ev.target.classList.remove('inactive');
-            ev.target.classList.remove('dead');
-            ev.target.classList.add('neutral');
-            return;
-          }
-        }        
+      const clickedTargetClassList = evTarget.classList;
+      const ballLeft = ball[i].classList.contains('left');
+      const ballRight = ball[i].classList.contains('right');
+      
+      // Determine left or right, then inactive the opposite
+      if (ballLeft && clickedTargetClassList.contains('neutral')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        clickedTargetClassList.remove('neutral');
+        opposite.classList.remove('neutral');
+        opposite.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('active')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        opposite.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('inactive')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        opposite.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;        
+      }
+      if (ballRight && clickedTargetClassList.contains('neutral')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        clickedTargetClassList.remove('neutral');
+        opposite.classList.remove('neutral');
+        opposite.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('active')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        opposite.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('inactive')) {
+        let opposite = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        opposite.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;        
+      }
+    })
+    
+//    ball[i].addEventListener('click', function (ev) {
+//      const evTarget = ev.target;
+//      var ballArray = Array.from(ball);
+//      var clickedTargetClassList = ev.target.classList;
+//      var targetClass = clickedTargetClassList[1];
+//
+//      ballArray
+//        .filter(b => !b.classList.contains('ball-space'))
+//        .filter(b => !b.classList.contains('ball-dead'))
+//        .filter(b => b.classList.contains(targetClass))
+//        //not foreach
+//        .forEach(function (b) {
+//        //for clicked ball, activate it and deactivate its opponent equivalent
+//        if (clickedTargetClassList.contains('neutral')){
+//          if (clickedTargetClassList.contains('left')){
+//            ev.target.classList.add('active');
+//            ev.target.classList.remove('neutral');
+//            return;
+//          }
+//          if (clickedTargetClassList.contains('right')){
+//            ev.target.classList.add('active');
+//            ev.target.classList.remove('neutral');
+//            return;
+//          }
+//        }
+//        if (!clickedTargetClassList.contains('neutral')){
+//          if (clickedTargetClassList.contains('left')){
+//            ev.target.classList.remove('active');
+//            ev.target.classList.remove('inactive');
+//            ev.target.classList.remove('dead');
+//            ev.target.classList.add('neutral');
+//            return;
+//          }
+//          if (clickedTargetClassList.contains('right')){
+//            ev.target.classList.remove('active');
+//            ev.target.classList.remove('inactive');
+//            ev.target.classList.remove('dead');
+//            ev.target.classList.add('neutral');
+//            return;
+//          }
+//        }        
         
         
 //          if (b.classList.contains('neutral') && b.classList.contains('left')) {
@@ -99,8 +159,8 @@ const diamond = (function() {
 //          b.classList.add('inactive');
 //          b.classList.remove('active');
 //        }
-      });
-    });
+//      });
+//    });
   }
 })();
 

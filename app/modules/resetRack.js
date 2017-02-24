@@ -23,9 +23,10 @@ const resetRack = (function() {
   
   const resetRack = function() {
     for (let i = 0; i < ballArray.length; i++) {
-      ballArray[i].classList.remove('ball-active');
-      ballArray[i].classList.remove('ball-inactive');
-      ballArray[i].classList.remove('ball-dead');
+      ballArray[i].classList.remove('active');
+      ballArray[i].classList.remove('inactive');
+      ballArray[i].classList.remove('dead');
+      ballArray[i].classList.add('neutral');
     }
   }
   
