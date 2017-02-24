@@ -351,6 +351,11 @@ var scoring = function () {
   var playerOneScore = document.querySelector('.player-one-score');
   var playerTwoScore = document.querySelector('.player-two-score');
 
+  var playerOneSkill = document.querySelector('.skill-level.left');
+  var playerTwoSkill = document.querySelector('.skill-level.right');
+  var playerOneGoal = document.querySelector('#leftPlayerGoal');
+  var playerTwoGoal = document.querySelector('#rightPlayerGoal');
+
   var increase = function increase(obj) {
     return obj + 1;
   };
@@ -414,59 +419,71 @@ var scoring = function () {
           }
         }
       }
-
-      //      if (evTarget.classList.contains('neutral') && evTarget.classList.contains('left')) {
-      //        playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
-      //        return;
-      //      }
-      //      if (evTarget.classList.contains('active') && evTarget.classList.contains('left')) {
-      //        playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
-      //        return;
-      //      }
-      //      if (evTarget.classList.contains('neutral') && evTarget.classList.contains('right')) {
-      //        playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
-      //        return;
-      //      }
-      //      if (evTarget.classList.contains('active') && evTarget.classList.contains('right')) {
-      //        playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
-      //        return;
-      //      }
     });
   }
 
-  //  for (let i = 0; i < ball.length; i++) {
-  //    ball[i].addEventListener('click', function(ev) {
-  //      const ballActiveLeft = document.querySelectorAll('.diamond-left .ball-active');
-  //      const ballActiveRight = document.querySelectorAll('.diamond-right .ball-active');
-  //      const nineBallLeft = document.querySelector('.diamond-left .ball-9');
-  //      const nineBallRight = document.querySelector('.diamond-right .ball-9');
-  //      const deadBalls = document.querySelectorAll('.diamond-left .ball-dead');
-  //      const deadBallScore = document.querySelector('.dead-ball-score');
-  //      var rack = document.querySelector('.rack').innerHTML;
-  //
-  //      if (rack === '1') {
-  //        playerOneScore.innerHTML = ballActiveLeft.length;
-  //        playerTwoScore.innerHTML = ballActiveRight.length;
-  //      } else if (rack !== '1' && ev.target.parentElement.parentElement.classList.contains('diamond-left')) {
-  //        playerOneScore.innerHTML++;
-  //      } else {
-  //        playerTwoScore.innerHTML++;
-  //      }
-  //      deadBallScore.innerHTML = deadBalls.length;      
-  //      
-  //      if (nineBallLeft.classList.contains('active')) {
-  //        playerOneScore.innerHTML++
-  //      } else if (nineBallRight.classList.contains('active')) {
-  //        playerTwoScore.innerHTML++
-  //      }
-  //    });
-  //  }
-
-  return {
-    playerOneScore: playerOneScore,
-    playerTwoScore: playerTwoScore,
-    increase: increase
-  };
+  playerOneSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerOneGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerOneGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerOneGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerOneGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerOneGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerOneGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerOneGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerOneGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerOneGoal.innerHTML = 75;
+        break;
+    }
+  });
+  playerTwoSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerTwoGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerTwoGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerTwoGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerTwoGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerTwoGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerTwoGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerTwoGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerTwoGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerTwoGoal.innerHTML = 75;
+        break;
+    }
+  });
 }();
 
 module.exports = scoring;

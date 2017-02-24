@@ -2,7 +2,7 @@
 9-ball pool score tracker
 
 # To do:
-- Edit player name, skill level
+- Clean up function declaration in scoring.js
 - Transparency on neutral balls
 - Transparency/darkening on inactive balls
 - Color on active 
