@@ -56,8 +56,9 @@ body {
   height: 100%;
   transform: rotate(-45deg);
   text-align: center;
-  padding-top: 40%;
-  font-size: 2em;
+  padding-top: 20%; 
+  /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
+  font-size: 1rem;
   border-radius: 50%;
 
 }
