@@ -48,12 +48,27 @@ body {
 
 .ball {
   background: silver;
-  flex: 1;
-  border: 1px solid cyan;
+  box-sizing: border-box;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-45deg);
+  text-align: center;
+  padding-top: 40%;
+  font-size: 2em;
+  border-radius: 50%;
+
 }
 
 .neutral {
   background: silver;
+  
+}
+
+.ball > .neutral {
+  opacity: 0.5;
 }
 
 .active {
@@ -68,18 +83,91 @@ body {
   background: grey;
 }
 
+
+.ball-space, .spacer{
+  visibility: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+.grid {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.grid::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.ball-container {
+  width: 21.833%;
+  padding-bottom: 21.833%;
+  overflow: hidden;
+  float: left;
+  background: #BBB;
+  transform: rotate(45deg);
+  margin: 5.5%;
+  margin-top: -11%;
+  border-radius: 50%
+}
+
+.ball-container:nth-child(1),
+.ball-container:nth-child(2),
+.ball-container:nth-child(3) {
+   margin-top: 5%;
+}
+
+.ball-container:nth-child(5n+4) {
+    margin-left: 21.9%;
+}
+
+.ball-container:nth-child(5n+6) {
+    clear:left;
+}
+
+.ball-container:nth-child(5n+6):last-of-type {
+  margin-left: 38.25%;
+}
+
+.ball-container:hover {
+  background: #FFF;
+}
+
+/*.ball-1 {
+  background-color: yellow;
+}
 .ball-2 {
-  text-align: right;
+  background-color: blue;
 }
-
-.ball-8 {
-  text-align: left;
+.ball-3 {
+  background-color: red;
 }
-
 .ball-4 {
-  text-align: right;
+  background-color: purple;
 }
-
+.ball-5 {
+  background-color: orange;
+}
 .ball-6 {
-  text-align: left;
+  background-color: seagreen;
 }
+.ball-7 {
+  background-color: darkred;
+}
+.ball-8 {
+  background-color: black;
+}
+.ball-9 {
+  background-color: yellow;
+}*/
