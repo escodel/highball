@@ -1,7 +1,12 @@
 # highball
 9-ball pool score tracker
 
+# Recent changes:
+ - Changed press functionality - only neutral balls can be marked dead. Active and Inactive press isn't recognized, operates as a normal tap.
+- when dead is rezzed, it automatically adds a point. after a press, the click is being triggered. google hammerjs "ghost click" for more info. I got a stupid work-around going where it triggers click once, so if you release press fast enough you can't tell  that it's re-activating.
+
 # To do:
+- fix stupid change to diamond for deadballs - resurrection
 - Clean up function declaration in scoring.js
 - Transparency on neutral balls
 - Transparency/darkening on inactive balls
@@ -29,3 +34,5 @@ http://levid.com/cuescore-scoresheet.jpg
 
 # Scoring:
 http://forums.azbilliards.com/attachment.php?attachmentid=312822&stc=1&d=1389192454
+
+

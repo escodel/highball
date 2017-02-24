@@ -91,27 +91,27 @@ var diamond = function () {
 
       /*  Prevents ball-9 from being marked dead
           Toggles dead state */
-      if (!deadBallTarget.classList.contains('dead') && !deadBallTarget.classList.contains('ball-9')) {
+      if (deadBallTarget.classList.contains('neutral') && !deadBallTarget.classList.contains('ball-9')) {
 
         ballArray.filter(function (b) {
           return b.classList.contains(targetClass);
         }).forEach(function (b) {
           b.classList.add('dead');
           b.classList.remove('neutral');
-          b.classList.remove('active');
-          b.classList.remove('inactive');
         });
-      } else {
+      } else if (deadBallTarget.classList.contains('dead')) {
         deadBallTarget.classList.remove('dead');
 
         ballArray.filter(function (b) {
           return b.classList.contains(targetClass);
         }).forEach(function (b) {
-          return b.classList.remove('dead');
+          b.classList.remove('dead');
+          b.classList.add('neutral');
         });
+        ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
+        var deadBalls = document.querySelectorAll('.left-grid .dead');
+        deadBallScore.innerHTML = deadBalls.length;
       }
-      var deadBalls = document.querySelectorAll('.left-grid .dead');
-      deadBallScore.innerHTML = deadBalls.length;
     });
 
     // Active / Inactive

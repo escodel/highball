@@ -14,30 +14,32 @@ const diamond = (function() {
       var classListArray = Array.from(ev.target.classList);
       var targetClass = classListArray[1];
       
+      
       /*  Prevents ball-9 from being marked dead
           Toggles dead state */
-      if (!deadBallTarget.classList.contains('dead') && !deadBallTarget.classList.contains('ball-9')) {
+      if (deadBallTarget.classList.contains('neutral') && !deadBallTarget.classList.contains('ball-9')) {
 
         ballArray
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => {
             b.classList.add('dead')
             b.classList.remove('neutral')
-            b.classList.remove('active')
-            b.classList.remove('inactive')
             
         });
-      } else {
+      } else if(deadBallTarget.classList.contains('dead')) {  
         deadBallTarget.classList.remove('dead');
         
         ballArray
           .filter(b => b.classList.contains(targetClass))
-          .forEach(b => b.classList.remove('dead'));
-      }
+          .forEach(b => {
+            b.classList.remove('dead')
+            b.classList.add('neutral')
+      })
+      ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
     let deadBalls = document.querySelectorAll('.left-grid .dead');
     deadBallScore.innerHTML = deadBalls.length;
-
-    });
+      }
+    })
     
     // Active / Inactive
     ball[i].addEventListener('click', function(ev) {
