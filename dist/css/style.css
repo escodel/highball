@@ -47,7 +47,6 @@ body {
 }
 
 .ball {
-  background: silver;
   box-sizing: border-box;
   position: absolute;
   top:0;
@@ -63,26 +62,74 @@ body {
 
 }
 
-.neutral {
-  background: silver;
-  
+.ball-1 {
+  background: #cece23;
 }
 
-.ball > .neutral {
-  opacity: 0.5;
+.ball-2 {
+  background: blue;
 }
 
-.active {
+.ball-3 {
   background: red;
 }
 
-.inactive {
+.ball-4 {
+  background: purple;
+}
+
+.ball-5 {
+  background: orange;
+}
+
+.ball-6 {
+  background: green;
+}
+
+.ball-7 {
+  background: darkred;
+}
+
+.ball-8 {
   background: black;
 }
 
-.dead {
+.ball-9 {
+  background: linear-gradient(
+  white,
+  white 50%,
+  #cece23 50%
+);
+/* The rectangle in which to repeat. 
+   It can be fully wide in this case */
+background-size: 100% 30px;
+}
+
+.ball-container > .neutral {
+  opacity: 0.6;
+}
+
+.ball-container > .active {
+  opacity: 1;
+}
+
+.ball-container > .inactive {
+  opacity: 0.2;
+}
+
+.ball-container > .dead {
+  background: darkgray;
+}
+
+/*
+.inactive {
   background: grey;
 }
+
+.dead {
+  background: darkgray;
+}
+*/
 
 
 .ball-space, .spacer{
@@ -106,7 +153,7 @@ body {
   padding-bottom: 21.833%;
   overflow: hidden;
   float: left;
-  background: #BBB;
+/*  background: #BBB;*/
   transform: rotate(45deg);
   margin: 5.5%;
   margin-top: -11%;
@@ -130,35 +177,3 @@ body {
 .ball-container:nth-child(5n+6):last-of-type {
   margin-left: 38.25%;
 }
-
-.ball-container:hover {
-  background: #FFF;
-}
-
-/*.ball-1 {
-  background-color: yellow;
-}
-.ball-2 {
-  background-color: blue;
-}
-.ball-3 {
-  background-color: red;
-}
-.ball-4 {
-  background-color: purple;
-}
-.ball-5 {
-  background-color: orange;
-}
-.ball-6 {
-  background-color: seagreen;
-}
-.ball-7 {
-  background-color: darkred;
-}
-.ball-8 {
-  background-color: black;
-}
-.ball-9 {
-  background-color: yellow;
-}*/
