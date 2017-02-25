@@ -109,9 +109,9 @@ var diamond = function () {
           b.classList.add('neutral');
         });
         ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
-        var deadBalls = document.querySelectorAll('.left-grid .dead');
-        deadBallScore.innerHTML = deadBalls.length;
       }
+      var deadBalls = document.querySelectorAll('.left-grid .dead');
+      deadBallScore.innerHTML = deadBalls.length;
     });
 
     // Active / Inactive
@@ -229,6 +229,7 @@ var resetRack = function () {
   var rack = document.querySelector('.rack');
   var ballArray = document.querySelectorAll('.ball');
   var resetRackLink = document.querySelector('.reset-rack');
+  var deadBallScore = document.querySelector('.dead-ball-score');
 
   // Loop through nine balls
   for (var i = 0; i < nineBall.length; i++) {
@@ -261,10 +262,15 @@ var resetRack = function () {
     innings.innerHTML = 0;
   };
 
+  var resetDeadBalls = function resetDeadBalls() {
+    deadBallScore.innerHTML = 0;
+  };
+
   document.body.addEventListener('click', function (ev) {
     if (ev.target.classList.contains('reset-rack')) {
       resetRack();
       resetInnings();
+      resetDeadBalls();
       rack.innerHTML++;
     }
   });

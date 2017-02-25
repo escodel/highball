@@ -36,9 +36,10 @@ const diamond = (function() {
             b.classList.add('neutral')
       })
       ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
-    let deadBalls = document.querySelectorAll('.left-grid .dead');
-    deadBallScore.innerHTML = deadBalls.length;
+
       }
+    let deadBalls = document.querySelectorAll('.left-grid .dead');
+    deadBallScore.innerHTML = deadBalls.length;      
     })
     
     // Active / Inactive

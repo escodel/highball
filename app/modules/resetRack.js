@@ -3,6 +3,7 @@ const resetRack = (function() {
   var rack = document.querySelector('.rack');
   const ballArray = document.querySelectorAll('.ball');
   const resetRackLink = document.querySelector('.reset-rack');
+  const deadBallScore = document.querySelector('.dead-ball-score');
   
   // Loop through nine balls
   for (let i = 0; i < nineBall.length; i++) {
@@ -35,10 +36,15 @@ const resetRack = (function() {
     innings.innerHTML = 0;
   }
   
+  const resetDeadBalls = function() {
+    deadBallScore.innerHTML = 0;
+  }
+  
   document.body.addEventListener('click', function(ev) {
     if (ev.target.classList.contains('reset-rack')) {
       resetRack();
       resetInnings();
+      resetDeadBalls();
       rack.innerHTML++;
     }
   });
