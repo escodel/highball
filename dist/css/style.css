@@ -84,6 +84,9 @@ body {
 
 .ball-6 {
   background: green;
+  border-style: solid;
+  border-width: thin; 
+  border-color: black;
 }
 
 .ball-7 {
