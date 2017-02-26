@@ -2,6 +2,8 @@
 9-ball pool score tracker
 
 # Recent changes:
+- Added borders for all balls
+- Added word "Balls" to dead, made lower cased innings, added line break after dead balls before counter.
  - Ball color CSS, opacity and dead functionality included in ballColorCSS branch
  - Changed press functionality - only neutral balls can be marked dead. Active and Inactive press isn't recognized, operates as a normal tap.
 - when dead is rezzed, it automatically adds a point. after a press, the click is being triggered. google hammerjs "ghost click" for more info. I got a stupid work-around going where it triggers click once, so if you release press fast enough you can't tell  that it's re-activating.
