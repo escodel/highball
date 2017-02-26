@@ -177,3 +177,17 @@ background-size: 100% 30px;
 .ball-container:nth-child(5n+6):last-of-type {
   margin-left: 38.25%;
 }
+
+.white-background {  
+  color: black;
+  background-color: white;
+  pointer-events: none;
+  border-radius: 50%;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-weight: bold;
+}
