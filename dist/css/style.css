@@ -59,6 +59,9 @@ body {
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
   font-size: 1rem;
   border-radius: 50%;
+  border-style: solid;
+  border-width: thin; 
+  border-color: black;
 
 }
 
@@ -84,9 +87,6 @@ body {
 
 .ball-6 {
   background: green;
-  border-style: solid;
-  border-width: thin; 
-  border-color: black;
 }
 
 .ball-7 {
