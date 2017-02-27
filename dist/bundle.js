@@ -438,6 +438,7 @@ var incrementer = __webpack_require__(1);
 var diamond = __webpack_require__(0);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(2);
+var rackTable = __webpack_require__(5);
 
 //function component () {
 //  var element = document.createElement('div');
@@ -448,6 +449,38 @@ var resetRack = __webpack_require__(2);
 //}
 //
 //document.body.appendChild(component());
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var rackTable = function () {
+  var table = document.querySelector('.rack-table');
+  var nineBall = document.querySelectorAll('.ball-9');
+
+  var createCell = function createCell(cell, text, style) {
+    var div = document.createElement('div'),
+        // create DIV element
+    txt = document.createTextNode(text); // create text node
+    div.appendChild(txt); // append text node to the DIV
+    div.setAttribute('class', style); // set DIV class attribute
+    div.setAttribute('className', style); // set DIV class attribute for IE (?!)
+    cell.appendChild(div); // append DIV to the table cell
+  };
+  var appendColumn = function appendColumn() {
+    console.log('appendColumn');
+    for (var i = 0; i < table.rows.length; i++) {
+      createCell(table.rows[i].insertCell(table.rows[i].cells.length), i, 'col');
+    }
+  };
+
+  for (var i = 0; i < nineBall.length; i++) {
+    nineBall[i].addEventListener('click', appendColumn);
+  }
+}();
 
 /***/ })
 /******/ ]);
