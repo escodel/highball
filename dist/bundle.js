@@ -241,7 +241,7 @@ var rackTable = function () {
     cell.appendChild(div); // append DIV to the table cell
   };
   var appendColumn = function appendColumn(ev) {
-    if (ev.target.classList.contains('active')) {
+    if (ev.target.classList.contains('neutral')) {
       createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
       createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
@@ -259,10 +259,16 @@ var rackTable = function () {
     }
   };
 
-  for (var i = 0; i < nineBall.length; i++) {
-    nineBall[i].addEventListener('click', appendColumn);
-  }
+  //  for (let i = 0; i < nineBall.length; i++) {
+  //    nineBall[i].addEventListener('click', appendColumn);
+  //  }
+
+  return {
+    appendColumn: appendColumn
+  };
 }();
+
+module.exports = rackTable;
 
 /***/ }),
 /* 3 */
@@ -332,10 +338,13 @@ module.exports = resetRack;
 "use strict";
 
 
+var rackTable = __webpack_require__(2);
+
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
   var playerOneScore = document.querySelector('.player-one-score');
   var playerTwoScore = document.querySelector('.player-two-score');
+  var deadBalls = document.querySelector('.dead-ball-score');
 
   var playerOneSkill = document.querySelector('.skill-level.left');
   var playerTwoSkill = document.querySelector('.skill-level.right');
@@ -348,6 +357,9 @@ var scoring = function () {
   var decrease = function decrease(obj) {
     return obj - 1;
   };
+  var calcScore = function calcScore() {
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML);
+  };
 
   for (var i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function (ev) {
@@ -358,6 +370,10 @@ var scoring = function () {
           playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+            var currentScore = calcScore();
+            if (currentScore % 10 === 0) {
+              rackTable.appendColumn(ev);
+            }
             return;
           }
           return;
@@ -385,6 +401,10 @@ var scoring = function () {
           playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+            var _currentScore = calcScore();
+            if (_currentScore % 10 === 0) {
+              rackTable.appendColumn(ev);
+            }
             return;
           }
           return;
@@ -485,7 +505,7 @@ var incrementer = __webpack_require__(1);
 var diamond = __webpack_require__(0);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(3);
-var rackTable = __webpack_require__(2);
+//const rackTable = require('./modules/rackTable');
 
 //function component () {
 //  var element = document.createElement('div');

@@ -1,7 +1,10 @@
+const rackTable = require('./rackTable');
+
 const scoring = (function() {
   const ball = document.querySelectorAll('.ball');
   const playerOneScore = document.querySelector('.player-one-score');
   const playerTwoScore = document.querySelector('.player-two-score');
+  const deadBalls = document.querySelector('.dead-ball-score');
 
   const playerOneSkill = document.querySelector('.skill-level.left');
   const playerTwoSkill = document.querySelector('.skill-level.right');
@@ -10,8 +13,9 @@ const scoring = (function() {
   
   const increase = obj => obj + 1;
   const decrease = obj => obj - 1;
-
-  
+  const calcScore = function() {
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML);
+  };
 
   for (let i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function(ev) {
@@ -22,6 +26,10 @@ const scoring = (function() {
           playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+            let currentScore = calcScore();
+            if ((currentScore % 10) === 0) {
+              rackTable.appendColumn(ev);
+            }
             return;
           }       
         return;          
@@ -49,6 +57,10 @@ const scoring = (function() {
           playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+            let currentScore = calcScore();
+            if ((currentScore % 10) === 0) {
+              rackTable.appendColumn(ev);
+            }
             return;
           }       
         return;          
