@@ -230,6 +230,7 @@ var rackTable = function () {
   var rackNumber = document.querySelector('.rack');
   var playerOneScore = document.querySelector('.player-one-score');
   var playerTwoScore = document.querySelector('.player-two-score');
+  var innings = document.querySelector('.number-innings');
   var deadBalls = document.querySelector('.dead-ball-score');
 
   var createCell = function createCell(cell, text, style) {
@@ -241,9 +242,11 @@ var rackTable = function () {
   };
   var appendColumn = function appendColumn(ev) {
     if (ev.target.classList.contains('active')) {
-      for (var i = 0; i < table.rows.length; i++) {
-        createCell(table.rows[i].insertCell(table.rows[i].cells.length), rackNumber.innerHTML, 'col');
-      }
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
+      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'col-' + 1);
+      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
     } else {
       deleteColumn();
     }

@@ -4,6 +4,7 @@ const rackTable = (function () {
   const rackNumber = document.querySelector('.rack');
   const playerOneScore = document.querySelector('.player-one-score');
   const playerTwoScore = document.querySelector('.player-two-score');
+  const innings = document.querySelector('.number-innings');
   const deadBalls = document.querySelector('.dead-ball-score');
 
   const createCell = function(cell, text, style) {
@@ -15,9 +16,11 @@ const rackTable = (function () {
   };
   const appendColumn = function(ev) {
     if(ev.target.classList.contains('active')) {
-      for (let i = 0; i < table.rows.length; i++) {
-        createCell(table.rows[i].insertCell(table.rows[i].cells.length), rackNumber.innerHTML, 'col');
-      }
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
+      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'col-' + 1);
+      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
     } else {
       deleteColumn();
     }
@@ -25,7 +28,7 @@ const rackTable = (function () {
   const deleteColumn = function() {
     let lastCol = table.rows[0].cells.length - 1;
     
-    for (var i = 0; i < table.rows.length; i++) {
+    for (let i = 0; i < table.rows.length; i++) {
       table.rows[i].deleteCell(lastCol);
     }
   };
