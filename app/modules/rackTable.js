@@ -6,6 +6,8 @@ const rackTable = (function () {
   const playerTwoScore = document.querySelector('.player-two-score');
   const innings = document.querySelector('.number-innings');
   const deadBalls = document.querySelector('.dead-ball-score');
+  const editScore = document.querySelector('.edit-score');
+  const nextRack = document.querySelector('.next-rack');
 
   const createCell = function(cell, text, style) {
     let div = document.createElement('div'); // create DIV element
@@ -33,12 +35,11 @@ const rackTable = (function () {
     }
   };
 
-//  for (let i = 0; i < nineBall.length; i++) {
-//    nineBall[i].addEventListener('click', appendColumn);
-//  }
+  editScore.addEventListener('click', deleteColumn)
   
   return {
-    appendColumn: appendColumn
+    appendColumn: appendColumn,
+    deleteColumn: deleteColumn
   };
 })();
 

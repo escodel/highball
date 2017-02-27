@@ -1,4 +1,5 @@
 const rackTable = require('./rackTable');
+const resetRack = require('./resetRack');
 
 const scoring = (function() {
   const ball = document.querySelectorAll('.ball');
@@ -29,6 +30,7 @@ const scoring = (function() {
             let currentScore = calcScore();
             if ((currentScore % 10) === 0) {
               rackTable.appendColumn(ev);
+              resetRack.showRackButtons();
             }
             return;
           }       
@@ -60,6 +62,7 @@ const scoring = (function() {
             let currentScore = calcScore();
             if ((currentScore % 10) === 0) {
               rackTable.appendColumn(ev);
+              resetRack.showRackButtons();
             }
             return;
           }       
