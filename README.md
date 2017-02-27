@@ -16,20 +16,21 @@
  -It might be useful to have an alternative view where EVERYTHING is reset per-rack -- so that the most visible points counter is reset to 0-0 for each new rack as well as defenses. Ward disagrees but this could be a setting or something.. so that the running total is only visible from the scoring table. We could also have an option to make "Points Needed" decline 
 
 # To do:
-- fix stupid change to diamond for deadballs - resurrection
 - Clean up function declaration in scoring.js
-- Transparency on neutral balls
-- Transparency/darkening on inactive balls
-- Color on active 
+- Color scheme for the whole app (if needed for score table, headers, score...)
+- Transparent border for inactive
 - End of rack functionality
     - Rack reset (set innings to 0, set all balls to neutral) - determine if we want to use a modal/confirmation to make all balls neutral again.. default to when the 9 is tapped? or only if it's an increment of 10 total points (including dead)?
-    - Scoring table after first 9 ball activated (display below innings. rack #, player 1 score, innings, dead, player 2 score. expands to the right - new rack #, tally of score dead, innings are just for that rack)
-    - Need to consider what would happen if they "confirm" end of rack but need to go back and modify the score later -- should we track which balls each player made per rack instead of just points?
+    - if (!(currentScore % 10)) {doEndOfScoreFunction() }
+    - Scoring table after first 9 ball activated (display at top middle. rack #, player 1 score, innings, dead, player 2 score. expands to the right - new rack #, innings are just for that rack, dead are just for that rack)
+    - Two buttons appear at end of rack - maybe block other buttons until one of these is pressed - Edit Score (red/cancel)  and Next Rack (green/confirm).
+    - MAYBE in future have table open into modal that is editable, but this could get tricky.
+    - If you hit edit score, what happens? just unmark 9-ball and decrement?
 - 9 on snap, break & run incrementers for each player
 - End of match functionality (when one player reaches goal number) - 
     - Scoring (20 point system, see below)
     - Data persistence
-    - Modal to ask if they want to continue or reset.
+    - Modal to ask if they want to continue or reset. Also need "oops" button if the final point was marked in error - unmark most recently marked point.
 
 
 - Nice to have functionality
