@@ -224,6 +224,59 @@ module.exports = incrementer;
 "use strict";
 
 
+var resetRack = function () {
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rack = document.querySelector('.rack');
+  var ballArray = document.querySelectorAll('.ball');
+  var rackButtons = document.querySelector('.rack-buttons');
+  var resetRackLink = document.querySelector('.next-rack');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  // Loop through nine balls
+  for (var i = 0; i < nineBall.length; i++) {
+    nineBall[i].addEventListener('click', function () {
+      // Rack reset confirmation modal
+      rackButtons.classList.remove('hidden');
+    });
+  }
+
+  var resetRack = function resetRack() {
+    for (var _i = 0; _i < ballArray.length; _i++) {
+      ballArray[_i].classList.remove('active');
+      ballArray[_i].classList.remove('inactive');
+      ballArray[_i].classList.remove('dead');
+      ballArray[_i].classList.add('neutral');
+    }
+  };
+
+  var resetInnings = function resetInnings() {
+    var innings = document.querySelector('.number-innings');
+    innings.innerHTML = 0;
+  };
+
+  var resetDeadBalls = function resetDeadBalls() {
+    deadBallScore.innerHTML = 0;
+  };
+
+  document.body.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('next-rack')) {
+      resetRack();
+      resetInnings();
+      resetDeadBalls();
+      rack.innerHTML++;
+    }
+  });
+}();
+
+module.exports = resetRack;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var rackTable = function () {
   var table = document.querySelector('.rack-table');
   var nineBall = document.querySelectorAll('.ball-9');
@@ -271,74 +324,13 @@ var rackTable = function () {
 module.exports = rackTable;
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var resetRack = function () {
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rack = document.querySelector('.rack');
-  var ballArray = document.querySelectorAll('.ball');
-  var resetRackLink = document.querySelector('.reset-rack');
-  var deadBallScore = document.querySelector('.dead-ball-score');
-
-  // Loop through nine balls
-  for (var i = 0; i < nineBall.length; i++) {
-    nineBall[i].addEventListener('click', function () {
-      // Rack reset confirmation modal
-      function component() {
-        var element = document.createElement('a');
-
-        element.innerHTML = ['Rack', 'reset'].join(' ');
-        element.href = '#';
-        element.classList = 'reset-rack';
-
-        return element;
-      }
-      document.body.appendChild(component());
-    });
-  }
-
-  var resetRack = function resetRack() {
-    for (var _i = 0; _i < ballArray.length; _i++) {
-      ballArray[_i].classList.remove('active');
-      ballArray[_i].classList.remove('inactive');
-      ballArray[_i].classList.remove('dead');
-      ballArray[_i].classList.add('neutral');
-    }
-  };
-
-  var resetInnings = function resetInnings() {
-    var innings = document.querySelector('.number-innings');
-    innings.innerHTML = 0;
-  };
-
-  var resetDeadBalls = function resetDeadBalls() {
-    deadBallScore.innerHTML = 0;
-  };
-
-  document.body.addEventListener('click', function (ev) {
-    if (ev.target.classList.contains('reset-rack')) {
-      resetRack();
-      resetInnings();
-      resetDeadBalls();
-      rack.innerHTML++;
-    }
-  });
-}();
-
-module.exports = resetRack;
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var rackTable = __webpack_require__(2);
+var rackTable = __webpack_require__(3);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -504,7 +496,7 @@ module.exports = scoring;
 var incrementer = __webpack_require__(1);
 var diamond = __webpack_require__(0);
 //const scoring = require('./modules/scoring');
-var resetRack = __webpack_require__(3);
+var resetRack = __webpack_require__(2);
 //const rackTable = require('./modules/rackTable');
 
 //function component () {

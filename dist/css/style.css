@@ -214,3 +214,15 @@ background-size: 100% 30px;
 .rack-table th, td {
   padding: 0.2em 0.4em;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.edit-score {
+  background: red;
+}
+
+.next-rack {
+  background: green;
+}

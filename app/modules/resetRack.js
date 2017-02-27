@@ -2,23 +2,15 @@ const resetRack = (function() {
   const nineBall = document.querySelectorAll('.ball-9');
   var rack = document.querySelector('.rack');
   const ballArray = document.querySelectorAll('.ball');
-  const resetRackLink = document.querySelector('.reset-rack');
+  const rackButtons = document.querySelector('.rack-buttons');
+  const resetRackLink = document.querySelector('.next-rack');
   const deadBallScore = document.querySelector('.dead-ball-score');
   
   // Loop through nine balls
   for (let i = 0; i < nineBall.length; i++) {
     nineBall[i].addEventListener('click', function(){
       // Rack reset confirmation modal
-      function component () {
-        var element = document.createElement('a');
-
-        element.innerHTML = ['Rack','reset'].join(' ');
-        element.href = '#';
-        element.classList = 'reset-rack';
-
-        return element;
-      }
-      document.body.appendChild(component());
+      rackButtons.classList.remove('hidden');
     });
   }
   
@@ -41,7 +33,7 @@ const resetRack = (function() {
   }
   
   document.body.addEventListener('click', function(ev) {
-    if (ev.target.classList.contains('reset-rack')) {
+    if (ev.target.classList.contains('next-rack')) {
       resetRack();
       resetInnings();
       resetDeadBalls();
