@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,7 @@
 "use strict";
 
 
-var scoring = __webpack_require__(3);
+var scoring = __webpack_require__(4);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -224,6 +224,50 @@ module.exports = incrementer;
 "use strict";
 
 
+var rackTable = function () {
+  var table = document.querySelector('.rack-table');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rackNumber = document.querySelector('.rack');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var deadBalls = document.querySelector('.dead-ball-score');
+
+  var createCell = function createCell(cell, text, style) {
+    var div = document.createElement('div'); // create DIV element
+    var txt = document.createTextNode(text); // create text node
+    div.appendChild(txt); // append text node to the DIV
+    div.setAttribute('class', style); // set DIV class attribute
+    cell.appendChild(div); // append DIV to the table cell
+  };
+  var appendColumn = function appendColumn(ev) {
+    if (ev.target.classList.contains('active')) {
+      for (var i = 0; i < table.rows.length; i++) {
+        createCell(table.rows[i].insertCell(table.rows[i].cells.length), rackNumber.innerHTML, 'col');
+      }
+    } else {
+      deleteColumn();
+    }
+  };
+  var deleteColumn = function deleteColumn() {
+    var lastCol = table.rows[0].cells.length - 1;
+
+    for (var i = 0; i < table.rows.length; i++) {
+      table.rows[i].deleteCell(lastCol);
+    }
+  };
+
+  for (var i = 0; i < nineBall.length; i++) {
+    nineBall[i].addEventListener('click', appendColumn);
+  }
+}();
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var resetRack = function () {
   var nineBall = document.querySelectorAll('.ball-9');
   var rack = document.querySelector('.rack');
@@ -279,7 +323,7 @@ var resetRack = function () {
 module.exports = resetRack;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -428,7 +472,7 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -437,8 +481,8 @@ module.exports = scoring;
 var incrementer = __webpack_require__(1);
 var diamond = __webpack_require__(0);
 //const scoring = require('./modules/scoring');
-var resetRack = __webpack_require__(2);
-var rackTable = __webpack_require__(5);
+var resetRack = __webpack_require__(3);
+var rackTable = __webpack_require__(2);
 
 //function component () {
 //  var element = document.createElement('div');
@@ -449,38 +493,6 @@ var rackTable = __webpack_require__(5);
 //}
 //
 //document.body.appendChild(component());
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var rackTable = function () {
-  var table = document.querySelector('.rack-table');
-  var nineBall = document.querySelectorAll('.ball-9');
-
-  var createCell = function createCell(cell, text, style) {
-    var div = document.createElement('div'),
-        // create DIV element
-    txt = document.createTextNode(text); // create text node
-    div.appendChild(txt); // append text node to the DIV
-    div.setAttribute('class', style); // set DIV class attribute
-    div.setAttribute('className', style); // set DIV class attribute for IE (?!)
-    cell.appendChild(div); // append DIV to the table cell
-  };
-  var appendColumn = function appendColumn() {
-    console.log('appendColumn');
-    for (var i = 0; i < table.rows.length; i++) {
-      createCell(table.rows[i].insertCell(table.rows[i].cells.length), i, 'col');
-    }
-  };
-
-  for (var i = 0; i < nineBall.length; i++) {
-    nineBall[i].addEventListener('click', appendColumn);
-  }
-}();
 
 /***/ })
 /******/ ]);
