@@ -2,6 +2,7 @@
 9-ball pool score tracker
 
 # Recent changes:
+- Updated the Edit Score and Next Rack buttons to show/hide; working. However, dead balls reset, which throws off the modulo calculation (% 10) and causes the buttons to not reappear.
 - Added borders for all balls
 - Added word "Balls" to dead, made lower cased innings, added line break after dead balls before counter.
  - Ball color CSS, opacity and dead functionality included in ballColorCSS branch
@@ -11,9 +12,9 @@
 
 # Feedback:
 - Adriane thinks it looks great but has a few ideas:
- -For the end-of-rack/previous rack scoring table, consider putting this in a popup/overlay/modal that only shows up when a button is pressed (or maybe at the end of each rack when the 9 ball is counted).
- -It might look cluttered if we put the scoring table below innings as it currently looks - we could move the innings counter below score and above dead, or put it in the same row as points needed / dead, or follow the suggestion above where it only shows up at end of rack and when another button is clicked.
- -It might be useful to have an alternative view where EVERYTHING is reset per-rack -- so that the most visible points counter is reset to 0-0 for each new rack as well as defenses. Ward disagrees but this could be a setting or something.. so that the running total is only visible from the scoring table. We could also have an option to make "Points Needed" decline 
+  - For the end-of-rack/previous rack scoring table, consider putting this in a popup/overlay/modal that only shows up when a button is pressed (or maybe at the end of each rack when the 9 ball is counted).
+  - It might look cluttered if we put the scoring table below innings as it currently looks - we could move the innings counter below score and above dead, or put it in the same row as points needed / dead, or follow the suggestion above where it only shows up at end of rack and when another button is clicked.
+  - It might be useful to have an alternative view where EVERYTHING is reset per-rack -- so that the most visible points counter is reset to 0-0 for each new rack as well as defenses. Ward disagrees but this could be a setting or something.. so that the running total is only visible from the scoring table. We could also have an option to make "Points Needed" decline 
 
 # To do:
 - Clean up function declaration in scoring.js
