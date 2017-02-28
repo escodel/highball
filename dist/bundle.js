@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,72 @@
 "use strict";
 
 
-var scoring = __webpack_require__(3);
+var resetRack = function () {
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rack = document.querySelector('.rack');
+  var ballArray = document.querySelectorAll('.ball');
+  var rackButtons = document.querySelector('.rack-buttons');
+  var resetRackLink = document.querySelector('.next-rack');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  // Loop through nine balls
+  //  for (let i = 0; i < nineBall.length; i++) {
+  //    nineBall[i].addEventListener('click', function(){
+  //      // Rack reset confirmation modal
+  var showRackButtons = function showRackButtons() {
+    rackButtons.classList.remove('hidden');
+  };
+
+  var hideRackButtons = function hideRackButtons() {
+    rackButtons.classList.add('hidden');
+  };
+  //    });
+  //  }
+
+  var resetRack = function resetRack() {
+    for (var i = 0; i < ballArray.length; i++) {
+      ballArray[i].classList.remove('active');
+      ballArray[i].classList.remove('inactive');
+      ballArray[i].classList.remove('dead');
+      ballArray[i].classList.add('neutral');
+    }
+  };
+
+  var resetInnings = function resetInnings() {
+    var innings = document.querySelector('.number-innings');
+    innings.innerHTML = 0;
+  };
+
+  var resetDeadBalls = function resetDeadBalls() {
+    deadBallScore.innerHTML = 0;
+  };
+
+  document.body.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('next-rack')) {
+      resetRack();
+      resetInnings();
+      resetDeadBalls();
+      rack.innerHTML++;
+      hideRackButtons();
+    }
+  });
+
+  return {
+    showRackButtons: showRackButtons,
+    hideRackButtons: hideRackButtons
+  };
+}();
+
+module.exports = resetRack;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var scoring = __webpack_require__(4);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -181,7 +246,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -218,79 +283,91 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var resetRack = function () {
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rack = document.querySelector('.rack');
-  var ballArray = document.querySelectorAll('.ball');
-  var rackButtons = document.querySelector('.rack-buttons');
-  var resetRackLink = document.querySelector('.next-rack');
-  var deadBallScore = document.querySelector('.dead-ball-score');
-
-  // Loop through nine balls
-  //  for (let i = 0; i < nineBall.length; i++) {
-  //    nineBall[i].addEventListener('click', function(){
-  //      // Rack reset confirmation modal
-  var showRackButtons = function showRackButtons() {
-    rackButtons.classList.remove('hidden');
-  };
-
-  var hideRackButtons = function hideRackButtons() {
-    rackButtons.classList.add('hidden');
-  };
-  //    });
-  //  }
-
-  var resetRack = function resetRack() {
-    for (var i = 0; i < ballArray.length; i++) {
-      ballArray[i].classList.remove('active');
-      ballArray[i].classList.remove('inactive');
-      ballArray[i].classList.remove('dead');
-      ballArray[i].classList.add('neutral');
-    }
-  };
-
-  var resetInnings = function resetInnings() {
-    var innings = document.querySelector('.number-innings');
-    innings.innerHTML = 0;
-  };
-
-  var resetDeadBalls = function resetDeadBalls() {
-    deadBallScore.innerHTML = 0;
-  };
-
-  document.body.addEventListener('click', function (ev) {
-    if (ev.target.classList.contains('next-rack')) {
-      resetRack();
-      resetInnings();
-      resetDeadBalls();
-      rack.innerHTML++;
-      hideRackButtons();
-    }
-  });
-
-  return {
-    showRackButtons: showRackButtons,
-    hideRackButtons: hideRackButtons
-  };
-}();
-
-module.exports = resetRack;
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var rackTable = __webpack_require__(5);
-var resetRack = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
+
+var rackTable = function () {
+  var table = document.querySelector('.rack-table');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rackNumber = document.querySelector('.rack');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var innings = document.querySelector('.number-innings');
+  var deadBalls = document.querySelector('.dead-ball-score');
+  var editScore = document.querySelector('.edit-score');
+  var nextRack = document.querySelector('.next-rack');
+
+  var createCell = function createCell(cell, text, style) {
+    var div = document.createElement('div'); // create DIV element
+    var txt = document.createTextNode(text); // create text node
+    div.appendChild(txt); // append text node to the DIV
+    div.setAttribute('class', style); // set DIV class attribute
+    cell.appendChild(div); // append DIV to the table cell
+  };
+  var appendColumn = function appendColumn(ev) {
+    if (ev.target.classList.contains('neutral')) {
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
+      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
+      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
+    } else {
+      deleteColumn();
+    }
+  };
+  var deleteColumn = function deleteColumn() {
+    var lastCol = table.rows[0].cells.length - 1;
+
+    for (var i = 0; i < table.rows.length; i++) {
+      table.rows[i].deleteCell(lastCol);
+    }
+  };
+  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
+  var nineBallsNeutral = function nineBallsNeutral() {
+    for (var i = 0; i < nineBall.length; i++) {
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
+        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
+      }
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
+        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
+      }
+      nineBall[i].classList.remove('active');
+      nineBall[i].classList.remove('inactive');
+      nineBall[i].classList.add('neutral');
+    }
+  };
+  var decrementPlayerScore = function decrementPlayerScore(obj) {
+    return obj - 2;
+  };
+
+  editScore.addEventListener('click', function () {
+    deleteColumn();
+    nineBallsNeutral();
+    resetRack.hideRackButtons();
+  });
+
+  return {
+    appendColumn: appendColumn,
+    deleteColumn: deleteColumn
+  };
+}();
+
+module.exports = rackTable;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var rackTable = __webpack_require__(3);
+var resetRack = __webpack_require__(0);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -309,13 +386,12 @@ var scoring = function () {
   var decrease = function decrease(obj) {
     return obj - 1;
   };
+  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
   var calcScore = function calcScore() {
     var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
-    //    let lastDeadBall = deadBallTable[deadBallTable.length - 1] || 0;
     var deadBallTotal = 0;
     for (var i = 0; i < deadBallTable.length; i++) {
-      var _deadBallTotal = deadBallTable[i].innerHTML;
-      console.log(_deadBallTotal);
+      deadBallTotal += Number(deadBallTable[i].innerHTML);
     }
 
     return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
@@ -457,16 +533,16 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var incrementer = __webpack_require__(1);
-var diamond = __webpack_require__(0);
+var incrementer = __webpack_require__(2);
+var diamond = __webpack_require__(1);
 //const scoring = require('./modules/scoring');
-var resetRack = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
 
 //function component () {
@@ -478,83 +554,6 @@ var resetRack = __webpack_require__(2);
 //}
 //
 //document.body.appendChild(component());
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var resetRack = __webpack_require__(2);
-
-var rackTable = function () {
-  var table = document.querySelector('.rack-table');
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rackNumber = document.querySelector('.rack');
-  var playerOneScore = document.querySelector('.player-one-score');
-  var playerTwoScore = document.querySelector('.player-two-score');
-  var innings = document.querySelector('.number-innings');
-  var deadBalls = document.querySelector('.dead-ball-score');
-  var editScore = document.querySelector('.edit-score');
-  var nextRack = document.querySelector('.next-rack');
-
-  var createCell = function createCell(cell, text, style) {
-    var div = document.createElement('div'); // create DIV element
-    var txt = document.createTextNode(text); // create text node
-    div.appendChild(txt); // append text node to the DIV
-    div.setAttribute('class', style); // set DIV class attribute
-    cell.appendChild(div); // append DIV to the table cell
-  };
-  var appendColumn = function appendColumn(ev) {
-    if (ev.target.classList.contains('neutral')) {
-      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
-      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
-      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
-      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
-      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-    } else {
-      deleteColumn();
-    }
-  };
-  var deleteColumn = function deleteColumn() {
-    var lastCol = table.rows[0].cells.length - 1;
-
-    for (var i = 0; i < table.rows.length; i++) {
-      table.rows[i].deleteCell(lastCol);
-    }
-  };
-  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
-  var nineBallsNeutral = function nineBallsNeutral() {
-    for (var i = 0; i < nineBall.length; i++) {
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
-        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
-      }
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
-        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
-      }
-      nineBall[i].classList.remove('active');
-      nineBall[i].classList.remove('inactive');
-      nineBall[i].classList.add('neutral');
-    }
-  };
-  var decrementPlayerScore = function decrementPlayerScore(obj) {
-    return obj - 2;
-  };
-
-  editScore.addEventListener('click', function () {
-    deleteColumn();
-    nineBallsNeutral();
-    resetRack.hideRackButtons();
-  });
-
-  return {
-    appendColumn: appendColumn,
-    deleteColumn: deleteColumn
-  };
-}();
-
-module.exports = rackTable;
 
 /***/ })
 /******/ ]);

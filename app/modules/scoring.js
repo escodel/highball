@@ -14,13 +14,12 @@ const scoring = (function() {
   
   const increase = obj => obj + 1;
   const decrease = obj => obj - 1;
+  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
   const calcScore = function() {
     let deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
-//    let lastDeadBall = deadBallTable[deadBallTable.length - 1] || 0;
-    let deadBallTotal = 0;
+    var deadBallTotal = 0;
     for (var i = 0; i < deadBallTable.length; i++) {
-      let deadBallTotal = deadBallTable[i].innerHTML;
-          console.log(deadBallTotal);
+      deadBallTotal += Number(deadBallTable[i].innerHTML);
     }
 
     return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
