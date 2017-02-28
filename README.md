@@ -2,7 +2,7 @@
 9-ball pool score tracker
 
 # Recent changes:
-- Updated the Edit Score and Next Rack buttons to show/hide; working. However, dead balls reset, which throws off the modulo calculation (% 10) and causes the buttons to not reappear.
+- Updated the Edit Score and Next Rack buttons to show/hide; reset rack functionality working. ~~However, dead balls reset, which throws off the modulo calculation (% 10) and causes the buttons to not reappear.~~
 - Added borders for all balls
 - Added word "Balls" to dead, made lower cased innings, added line break after dead balls before counter.
  - Ball color CSS, opacity and dead functionality included in ballColorCSS branch
@@ -21,10 +21,10 @@
 - Color scheme for the whole app (if needed for score table, headers, score...)
 - Transparent border for inactive
 - End of rack functionality
-    - Rack reset (set innings to 0, set all balls to neutral) - determine if we want to use a modal/confirmation to make all balls neutral again.. default to when the 9 is tapped? or only if it's an increment of 10 total points (including dead)?
-    - if (!(currentScore % 10)) {doEndOfScoreFunction() }
-    - Scoring table after first 9 ball activated (display at top middle. rack #, player 1 score, innings, dead, player 2 score. expands to the right - new rack #, innings are just for that rack, dead are just for that rack)
-    - Two buttons appear at end of rack - maybe block other buttons until one of these is pressed - Edit Score (red/cancel)  and Next Rack (green/confirm).
+    - ~~Rack reset (set innings to 0, set all balls to neutral) - determine if we want to use a modal/confirmation to make all balls neutral again.. default to when the 9 is tapped? or only if it's an increment of 10 total points (including dead)?~~
+    - ~~if (!(currentScore % 10)) {doEndOfScoreFunction() }~~
+    - ~~Scoring table after first 9 ball activated (display at top middle. rack #, player 1 score, innings, dead, player 2 score. expands to the right - new rack #, innings are just for that rack, dead are just for that rack)~~
+    - ~~Two buttons appear at end of rack - maybe block other buttons until one of these is pressed - Edit Score (red/cancel)  and Next Rack (green/confirm).~~
     - MAYBE in future have table open into modal that is editable, but this could get tricky.
     - If you hit edit score, what happens? just unmark 9-ball and decrement?
 - 9 on snap, break & run incrementers for each player
