@@ -6,7 +6,7 @@ const scoring = (function() {
   const playerOneScore = document.querySelector('.player-one-score');
   const playerTwoScore = document.querySelector('.player-two-score');
   const deadBalls = document.querySelector('.dead-ball-score');
-
+    
   const playerOneSkill = document.querySelector('.skill-level.left');
   const playerTwoSkill = document.querySelector('.skill-level.right');
   const playerOneGoal =  document.querySelector('#leftPlayerGoal');
@@ -15,7 +15,9 @@ const scoring = (function() {
   const increase = obj => obj + 1;
   const decrease = obj => obj - 1;
   const calcScore = function() {
-    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML);
+    let deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
+    let lastDeadBall = deadBallTable[deadBallTable.length - 1] || 0;    
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(lastDeadBall.innerHTML || 0);
   };
 
   for (let i = 0; i < ball.length; i++) {

@@ -314,7 +314,7 @@ var rackTable = function () {
       createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
       createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
-      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
       createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
     } else {
       deleteColumn();
@@ -387,7 +387,9 @@ var scoring = function () {
     return obj - 1;
   };
   var calcScore = function calcScore() {
-    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML);
+    var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
+    var lastDeadBall = deadBallTable[deadBallTable.length - 1] || 0;
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(lastDeadBall.innerHTML || 0);
   };
 
   for (var i = 0; i < ball.length; i++) {
