@@ -44,6 +44,7 @@ const resetRack = (function() {
       resetInnings();
       resetDeadBalls();
       rack.innerHTML++;
+      hideRackButtons();
     }
   });
   

@@ -73,6 +73,71 @@
 "use strict";
 
 
+var resetRack = function () {
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rack = document.querySelector('.rack');
+  var ballArray = document.querySelectorAll('.ball');
+  var rackButtons = document.querySelector('.rack-buttons');
+  var resetRackLink = document.querySelector('.next-rack');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  // Loop through nine balls
+  //  for (let i = 0; i < nineBall.length; i++) {
+  //    nineBall[i].addEventListener('click', function(){
+  //      // Rack reset confirmation modal
+  var showRackButtons = function showRackButtons() {
+    rackButtons.classList.remove('hidden');
+  };
+
+  var hideRackButtons = function hideRackButtons() {
+    rackButtons.classList.add('hidden');
+  };
+  //    });
+  //  }
+
+  var resetRack = function resetRack() {
+    for (var i = 0; i < ballArray.length; i++) {
+      ballArray[i].classList.remove('active');
+      ballArray[i].classList.remove('inactive');
+      ballArray[i].classList.remove('dead');
+      ballArray[i].classList.add('neutral');
+    }
+  };
+
+  var resetInnings = function resetInnings() {
+    var innings = document.querySelector('.number-innings');
+    innings.innerHTML = 0;
+  };
+
+  var resetDeadBalls = function resetDeadBalls() {
+    deadBallScore.innerHTML = 0;
+  };
+
+  document.body.addEventListener('click', function (ev) {
+    if (ev.target.classList.contains('next-rack')) {
+      resetRack();
+      resetInnings();
+      resetDeadBalls();
+      rack.innerHTML++;
+      hideRackButtons();
+    }
+  });
+
+  return {
+    showRackButtons: showRackButtons,
+    hideRackButtons: hideRackButtons
+  };
+}();
+
+module.exports = resetRack;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var scoring = __webpack_require__(4);
 
 var diamond = function () {
@@ -181,7 +246,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -218,75 +283,13 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var resetRack = function () {
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rack = document.querySelector('.rack');
-  var ballArray = document.querySelectorAll('.ball');
-  var rackButtons = document.querySelector('.rack-buttons');
-  var resetRackLink = document.querySelector('.next-rack');
-  var deadBallScore = document.querySelector('.dead-ball-score');
-
-  // Loop through nine balls
-  //  for (let i = 0; i < nineBall.length; i++) {
-  //    nineBall[i].addEventListener('click', function(){
-  //      // Rack reset confirmation modal
-  var showRackButtons = function showRackButtons() {
-    rackButtons.classList.remove('hidden');
-  };
-
-  var hideRackButtons = function hideRackButtons() {
-    rackButtons.classList.add('hidden');
-  };
-  //    });
-  //  }
-
-  var resetRack = function resetRack() {
-    for (var i = 0; i < ballArray.length; i++) {
-      ballArray[i].classList.remove('active');
-      ballArray[i].classList.remove('inactive');
-      ballArray[i].classList.remove('dead');
-      ballArray[i].classList.add('neutral');
-    }
-  };
-
-  var resetInnings = function resetInnings() {
-    var innings = document.querySelector('.number-innings');
-    innings.innerHTML = 0;
-  };
-
-  var resetDeadBalls = function resetDeadBalls() {
-    deadBallScore.innerHTML = 0;
-  };
-
-  document.body.addEventListener('click', function (ev) {
-    if (ev.target.classList.contains('next-rack')) {
-      resetRack();
-      resetInnings();
-      resetDeadBalls();
-      rack.innerHTML++;
-    }
-  });
-
-  return {
-    showRackButtons: showRackButtons,
-    hideRackButtons: hideRackButtons
-  };
-}();
-
-module.exports = resetRack;
-
-/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var resetRack = __webpack_require__(0);
 
 var rackTable = function () {
   var table = document.querySelector('.rack-table');
@@ -324,8 +327,29 @@ var rackTable = function () {
       table.rows[i].deleteCell(lastCol);
     }
   };
+  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
+  var nineBallsNeutral = function nineBallsNeutral() {
+    for (var i = 0; i < nineBall.length; i++) {
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
+        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
+      }
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
+        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
+      }
+      nineBall[i].classList.remove('active');
+      nineBall[i].classList.remove('inactive');
+      nineBall[i].classList.add('neutral');
+    }
+  };
+  var decrementPlayerScore = function decrementPlayerScore(obj) {
+    return obj - 2;
+  };
 
-  editScore.addEventListener('click', deleteColumn);
+  editScore.addEventListener('click', function () {
+    deleteColumn();
+    nineBallsNeutral();
+    resetRack.hideRackButtons();
+  });
 
   return {
     appendColumn: appendColumn,
@@ -343,7 +367,7 @@ module.exports = rackTable;
 
 
 var rackTable = __webpack_require__(3);
-var resetRack = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -508,10 +532,10 @@ module.exports = scoring;
 "use strict";
 
 
-var incrementer = __webpack_require__(1);
-var diamond = __webpack_require__(0);
+var incrementer = __webpack_require__(2);
+var diamond = __webpack_require__(1);
 //const scoring = require('./modules/scoring');
-var resetRack = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
 
 //function component () {

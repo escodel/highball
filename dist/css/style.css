@@ -118,6 +118,7 @@ background-size: 100% 30px;
 
 .ball-container > .inactive {
   opacity: 0.2;
+  border: transparent;
 }
 
 .ball-container > .dead {
