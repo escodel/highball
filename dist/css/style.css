@@ -221,6 +221,7 @@ background-size: 100% 30px;
   font-size: 0.8em;
   margin-left: auto;
   margin-right: auto;
+  background-color: #094f09;
 }
 
 .rack-table tr {
@@ -240,5 +241,5 @@ background-size: 100% 30px;
 }
 
 .next-rack {
-  background: green;
+  background: navy;
 }

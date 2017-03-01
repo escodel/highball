@@ -17,6 +17,7 @@
   - It might be useful to have an alternative view where EVERYTHING is reset per-rack -- so that the most visible points counter is reset to 0-0 for each new rack as well as defenses. Ward disagrees but this could be a setting or something.. so that the running total is only visible from the scoring table. We could also have an option to make "Points Needed" decline 
 
 # To do:
+- Favicon and app icon
 - Clean up function declaration in scoring.js
 - Color scheme for the whole app (if needed for score table, headers, score...)
 - Transparent border for inactive
