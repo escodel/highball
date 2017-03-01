@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Mada:300,400,900" rel="stylesheet">  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!--  <div class="view view-top"></div>-->
+  <div class="view view-middle">
+    <div class="row row-top">
+      <div class="column">
+        <div class="label">9OS</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+        <br>
+        <div class="label">B&R</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+      </div>
+      <div class="column flex-half">
+        <div class="rack hidden">1</div>
+      </div>
+      <div class="column">
+        <table class="rack-table">
+          <thead>
+            <tr>
+              <th>Rack #</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>P1</td>
+            </tr>
+            <tr>
+              <td>Inn.</td>
+            </tr>
+            <tr>
+              <td>Dead</td>
+            </tr>
+            <tr>
+              <td>P2</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="rack-buttons hidden">
+          <button class="btn edit-score">Edit Score</button>
+          <button class="btn next-rack">Next Rack</button>
+        </div>
+      </div>
+      <div class="column flex-half"></div>
+      <div class="column">
+        <div class="label">9OS</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+        <br>
+        <div class="label">B&R</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>      
+      </div>
+    </div>
+    <div class="row row-middle">
+      <div class="column">
+        <div class="grid left-grid">
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-1 neutral left">
+              <div class="white-background">
+                1
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-2 neutral left">
+              <div class="white-background">
+                2
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-8 neutral left">
+              <div class="white-background">
+                8
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-3 neutral left">
+              <div class="white-background">
+                3
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-9 neutral left">
+              <div class="white-background">
+                9
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-7 neutral left">
+              <div class="white-background">
+                7
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-4 neutral left">
+              <div class="white-background">
+                4
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-6 neutral left">
+              <div class="white-background">
+                6
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-5 neutral left">
+              <div class="white-background">
+                5
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+        </div>
+        <div class="player player-one">
+          <div contenteditable="true" placeholder="Player One" class="label player-name"></div>
+          <div>Skill Level
+            <select name="select" class="skill-level left">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column flex-half">
+        <div class="label">Defense</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+      </div>
+      <div class="column">
+        <div class="score">
+          <h1><span class="player-one-score">0</span> - <span class="player-two-score">0</span></h1>
+        </div>
+      </div>
+      <div class="column flex-half">
+        <div class="label">Defense</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+      </div>
+      <div class="column">
+        <div class="grid right-grid">
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-1 neutral right">
+              <div class="white-background">
+                1
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-2 neutral right">
+              <div class="white-background">
+                2
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-8 neutral right">
+              <div class="white-background">
+                8
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-3 neutral right">
+              <div class="white-background">
+                3
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-9 neutral right">
+              <div class="white-background">
+                9
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-7 neutral right">
+              <div class="white-background">
+                7
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-4 neutral right">
+              <div class="white-background">
+                4
+              </div>
+            </div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-6 neutral right">
+              <div class="white-background">
+                6
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+          <div class="ball-container">
+            <div class="ball ball-5 neutral right">
+              <div class="white-background">
+                5
+              </div>
+            </div>
+          </div>
+          <div class="ball-container spacer">
+            <div class="ball"></div>
+          </div>
+        </div>
+        <div class="player player-two">
+          <div contenteditable="true" placeholder="Player Two" class="label player-name"></div>
+          <div>Skill Level
+            <select name="select" class="skill-level right">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-bottom">
+      <div class="column">
+        <div class="goalContainer">
+          <span class="label">Points Needed:</span>
+          <span id="leftPlayerGoal">31</span>
+        </div>
+      </div>
+      <div class="column flex-half"></div>
+      <div class="column">
+        <div>
+          <span class="label">Innings</span>
+          <br>
+          <button class="btn decrement">-</button>
+          <span class="number number-innings">0</span>
+          <button class="btn increment">+</button>
+        </div>
+        <br>
+        <div>
+          <span class="label">Dead Balls</span>
+          <br><span class="dead-ball-score">0</span>
+        </div>
+      </div>
+      <div class="column flex-half"></div>
+      <div class="column">
+        <div class="goalContainer">
+          <span class="label">Points Needed:</span>
+          <span id="rightPlayerGoal">31</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  <div class="view view-bottom"></div>-->
+
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script src="bundle.js"></script>
+</body>
+
+</html>

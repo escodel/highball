@@ -1,0 +1,245 @@
+body {
+  background: #0c630c;
+  color: white;
+  font-family: 'Mada', sans-serif;
+  font-weight: 300;
+}
+
+.view-container {
+  height: 100vh;
+}
+
+.view {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.row {
+  align-items: center;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.row-top {
+  align-items: baseline;
+  padding-top: 0.5em;
+}
+
+.row-middle {
+  flex: 5;
+}
+
+.column {
+  flex: 1;
+  text-align: center;
+}
+
+.flex-half {
+  flex: 0.5;
+}
+
+.label {
+  font-weight: normal;
+}
+
+.btn {
+  background: darkgray;
+  border: none;
+  color: white;
+  font-family: inherit;
+}
+
+.diamond {
+  display: flex;
+  flex-direction: column;
+}
+
+.diamond-row {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  text-align: center;
+}
+
+.ball {
+  box-sizing: border-box;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-45deg);
+  text-align: center;
+  padding-top: 20%; 
+  /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
+  font-size: 1rem;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: thin; 
+  border-color: black;
+
+}
+
+.ball-1 {
+  background: #cece23;
+}
+
+.ball-2 {
+  background: blue;
+}
+
+.ball-3 {
+  background: red;
+}
+
+.ball-4 {
+  background: purple;
+}
+
+.ball-5 {
+  background: orange;
+}
+
+.ball-6 {
+  background: green;
+}
+
+.ball-7 {
+  background: darkred;
+}
+
+.ball-8 {
+  background: black;
+}
+
+.ball-9 {
+  background: linear-gradient(
+  white,
+  white 50%,
+  #cece23 50%
+);
+/* The rectangle in which to repeat. 
+   It can be fully wide in this case */
+background-size: 100% 30px;
+}
+
+.ball-container > .neutral {
+  opacity: 0.6;
+}
+
+.ball-container > .active {
+  opacity: 1;
+}
+
+.ball-container > .inactive {
+  opacity: 0.2;
+  border: transparent;
+}
+
+.ball-container > .dead {
+  background: darkgray;
+}
+
+.ball-space, .spacer{
+  visibility: hidden;
+}
+
+.grid {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.grid::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.ball-container {
+  width: 21.833%;
+  padding-bottom: 21.833%;
+  overflow: hidden;
+  float: left;
+/*  background: #BBB;*/
+  transform: rotate(45deg);
+  margin: 5.5%;
+  margin-top: -11%;
+  border-radius: 50%
+}
+
+.ball-container:nth-child(1),
+.ball-container:nth-child(2),
+.ball-container:nth-child(3) {
+   margin-top: 5%;
+}
+
+.ball-container:nth-child(5n+4) {
+    margin-left: 21.9%;
+}
+
+.ball-container:nth-child(5n+6) {
+    clear:left;
+}
+
+.ball-container:nth-child(5n+6):last-of-type {
+  margin-left: 38.25%;
+}
+
+.goalContainer {
+  margin-top: 3em;
+}
+
+.white-background {  
+  color: black;
+  background-color: white;
+  pointer-events: none;
+  border-radius: 50%;
+  height: 50%;
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-weight: bold;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  display: block;  For Firefox 
+}
+
+.player-name {
+  color: white;
+}
+
+.rack-table {
+  border-collapse: collapse;
+  font-size: 0.8em;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #094f09;
+}
+
+.rack-table tr {
+  border-bottom: 1px solid gray;
+}
+
+.rack-table th, td {
+  padding: 0.2em 0.4em;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.edit-score {
+  background: red;
+}
+
+.next-rack {
+  background: navy;
+}
