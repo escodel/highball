@@ -81,10 +81,6 @@ var resetRack = function () {
   var resetRackLink = document.querySelector('.next-rack');
   var deadBallScore = document.querySelector('.dead-ball-score');
 
-  // Loop through nine balls
-  //  for (let i = 0; i < nineBall.length; i++) {
-  //    nineBall[i].addEventListener('click', function(){
-  //      // Rack reset confirmation modal
   var showRackButtons = function showRackButtons() {
     rackButtons.classList.remove('hidden');
   };
@@ -92,8 +88,6 @@ var resetRack = function () {
   var hideRackButtons = function hideRackButtons() {
     rackButtons.classList.add('hidden');
   };
-  //    });
-  //  }
 
   var resetRack = function resetRack() {
     for (var i = 0; i < ballArray.length; i++) {
@@ -311,7 +305,7 @@ var rackTable = function () {
   };
   var appendColumn = function appendColumn(ev) {
     if (ev.target.classList.contains('neutral')) {
-      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'col-' + 1);
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'label');
       createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
       createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');

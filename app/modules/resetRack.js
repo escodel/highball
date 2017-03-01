@@ -6,10 +6,6 @@ const resetRack = (function() {
   const resetRackLink = document.querySelector('.next-rack');
   const deadBallScore = document.querySelector('.dead-ball-score');
   
-  // Loop through nine balls
-//  for (let i = 0; i < nineBall.length; i++) {
-//    nineBall[i].addEventListener('click', function(){
-//      // Rack reset confirmation modal
   const showRackButtons = function() {
     rackButtons.classList.remove('hidden');
   }
@@ -17,8 +13,6 @@ const resetRack = (function() {
   const hideRackButtons = function() {
     rackButtons.classList.add('hidden');
   }
-//    });
-//  }
   
   const resetRack = function() {
     for (let i = 0; i < ballArray.length; i++) {

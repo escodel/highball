@@ -1,6 +1,8 @@
 body {
   background: #0c630c;
   color: white;
+  font-family: 'Mada', sans-serif;
+  font-weight: 300;
 }
 
 .view-container {
@@ -19,8 +21,11 @@ body {
   flex: 1 0 auto;
   flex-direction: row;
   justify-content: center;
-  
-/*  border: 3px solid red;*/
+}
+
+.row-top {
+  align-items: baseline;
+  padding-top: 0.5em;
 }
 
 .row-middle {
@@ -30,8 +35,21 @@ body {
 .column {
   flex: 1;
   text-align: center;
-  
-/*  border: 1px solid cornflowerblue;*/
+}
+
+.flex-half {
+  flex: 0.5;
+}
+
+.label {
+  font-weight: normal;
+}
+
+.btn {
+  background: darkgray;
+  border: none;
+  color: white;
+  font-family: inherit;
 }
 
 .diamond {
@@ -125,17 +143,6 @@ background-size: 100% 30px;
   background: darkgray;
 }
 
-/*
-.inactive {
-  background: grey;
-}
-
-.dead {
-  background: darkgray;
-}
-*/
-
-
 .ball-space, .spacer{
   visibility: hidden;
 }
@@ -182,6 +189,10 @@ background-size: 100% 30px;
   margin-left: 38.25%;
 }
 
+.goalContainer {
+  margin-top: 3em;
+}
+
 .white-background {  
   color: black;
   background-color: white;
@@ -198,7 +209,11 @@ background-size: 100% 30px;
 
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
-  display: block; /* For Firefox */
+  display: block;  For Firefox 
+}
+
+.player-name {
+  color: white;
 }
 
 .rack-table {

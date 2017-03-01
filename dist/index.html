@@ -4,6 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Mada:300,400,900" rel="stylesheet">  
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -12,7 +13,18 @@
   <div class="view view-middle">
     <div class="row row-top">
       <div class="column">
-        <div class="rack">1</div>
+        <div class="label">9OS</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+        <br>
+        <div class="label">B&R</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>
+      </div>
+      <div class="column flex-half">
+        <div class="rack hidden">1</div>
       </div>
       <div class="column">
         <table class="rack-table">
@@ -37,11 +49,22 @@
           </tbody>
         </table>
         <div class="rack-buttons hidden">
-          <button class="edit-score">Edit Score</button>
-          <button class="next-rack">Next Rack</button>
+          <button class="btn edit-score">Edit Score</button>
+          <button class="btn next-rack">Next Rack</button>
         </div>
       </div>
-      <div class="column">C</div>
+      <div class="column flex-half"></div>
+      <div class="column">
+        <div class="label">9OS</div>
+        <button class="btn decrement">-</button>
+        <span class="btn number">0</span>
+        <button class="btn increment">+</button>
+        <br>
+        <div class="label">B&R</div>
+        <button class="btn decrement">-</button>
+        <span class="number">0</span>
+        <button class="btn increment">+</button>      
+      </div>
     </div>
     <div class="row row-middle">
       <div class="column">
@@ -123,7 +146,7 @@
           </div>
         </div>
         <div class="player player-one">
-          <div contenteditable="true" placeholder="Player One" class="player-name"></div>
+          <div contenteditable="true" placeholder="Player One" class="label player-name"></div>
           <div>Skill Level
             <select name="select" class="skill-level left">
               <option value="1">1</option>
@@ -139,22 +162,22 @@
           </div>
         </div>
       </div>
-      <div class="column">
-        <div>Defense</div>
-        <button class="decrement">-</button>
+      <div class="column flex-half">
+        <div class="label">Defense</div>
+        <button class="btn decrement">-</button>
         <span class="number">0</span>
-        <button class="increment">+</button>
+        <button class="btn increment">+</button>
       </div>
       <div class="column">
         <div class="score">
           <h1><span class="player-one-score">0</span> - <span class="player-two-score">0</span></h1>
         </div>
       </div>
-      <div class="column">
-        <div>Defense</div>
-        <button class="decrement">-</button>
+      <div class="column flex-half">
+        <div class="label">Defense</div>
+        <button class="btn decrement">-</button>
         <span class="number">0</span>
-        <button class="increment">+</button>
+        <button class="btn increment">+</button>
       </div>
       <div class="column">
         <div class="grid right-grid">
@@ -235,7 +258,7 @@
           </div>
         </div>
         <div class="player player-two">
-          <div contenteditable="true" placeholder="Player Two" class="player-name"></div>
+          <div contenteditable="true" placeholder="Player Two" class="label player-name"></div>
           <div>Skill Level
             <select name="select" class="skill-level right">
               <option value="1">1</option>
@@ -255,29 +278,29 @@
     <div class="row row-bottom">
       <div class="column">
         <div class="goalContainer">
-          Points Needed:
+          <span class="label">Points Needed:</span>
           <span id="leftPlayerGoal">31</span>
         </div>
       </div>
-      <div class="column"></div>
+      <div class="column flex-half"></div>
       <div class="column">
         <div>
-          Innings
+          <span class="label">Innings</span>
           <br>
-          <button class="decrement">-</button>
+          <button class="btn decrement">-</button>
           <span class="number number-innings">0</span>
-          <button class="increment">+</button>
+          <button class="btn increment">+</button>
         </div>
         <br>
         <div>
-          Dead Balls
+          <span class="label">Dead Balls</span>
           <br><span class="dead-ball-score">0</span>
         </div>
       </div>
-      <div class="column"></div>
+      <div class="column flex-half"></div>
       <div class="column">
         <div class="goalContainer">
-          Points Needed:
+          <span class="label">Points Needed:</span>
           <span id="rightPlayerGoal">31</span>
         </div>
       </div>
