@@ -28,6 +28,10 @@ const rackTable = (function () {
     } else {
       deleteColumn();
     }
+    
+    if (table.offsetWidth >= 235) {
+      table.classList.add('rack-table-sm');
+    }
   };
   const deleteColumn = function () {
     let lastCol = table.rows[0].cells.length - 1;

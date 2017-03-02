@@ -4,8 +4,10 @@ const diamond = require('./modules/diamond');
 const resetRack = require('./modules/resetRack');
 //const rackTable = require('./modules/rackTable');
 
-document.addEventListener('orientationchange', function() {
-  console.log('changed');
+const lock = document.querySelector('.lock');
+
+lock.addEventListener('click', function() {
   document.documentElement.webkitRequestFullscreen();
   screen.orientation.lock('landscape');
 });
+
