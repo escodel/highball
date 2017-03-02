@@ -37,12 +37,27 @@ body {
   text-align: center;
 }
 
+.bottom-column {
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-around;
+}
+
 .flex-half {
   flex: 0.5;
 }
 
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.incrementer {
+  margin: 0.4rem;
+}
+
 .label {
   font-weight: normal;
+  line-height: 1.5rem;
 }
 
 .btn {
@@ -75,7 +90,7 @@ body {
   text-align: center;
   padding-top: 20%; 
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
-  font-size: 1rem;
+  font-size: 1.3rem;
   border-radius: 50%;
   border-style: solid;
   border-width: thin; 
@@ -189,10 +204,6 @@ background-size: 100% 30px;
   margin-left: 38.25%;
 }
 
-.goalContainer {
-  margin-top: 3em;
-}
-
 .white-background {  
   color: black;
   background-color: white;
@@ -214,6 +225,7 @@ background-size: 100% 30px;
 
 .player-name {
   color: white;
+  font-size: 1.3rem;
 }
 
 .rack-table {
@@ -232,6 +244,16 @@ background-size: 100% 30px;
   padding: 0.2em 0.4em;
 }
 
+.rack-table-sm {
+  display: block;
+  max-width: 250px;
+  overflow: scroll;
+}
+
+th.label {
+  min-width: 2.8rem;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -242,4 +264,24 @@ background-size: 100% 30px;
 
 .next-rack {
   background: navy;
+}
+
+.lock {
+  visibility: hidden;
+}
+
+@media (min-width: 400px) {
+/*
+  .rack-table {
+    display: block;
+    max-width: 235px;
+    overflow: scroll;
+  }
+*/
+}
+
+@media (orientation: portrait) {
+  .lock {
+    visibility: visible;
+  }
 }

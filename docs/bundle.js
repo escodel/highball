@@ -313,6 +313,11 @@ var rackTable = function () {
     } else {
       deleteColumn();
     }
+
+    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
+    if (table.offsetWidth >= 250) {
+      table.classList.add('rack-table-sm');
+    }
   };
   var deleteColumn = function deleteColumn() {
     var lastCol = table.rows[0].cells.length - 1;
@@ -539,15 +544,12 @@ var diamond = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
 
-//function component () {
-//  var element = document.createElement('div');
-//
-//  element.innerHTML = ['Hello','individual'].join(' ');
-//
-//  return element;
-//}
-//
-//document.body.appendChild(component());
+var lock = document.querySelector('.lock');
+
+lock.addEventListener('click', function () {
+  document.documentElement.webkitRequestFullscreen();
+  screen.orientation.lock('landscape');
+});
 
 /***/ })
 /******/ ]);

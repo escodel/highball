@@ -4,7 +4,7 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Mada:300,400,900" rel="stylesheet">  
+  <link href="https://fonts.googleapis.com/css?family=Mada:300,400,900" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -13,24 +13,33 @@
   <div class="view view-middle">
     <div class="row row-top">
       <div class="column">
-        <div class="label">9OS</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>
-        <br>
-        <div class="label">B&R</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>
-      </div>
-      <div class="column flex-half">
+        <div class="player player-one">
+          <div contenteditable="true" placeholder="Player One" class="label player-name"></div>
+          <div>Skill Level
+            <select name="select" class="skill-level left">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+        </div>
+        <div class="goalContainer">
+          <span>Points Needed:</span>
+          <span id="leftPlayerGoal" class="label">31</span>
+        </div>
         <div class="rack hidden">1</div>
       </div>
       <div class="column">
         <table class="rack-table">
           <thead>
             <tr>
-              <th>Rack #</th>
+              <th class="label">Rack #</th>
             </tr>
           </thead>
           <tbody>
@@ -52,18 +61,29 @@
           <button class="btn edit-score">Edit Score</button>
           <button class="btn next-rack">Next Rack</button>
         </div>
+        <button class="btn lock">Lock</button>
       </div>
-      <div class="column flex-half"></div>
       <div class="column">
-        <div class="label">9OS</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>
-        <br>
-        <div class="label">B&R</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>      
+        <div class="player player-two">
+          <div contenteditable="true" placeholder="Player Two" class="label player-name"></div>
+          <div>Skill Level
+            <select name="select" class="skill-level right">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
+          </div>
+        </div>
+        <div class="goalContainer">
+          <span>Points Needed:</span>
+          <span id="rightPlayerGoal" class="label">31</span>
+        </div>
       </div>
     </div>
     <div class="row row-middle">
@@ -145,39 +165,11 @@
             <div class="ball"></div>
           </div>
         </div>
-        <div class="player player-one">
-          <div contenteditable="true" placeholder="Player One" class="label player-name"></div>
-          <div>Skill Level
-            <select name="select" class="skill-level left">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4" selected>4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="column flex-half">
-        <div class="label">Defense</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>
       </div>
       <div class="column">
         <div class="score">
           <h1><span class="player-one-score">0</span> - <span class="player-two-score">0</span></h1>
         </div>
-      </div>
-      <div class="column flex-half">
-        <div class="label">Defense</div>
-        <button class="btn decrement">-</button>
-        <span class="number">0</span>
-        <button class="btn increment">+</button>
       </div>
       <div class="column">
         <div class="grid right-grid">
@@ -257,32 +249,29 @@
             <div class="ball"></div>
           </div>
         </div>
-        <div class="player player-two">
-          <div contenteditable="true" placeholder="Player Two" class="label player-name"></div>
-          <div>Skill Level
-            <select name="select" class="skill-level right">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4" selected>4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-            </select>
-          </div>
-        </div>
       </div>
     </div>
     <div class="row row-bottom">
-      <div class="column">
-        <div class="goalContainer">
-          <span class="label">Points Needed:</span>
-          <span id="leftPlayerGoal">31</span>
+      <div class="column bottom-column">
+        <div class="incrementer">
+          <div class="label">9OTS</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>
+        </div>
+        <div class="incrementer">
+          <div class="label">B&R</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>
+        </div>
+        <div class="incrementer">
+          <div class="label">Defense</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>        
         </div>
       </div>
-      <div class="column flex-half"></div>
       <div class="column">
         <div>
           <span class="label">Innings</span>
@@ -297,11 +286,24 @@
           <br><span class="dead-ball-score">0</span>
         </div>
       </div>
-      <div class="column flex-half"></div>
-      <div class="column">
-        <div class="goalContainer">
-          <span class="label">Points Needed:</span>
-          <span id="rightPlayerGoal">31</span>
+      <div class="column bottom-column row-reverse">
+        <div class="incrementer">
+          <div class="label">9OTS</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>
+        </div>
+        <div class="incrementer">
+          <div class="label">B&R</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>
+        </div>
+        <div class="incrementer">
+          <div class="label">Defense</div>
+          <button class="btn decrement">-</button>
+          <span class="number">0</span>
+          <button class="btn increment">+</button>        
         </div>
       </div>
     </div>
