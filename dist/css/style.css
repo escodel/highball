@@ -246,8 +246,12 @@ background-size: 100% 30px;
 
 .rack-table-sm {
   display: block;
-  max-width: 235px;
+  max-width: 250px;
   overflow: scroll;
+}
+
+th.label {
+  min-width: 2.8rem;
 }
 
 .hidden {

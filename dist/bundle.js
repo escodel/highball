@@ -314,7 +314,8 @@ var rackTable = function () {
       deleteColumn();
     }
 
-    if (table.offsetWidth >= 235) {
+    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
+    if (table.offsetWidth >= 250) {
       table.classList.add('rack-table-sm');
     }
   };
