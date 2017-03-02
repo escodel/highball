@@ -37,8 +37,22 @@ body {
   text-align: center;
 }
 
+.bottom-column {
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-around;
+}
+
 .flex-half {
   flex: 0.5;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.incrementer {
+  margin: 0.4rem;
 }
 
 .label {
@@ -187,10 +201,6 @@ background-size: 100% 30px;
 
 .ball-container:nth-child(5n+6):last-of-type {
   margin-left: 38.25%;
-}
-
-.goalContainer {
-  margin-top: 3em;
 }
 
 .white-background {  

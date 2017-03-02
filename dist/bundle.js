@@ -539,15 +539,11 @@ var diamond = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
 
-//function component () {
-//  var element = document.createElement('div');
-//
-//  element.innerHTML = ['Hello','individual'].join(' ');
-//
-//  return element;
-//}
-//
-//document.body.appendChild(component());
+document.addEventListener('orientationchange', function () {
+  console.log('changed');
+  document.documentElement.webkitRequestFullscreen();
+  screen.orientation.lock('landscape');
+});
 
 /***/ })
 /******/ ]);
