@@ -2,7 +2,10 @@
 9-ball pool score tracker
 
 # Recent changes:
-- Updated the Edit Score and Next Rack buttons to show/hide; reset rack functionality working. ~~However, dead balls reset, which throws off the modulo calculation (% 10) and causes the buttons to not reappear.~~
+- Orientation fixed so that portrait displays landing view and landscape displays main app view.
+- Favicons and app icon added. Can now Add to Home Screen on ios and android.
+- 9 on snap, break & run incrementers for each player.
+- Updated the Edit Score and Next Rack buttons to show/hide; reset rack functionality working.
 - Added borders for all balls
 - Added word "Balls" to dead, made lower cased innings, added line break after dead balls before counter.
  - Ball color CSS, opacity and dead functionality included in ballColorCSS branch
@@ -17,29 +20,19 @@
   - It might be useful to have an alternative view where EVERYTHING is reset per-rack -- so that the most visible points counter is reset to 0-0 for each new rack as well as defenses. Ward disagrees but this could be a setting or something.. so that the running total is only visible from the scoring table. We could also have an option to make "Points Needed" decline 
   
 # Feedback round 2:
-- Ball size could be larger - still only accurate about 85% of the time
+- ~~Ball size could be larger - still only accurate about 85% of the time~~
 - 9 on the snap marking dead balls is tedious. I think the proper functionality should be that a user can mark any balls they made (for instance the 3 and 6) and then hit the 9OS + button and it would mark all of the neutral balls dead (1,2,4,5,7,8) and activate the 9. Still show the standard end of rack functionality so they can reset/modify if needed
 - End of match functionality still needs to be done (scoring too)
 - Need to recognize end of rack when marking dead balls (if I make the 9 early and there was still an 8 ball on the table, I mark the 8 as dead but it doesn't recognize that the rack has ended. current solution is to neutralize 9 ball and mark it as mine again).
 - Entering player name looks weird (placeholder text/points needed looks weird)
-- Buttons look weird on iOS chrome (physical, not emulated)
+- ~~Buttons look weird on iOS chrome (physical, not emulated)~~
 
 
 # To do:
-- lock zoom (iOS thing, escodel knows what this is)
-- lock orientation to landscape
-- Favicon and app icon
+- implement Hammertime to reduce click/touch delay.
+- lock zoom (iOS thing, escodel knows what this is).. may not be adding this.
 - Clean up function declaration in scoring.js
 - Color scheme for the whole app (if needed for score table, headers, score...)
-- Transparent border for inactive
-- End of rack functionality
-    - ~~Rack reset (set innings to 0, set all balls to neutral) - determine if we want to use a modal/confirmation to make all balls neutral again.. default to when the 9 is tapped? or only if it's an increment of 10 total points (including dead)?~~
-    - ~~if (!(currentScore % 10)) {doEndOfScoreFunction() }~~
-    - ~~Scoring table after first 9 ball activated (display at top middle. rack #, player 1 score, innings, dead, player 2 score. expands to the right - new rack #, innings are just for that rack, dead are just for that rack)~~
-    - ~~Two buttons appear at end of rack - maybe block other buttons until one of these is pressed - Edit Score (red/cancel)  and Next Rack (green/confirm).~~
-    - MAYBE in future have table open into modal that is editable, but this could get tricky.
-    - If you hit edit score, what happens? just unmark 9-ball and decrement?
-- 9 on snap, break & run incrementers for each player
 - End of match functionality (when one player reaches goal number) - 
     - Scoring (20 point system, see below)
     - Data persistence
