@@ -104,7 +104,7 @@ a {
   text-align: center;
   padding-top: 20%; 
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
-  font-size: 1.3rem;
+  font-size: calc(112.5% + 0.5vw);
   border-radius: 50%;
   border-style: solid;
   border-width: thin; 
