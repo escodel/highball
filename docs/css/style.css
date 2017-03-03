@@ -5,6 +5,11 @@ body {
   font-weight: 300;
 }
 
+a {
+  color: cyan;
+  text-decoration: none;
+}
+
 .view-container {
   height: 100vh;
 }
@@ -43,8 +48,8 @@ body {
   justify-content: space-around;
 }
 
-.flex-half {
-  flex: 0.5;
+.margin-bottom {
+  margin-bottom: 2rem;
 }
 
 .row-reverse {
@@ -60,11 +65,20 @@ body {
   line-height: 1.5rem;
 }
 
+.title {
+  font-size: 1.5rem;
+}
+
+.title-sm {
+  font-size: 0.8rem;
+}
+
 .btn {
   background: darkgray;
   border: none;
   color: white;
   font-family: inherit;
+  padding: 0 0.3em;
 }
 
 .diamond {
@@ -270,18 +284,26 @@ th.label {
   visibility: hidden;
 }
 
-@media (min-width: 400px) {
-/*
-  .rack-table {
+@media (orientation: landscape) {
+  .screen-landscape {
     display: block;
-    max-width: 235px;
-    overflow: scroll;
   }
-*/
+  
+  .screen-portrait {
+    display: none;
+  }
 }
 
 @media (orientation: portrait) {
   .lock {
     visibility: visible;
+  }
+  
+  .screen-landscape {
+    display: none;
+  }
+  
+  .screen-portrait {
+    display: block;
   }
 }
