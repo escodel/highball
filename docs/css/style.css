@@ -104,7 +104,7 @@ a {
   text-align: center;
   padding-top: 20%; 
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
-  font-size: 1.3rem;
+  font-size: calc(112.5% + 0.5vw);
   border-radius: 50%;
   border-style: solid;
   border-width: thin; 
@@ -145,14 +145,7 @@ a {
 }
 
 .ball-9 {
-  background: linear-gradient(
-  white,
-  white 50%,
-  #cece23 50%
-);
-/* The rectangle in which to repeat. 
-   It can be fully wide in this case */
-background-size: 100% 30px;
+  background: linear-gradient(white 20%,#cece23 10%,#cece23 80%,white 80%);
 }
 
 .ball-container > .neutral {
