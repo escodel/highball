@@ -32,12 +32,14 @@
 - implement Hammertime to reduce click/touch delay.
 - lock zoom (iOS thing, escodel knows what this is).. may not be adding this.
 - Clean up function declaration in scoring.js
-- Color scheme for the whole app (if needed for score table, headers, score...)
 - End of match functionality (when one player reaches goal number) - 
     - Scoring (20 point system, see below)
     - Data persistence
     - Modal to ask if they want to continue or reset. Also need "oops" button if the final point was marked in error - unmark most recently marked point.
-
+- End of rack functionality: right now it only triggers when the 9 ball is tapped and module 0. Would like this to happen when any bal is tapped or dead ball is marked so that you don't have to tap the 9 ball to initiate end of rack.
+- Tablet responsiveness (button padding, fonts, 
+- Think about monetization, official hosting, license
+- Think about modifying logo - try different background color or leaving the main favicon the same but putting the vertical/welcome screen as darker/no background
 
 - Nice to have functionality
     - Load previous match
