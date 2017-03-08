@@ -399,68 +399,54 @@ var scoring = function () {
   for (var i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function (ev) {
       var evTarget = ev.target;
-      // If ballLeft
+      // If ballLeft, score left and increment 9 ball twice
       if (evTarget.classList.contains('left')) {
         if (evTarget.classList.contains('neutral')) {
           playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
-            var currentScore = calcScore();
-            if (currentScore % 10 === 0) {
-              rackTable.appendColumn(ev);
-              resetRack.showRackButtons();
-            }
-            return;
           }
-          return;
         }
         if (evTarget.classList.contains('active')) {
           playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
-            return;
           }
-          return;
         }
         if (evTarget.classList.contains('inactive')) {
           playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
-            return;
           }
-          return;
         }
       }
-      // If ballRight
+      // If ballRight, score right and increment 9 ball twice
       if (evTarget.classList.contains('right')) {
         if (evTarget.classList.contains('neutral')) {
           playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
-            var _currentScore = calcScore();
-            if (_currentScore % 10 === 0) {
-              rackTable.appendColumn(ev);
-              resetRack.showRackButtons();
-            }
-            return;
           }
-          return;
         }
         if (evTarget.classList.contains('active')) {
           playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
-            return;
           }
-          return;
         }
         if (evTarget.classList.contains('inactive')) {
           playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
-            return;
           }
         }
+      }
+
+      // Calculate score on each click. If modulo 10, reset rack functionality.
+      var currentScore = calcScore();
+      if (currentScore % 10 === 0) {
+        rackTable.appendColumn(ev);
+        resetRack.showRackButtons();
       }
     });
   }
