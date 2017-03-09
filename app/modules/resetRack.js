@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const resetRack = (function() {
   const nineBall = document.querySelectorAll('.ball-9');
   var rack = document.querySelector('.rack');

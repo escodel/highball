@@ -1,5 +1,7 @@
+/*jshint esversion: 6 */
 const rackTable = require('./rackTable');
 const resetRack = require('./resetRack');
+const matchPoints = require('./matchPoints');
 
 const scoring = (function() {
   const ball = document.querySelectorAll('.ball');
@@ -34,8 +36,12 @@ const scoring = (function() {
           playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
             playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
-          }       
-        }
+          }   
+          //end of match checker
+                if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+                    matchPoints.endOfMatch(1);
+                }
+    }
         if (evTarget.classList.contains('active')) {
           playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
@@ -56,6 +62,10 @@ const scoring = (function() {
           if (evTarget.classList.contains('ball-9')) {
             playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           }       
+          //end of match checker
+          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+              matchPoints.endOfMatch(2);
+          }
         }
         if (evTarget.classList.contains('active')) {
           playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));

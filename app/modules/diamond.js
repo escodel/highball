@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const scoring = require('./scoring');
 
 const diamond = (function () {

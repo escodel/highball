@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const incrementer = (function(){
   const incrementButton = document.querySelectorAll('.increment');
   const decrementButton = document.querySelectorAll('.decrement');

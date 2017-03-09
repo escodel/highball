@@ -227,7 +227,7 @@ a {
 
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
-  display: block;  For Firefox 
+  display: block; /* For Firefox */
 }
 
 .player-name {
@@ -299,4 +299,19 @@ th.label {
   .screen-portrait {
     display: block;
   }
+}
+
+.last-rack-column {
+  flex-direction: column;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.portrait-Score {
+  display: flex;
+  font-size: calc(150% + 20vh);
+  align-content: center;
+  justify-content: center;
+  font-weight: bold;
 }
