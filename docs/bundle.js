@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,6 +73,7 @@
 "use strict";
 
 
+/*jshint esversion: 6 */
 var resetRack = function () {
   var nineBall = document.querySelectorAll('.ball-9');
   var rack = document.querySelector('.rack');
@@ -114,6 +115,12 @@ var resetRack = function () {
       resetDeadBalls();
       rack.innerHTML++;
       hideRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'auto';
+        }
+      }
     }
   });
 
@@ -132,7 +139,8 @@ module.exports = resetRack;
 "use strict";
 
 
-var scoring = __webpack_require__(4);
+/*jshint esversion: 6 */
+var scoring = __webpack_require__(5);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -141,8 +149,7 @@ var diamond = function () {
   var _loop = function _loop(i) {
     // Dead Balls
     var mc = new Hammer(ball[i]);
-
-    mc.on('press', function (ev) {
+    var deadBallPress = function deadBallPress(ev) {
       var deadBallTarget = ev.target;
       var ballArray = Array.from(ball);
       var classListArray = Array.from(ev.target.classList);
@@ -171,10 +178,8 @@ var diamond = function () {
       }
       var deadBalls = document.querySelectorAll('.left-grid .dead');
       deadBallScore.innerHTML = deadBalls.length;
-    });
-
-    // Active / Inactive
-    ball[i].addEventListener('click', function (ev) {
+    };
+    var ballClick = function ballClick(ev) {
       var evTarget = ev.target;
       var clickedTargetClassList = evTarget.classList;
       var ballLeft = ball[i].classList.contains('left');
@@ -229,7 +234,12 @@ var diamond = function () {
         clickedTargetClassList.add('neutral');
         return;
       }
-    });
+    };
+
+    mc.on('press', deadBallPress);
+
+    // Active / Inactive
+    ball[i].addEventListener('click', ballClick);
   };
 
   for (var i = 0; i < ball.length; i++) {
@@ -246,6 +256,7 @@ module.exports = diamond;
 "use strict";
 
 
+/*jshint esversion: 6 */
 var incrementer = function () {
   var incrementButton = document.querySelectorAll('.increment');
   var decrementButton = document.querySelectorAll('.decrement');
@@ -283,6 +294,874 @@ module.exports = incrementer;
 "use strict";
 
 
+/*jshint esversion: 6 */
+var matchPoints = function () {
+
+    var endOfMatch = function endOfMatch(winningPlayer) {
+        var playerOneName = document.querySelector('#player-1-Name').innerHTML.toString();
+        var playerTwoName = document.querySelector('#player-2-Name').innerHTML.toString();
+        var playerOneSkillVal = document.querySelector('.skill-level.left option:checked').value;
+        var playerTwoSkillVal = document.querySelector('.skill-level.right option:checked').value;
+        var playerOneScore = document.querySelector('.player-one-score');
+        var playerTwoScore = document.querySelector('.player-two-score');
+
+        if (!playerOneName) {
+            playerOneName = "Player One";
+        }
+
+        if (!playerTwoName) {
+            playerTwoName = "Player Two";
+        }
+
+        var inningsTable = document.querySelectorAll('.innings-table') || 0;
+        var inningsTotal = 0;
+        for (var i = 0; i < inningsTable.length; i++) {
+            inningsTotal += Number(inningsTable[i].innerHTML);
+        }
+        inningsTotal += Number(document.querySelector(".number-innings").innerHTML);
+
+        if (winningPlayer == 1) {
+            var matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
+            alert(playerOneName + " wins! Match Points Earned: " + matchScore.winnerScore + " - " + matchScore.loserScore + " | Total Innings: " + inningsTotal);
+        }
+        if (winningPlayer == 2) {
+            var _matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
+            alert(playerTwoName + " wins! Match Points Earned: " + _matchScore.winnerScore + " - " + _matchScore.loserScore + " | Total Innings: " + inningsTotal);
+        }
+    };
+
+    var calculateFinalScore = function calculateFinalScore(loserSL, loserScore) {
+        switch (loserSL) {
+            case '1':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '3':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '4':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '5':
+                    case '6':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '7':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '8':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '9':
+                    case '10':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '11':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '12':
+                    case '13':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+                }
+                break;
+            case '2':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '4':
+                    case '5':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '6':
+                    case '7':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '8':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '9':
+                    case '10':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '11':
+                    case '12':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '13':
+                    case '14':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '15':
+                    case '16':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '17':
+                    case '18':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+                break;
+            case '3':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '5':
+                    case '6':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '7':
+                    case '8':
+                    case '9':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '10':
+                    case '11':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '12':
+                    case '13':
+                    case '14':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '15':
+                    case '16':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '17':
+                    case '18':
+                    case '19':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '20':
+                    case '21':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '22':
+                    case '23':
+                    case '24':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+                break;
+            case '4':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '6':
+                    case '7':
+                    case '8':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '9':
+                    case '10':
+                    case '11':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '12':
+                    case '13':
+                    case '14':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '15':
+                    case '16':
+                    case '17':
+                    case '18':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '19':
+                    case '20':
+                    case '21':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '22':
+                    case '23':
+                    case '24':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '25':
+                    case '26':
+                    case '27':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '28':
+                    case '29':
+                    case '30':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+
+                break;
+            case '5':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '11':
+                    case '12':
+                    case '13':
+                    case '14':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '15':
+                    case '16':
+                    case '17':
+                    case '18':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '19':
+                    case '20':
+                    case '21':
+                    case '22':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '23':
+                    case '24':
+                    case '25':
+                    case '26':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '27':
+                    case '28':
+                    case '29':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '30':
+                    case '31':
+                    case '32':
+                    case '33':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '34':
+                    case '35':
+                    case '36':
+                    case '37':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+
+                break;
+            case '6':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '9':
+                    case '10':
+                    case '11':
+                    case '12':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '13':
+                    case '14':
+                    case '15':
+                    case '16':
+                    case '17':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '18':
+                    case '19':
+                    case '20':
+                    case '21':
+                    case '22':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '23':
+                    case '24':
+                    case '25':
+                    case '26':
+                    case '27':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '28':
+                    case '29':
+                    case '30':
+                    case '31':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '32':
+                    case '33':
+                    case '34':
+                    case '35':
+                    case '36':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '37':
+                    case '38':
+                    case '39':
+                    case '40':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '41':
+                    case '42':
+                    case '43':
+                    case '44':
+                    case '45':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+
+                break;
+            case '7':
+
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '11':
+                    case '12':
+                    case '13':
+                    case '14':
+                    case '15':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '16':
+                    case '17':
+                    case '18':
+                    case '19':
+                    case '20':
+                    case '21':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '22':
+                    case '23':
+                    case '24':
+                    case '25':
+                    case '26':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '27':
+                    case '28':
+                    case '29':
+                    case '30':
+                    case '31':
+                    case '32':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '33':
+                    case '34':
+                    case '35':
+                    case '36':
+                    case '37':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '38':
+                    case '39':
+                    case '40':
+                    case '41':
+                    case '42':
+                    case '43':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '44':
+                    case '45':
+                    case '46':
+                    case '47':
+                    case '48':
+                    case '49':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '50':
+                    case '51':
+                    case '52':
+                    case '53':
+                    case '54':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+
+                break;
+            case '8':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                    case '11':
+                    case '12':
+                    case '13':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '14':
+                    case '15':
+                    case '16':
+                    case '17':
+                    case '18':
+                    case '19':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '21':
+                    case '22':
+                    case '23':
+                    case '24':
+                    case '25':
+                    case '26':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '27':
+                    case '28':
+                    case '29':
+                    case '30':
+                    case '31':
+                    case '32':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '33':
+                    case '34':
+                    case '35':
+                    case '36':
+                    case '37':
+                    case '38':
+                    case '39':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '40':
+                    case '41':
+                    case '42':
+                    case '43':
+                    case '44':
+                    case '45':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '46':
+                    case '47':
+                    case '48':
+                    case '49':
+                    case '50':
+                    case '51':
+                    case '52':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '53':
+                    case '54':
+                    case '55':
+                    case '56':
+                    case '57':
+                    case '58':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '59':
+                    case '60':
+                    case '61':
+                    case '62':
+                    case '63':
+                    case '64':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+
+                }
+
+                break;
+            case '9':
+                switch (loserScore) {
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                    case '10':
+                    case '11':
+                    case '12':
+                    case '13':
+                    case '14':
+                    case '15':
+                    case '16':
+                    case '17':
+                        return {
+                            winnerScore: 20,
+                            loserScore: 0
+                        };
+
+                    case '18':
+                    case '19':
+                    case '20':
+                    case '21':
+                    case '22':
+                    case '23':
+                    case '24':
+                        return {
+                            winnerScore: 19,
+                            loserScore: 1
+                        };
+
+                    case '25':
+                    case '26':
+                    case '27':
+                    case '28':
+                    case '29':
+                    case '30':
+                    case '31':
+                        return {
+                            winnerScore: 18,
+                            loserScore: 2
+                        };
+
+                    case '32':
+                    case '33':
+                    case '34':
+                    case '35':
+                    case '36':
+                    case '37':
+                    case '38':
+                        return {
+                            winnerScore: 17,
+                            loserScore: 3
+                        };
+
+                    case '39':
+                    case '40':
+                    case '41':
+                    case '42':
+                    case '43':
+                    case '44':
+                    case '45':
+                    case '46':
+                        return {
+                            winnerScore: 16,
+                            loserScore: 4
+                        };
+
+                    case '47':
+                    case '48':
+                    case '49':
+                    case '50':
+                    case '51':
+                    case '52':
+                    case '53':
+                        return {
+                            winnerScore: 15,
+                            loserScore: 5
+                        };
+
+                    case '54':
+                    case '55':
+                    case '56':
+                    case '57':
+                    case '58':
+                    case '59':
+                    case '60':
+                        return {
+                            winnerScore: 14,
+                            loserScore: 6
+                        };
+
+                    case '60':
+                    case '61':
+                    case '62':
+                    case '63':
+                    case '64':
+                    case '65':
+                    case '66':
+                    case '67':
+                        return {
+                            winnerScore: 13,
+                            loserScore: 7
+                        };
+
+                    case '68':
+                    case '69':
+                    case '70':
+                    case '71':
+                    case '72':
+                    case '73':
+                    case '74':
+                        return {
+                            winnerScore: 12,
+                            loserScore: 8
+                        };
+                }
+        }
+    };
+    return {
+        endOfMatch: endOfMatch
+    };
+}();
+
+module.exports = matchPoints;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
 var resetRack = __webpack_require__(0);
 
 var rackTable = function () {
@@ -305,13 +1184,12 @@ var rackTable = function () {
   };
   var appendColumn = function appendColumn(ev) {
     if (ev.target.classList.contains('neutral')) {
-      createCell(table.rows[0].insertCell(table.rows[0].cells.length), rackNumber.innerHTML, 'label');
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
       createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
-      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
       createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
       createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-    } else {
-      deleteColumn();
+      portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
     }
 
     //adds rack-table-sm class to rack-table in order to restrict width and add scroll
@@ -348,7 +1226,20 @@ var rackTable = function () {
     deleteColumn();
     nineBallsNeutral();
     resetRack.hideRackButtons();
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
   });
+
+  var portraitTable = function portraitTable(p1Score, innings, dead, p2score) {
+    var portraitParent = document.querySelector('.screen-portrait');
+    var portraitContents = "";
+    portraitContents += '<div class="view"><div class="last-rack-column"><div class="portrait-Score">' + p1Score + '</div><div class="portrait-Score">' + innings + '</div><div class="portrait-Score">' + dead + '</div><div class="portrait-Score">' + p2score + '</div></div>';
+    portraitParent.innerHTML = portraitContents;
+  };
 
   return {
     appendColumn: appendColumn,
@@ -359,14 +1250,16 @@ var rackTable = function () {
 module.exports = rackTable;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var rackTable = __webpack_require__(3);
+/*jshint esversion: 6 */
+var rackTable = __webpack_require__(4);
 var resetRack = __webpack_require__(0);
+var matchPoints = __webpack_require__(3);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -399,66 +1292,66 @@ var scoring = function () {
   for (var i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function (ev) {
       var evTarget = ev.target;
-      // If ballLeft
+      // If ballLeft, score left and increment 9 ball twice
       if (evTarget.classList.contains('left')) {
         if (evTarget.classList.contains('neutral')) {
-          playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
-            var currentScore = calcScore();
-            if (currentScore % 10 === 0) {
-              rackTable.appendColumn(ev);
-              resetRack.showRackButtons();
-            }
-            return;
+            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           }
-          return;
+          //end of match checker
+          if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+            matchPoints.endOfMatch(1);
+          }
         }
         if (evTarget.classList.contains('active')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
-            return;
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           }
-          return;
         }
         if (evTarget.classList.contains('inactive')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
-            return;
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }
-          return;
         }
       }
-      // If ballRight
+      // If ballRight, score right and increment 9 ball twice
       if (evTarget.classList.contains('right')) {
         if (evTarget.classList.contains('neutral')) {
-          playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
-            var _currentScore = calcScore();
-            if (_currentScore % 10 === 0) {
-              rackTable.appendColumn(ev);
-              resetRack.showRackButtons();
-            }
-            return;
+            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           }
-          return;
+          //end of match checker
+          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+            matchPoints.endOfMatch(2);
+          }
         }
         if (evTarget.classList.contains('active')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
-            return;
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }
-          return;
         }
         if (evTarget.classList.contains('inactive')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
-            return;
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          }
+        }
+      }
+
+      // Calculate score on each click. If modulo 10, reset rack functionality.
+      var currentScore = calcScore();
+      if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.neutral').length === 2) {
+        rackTable.appendColumn(ev);
+        resetRack.showRackButtons();
+        var inputs = document.querySelectorAll('.row');
+        for (var _i = 0; _i < inputs.length; _i++) {
+          if (!inputs[_i].classList.contains('row-top')) {
+            inputs[_i].style.pointerEvents = 'none';
           }
         }
       }
@@ -532,7 +1425,7 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
