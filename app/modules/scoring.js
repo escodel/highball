@@ -31,42 +31,42 @@ const scoring = (function() {
       // If ballLeft, score left and increment 9 ball twice
       if (evTarget.classList.contains('left')) { 
         if (evTarget.classList.contains('neutral')) {
-          playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           }       
         }
         if (evTarget.classList.contains('active')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           }     
         }
         if (evTarget.classList.contains('inactive')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }               
         }
       }
       // If ballRight, score right and increment 9 ball twice
       if (evTarget.classList.contains('right')) { 
         if (evTarget.classList.contains('neutral')) {
-          playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           }       
         }
         if (evTarget.classList.contains('active')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }     
         }
         if (evTarget.classList.contains('inactive')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           }               
         }
       }
@@ -76,6 +76,12 @@ const scoring = (function() {
       if ((currentScore % 10) === 0) {
         rackTable.appendColumn(ev);
         resetRack.showRackButtons();
+        var inputs = document.querySelectorAll('.row');
+        for (var i = 0; i < inputs.length; i++) {
+          if (!inputs[i].classList.contains('row-top')){
+		        inputs[i].style.pointerEvents = "none";
+          }
+        }
       }
     });
   }      

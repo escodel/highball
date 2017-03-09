@@ -39,6 +39,12 @@ const resetRack = (function() {
       resetDeadBalls();
       rack.innerHTML++;
       hideRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')){
+		      inputs[i].style.pointerEvents = "auto";
+        }
+      }
     }
   });
   

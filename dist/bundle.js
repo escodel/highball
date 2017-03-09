@@ -114,6 +114,12 @@ var resetRack = function () {
       resetDeadBalls();
       rack.innerHTML++;
       hideRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = "auto";
+        }
+      }
     }
   });
 
@@ -141,8 +147,7 @@ var diamond = function () {
   var _loop = function _loop(i) {
     // Dead Balls
     var mc = new Hammer(ball[i]);
-
-    mc.on('press', function (ev) {
+    var deadBallPress = function deadBallPress(ev) {
       var deadBallTarget = ev.target;
       var ballArray = Array.from(ball);
       var classListArray = Array.from(ev.target.classList);
@@ -171,10 +176,8 @@ var diamond = function () {
       }
       var deadBalls = document.querySelectorAll('.left-grid .dead');
       deadBallScore.innerHTML = deadBalls.length;
-    });
-
-    // Active / Inactive
-    ball[i].addEventListener('click', function (ev) {
+    };
+    var ballClick = function ballClick(ev) {
       var evTarget = ev.target;
       var clickedTargetClassList = evTarget.classList;
       var ballLeft = ball[i].classList.contains('left');
@@ -229,7 +232,12 @@ var diamond = function () {
         clickedTargetClassList.add('neutral');
         return;
       }
-    });
+    };
+
+    mc.on('press', deadBallPress);
+
+    // Active / Inactive
+    ball[i].addEventListener('click', ballClick);
   };
 
   for (var i = 0; i < ball.length; i++) {
@@ -348,6 +356,12 @@ var rackTable = function () {
     deleteColumn();
     nineBallsNeutral();
     resetRack.hideRackButtons();
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = "auto";
+      }
+    }
   });
 
   return {
@@ -402,42 +416,42 @@ var scoring = function () {
       // If ballLeft, score left and increment 9 ball twice
       if (evTarget.classList.contains('left')) {
         if (evTarget.classList.contains('neutral')) {
-          playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = increase(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
           }
         }
         if (evTarget.classList.contains('active')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           }
         }
         if (evTarget.classList.contains('inactive')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }
         }
       }
       // If ballRight, score right and increment 9 ball twice
       if (evTarget.classList.contains('right')) {
         if (evTarget.classList.contains('neutral')) {
-          playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = increase(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
           }
         }
         if (evTarget.classList.contains('active')) {
-          playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(new Number(playerTwoScore.innerHTML));
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
           }
         }
         if (evTarget.classList.contains('inactive')) {
-          playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(new Number(playerOneScore.innerHTML));
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
           }
         }
       }
@@ -447,6 +461,12 @@ var scoring = function () {
       if (currentScore % 10 === 0) {
         rackTable.appendColumn(ev);
         resetRack.showRackButtons();
+        var inputs = document.querySelectorAll('.row');
+        for (var i = 0; i < inputs.length; i++) {
+          if (!inputs[i].classList.contains('row-top')) {
+            inputs[i].style.pointerEvents = "none";
+          }
+        }
       }
     });
   }
