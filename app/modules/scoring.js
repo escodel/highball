@@ -117,7 +117,7 @@ const scoring = (function() {
       case "9": playerOneGoal.innerHTML = 75;
       break;
     }
-})
+});
 playerTwoSkill.addEventListener('change', function(ev) {
     switch(ev.currentTarget.value) {
       case "1" : playerTwoGoal.innerHTML = 14;
@@ -139,7 +139,7 @@ playerTwoSkill.addEventListener('change', function(ev) {
       case "9": playerTwoGoal.innerHTML = 75;
       break;
     }
-})
+});
 
 })();
 

@@ -2,15 +2,16 @@
 const incrementer = (function(){
   const incrementButton = document.querySelectorAll('.increment');
   const decrementButton = document.querySelectorAll('.decrement');
-  
+  let number = "";
+  let numberHtml = "";
   const counter = (increment, context) => {
     if (increment) {
-      var number = context.target.previousElementSibling;
-      var numberHtml = number.innerHTML;
+      number = context.target.previousElementSibling;
+      numberHtml = number.innerHTML;
       numberHtml++;
     } else {
-      var number = context.target.nextElementSibling;
-      var numberHtml = number.innerHTML;
+      number = context.target.nextElementSibling;
+      numberHtml = number.innerHTML;
       if (numberHtml === '0') {
         return;
       }

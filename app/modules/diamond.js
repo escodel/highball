@@ -22,8 +22,8 @@ const diamond = (function () {
         ballArray
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => {
-            b.classList.add('dead')
-            b.classList.remove('neutral')
+            b.classList.add('dead');
+            b.classList.remove('neutral');
 
           });
       } else if (deadBallTarget.classList.contains('dead')) {
@@ -32,9 +32,9 @@ const diamond = (function () {
         ballArray
           .filter(b => b.classList.contains(targetClass))
           .forEach(b => {
-            b.classList.remove('dead')
-            b.classList.add('neutral')
-          })
+            b.classList.remove('dead');
+            b.classList.add('neutral');
+          });
         ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
 
       }
@@ -98,10 +98,10 @@ const diamond = (function () {
       }
     };
 
-    mc.on('press', deadBallPress)
+    mc.on('press', deadBallPress);
 
     // Active / Inactive
-    ball[i].addEventListener('click', ballClick)
+    ball[i].addEventListener('click', ballClick);
   }
 })();
 
