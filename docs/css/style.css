@@ -109,7 +109,7 @@ a {
   border-style: solid;
   border-width: thin; 
   border-color: black;
-
+  box-shadow: #333 0px 2px 12px;
 }
 
 .ball-1 {
@@ -241,6 +241,7 @@ a {
   margin-left: auto;
   margin-right: auto;
   background-color: #094f09;
+  box-shadow: #333 0px 2px 12px;
 }
 
 .rack-table tr {
@@ -263,6 +264,10 @@ th.label {
 
 .hidden {
   visibility: hidden;
+}
+
+.score {
+  text-shadow: #333 0px 2px 12px;
 }
 
 .edit-score {
