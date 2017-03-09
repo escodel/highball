@@ -83,7 +83,7 @@ const scoring = (function() {
       
       // Calculate score on each click. If modulo 10, reset rack functionality.
       let currentScore = calcScore();
-      if ((currentScore % 10) === 0 && currentScore !== 0 && document.querySelectorAll('.neutral').length === 2) {
+      if ((currentScore % 10) === 0 && currentScore !== 0) {
         rackTable.appendColumn(ev);
         resetRack.showRackButtons();
         let inputs = document.querySelectorAll('.row');
