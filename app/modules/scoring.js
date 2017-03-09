@@ -74,12 +74,16 @@ const scoring = (function() {
       // Calculate score on each click. If modulo 10, reset rack functionality.
       let currentScore = calcScore();
       if ((currentScore % 10) === 0) {
+//    Add back once we decouple score and UI        
+//        if (document.querySelectorAll('.neutral').length !== 0) {
+//          return;
+//        }
         rackTable.appendColumn(ev);
         resetRack.showRackButtons();
-        var inputs = document.querySelectorAll('.row');
-        for (var i = 0; i < inputs.length; i++) {
+        let inputs = document.querySelectorAll('.row');
+        for (let i = 0; i < inputs.length; i++) {
           if (!inputs[i].classList.contains('row-top')){
-		        inputs[i].style.pointerEvents = "none";
+		    inputs[i].style.pointerEvents = 'none';
           }
         }
       }

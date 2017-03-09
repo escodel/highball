@@ -37,12 +37,12 @@ const resetRack = (function() {
       resetRack();
       resetInnings();
       resetDeadBalls();
-      rack.innerHTML++;
+      rack.innerHTML++;      
       hideRackButtons();
-      var inputs = document.querySelectorAll('.row');
-      for (var i = 0; i < inputs.length; i++) {
+      let inputs = document.querySelectorAll('.row');
+      for (let i = 0; i < inputs.length; i++) {
         if (!inputs[i].classList.contains('row-top')){
-		      inputs[i].style.pointerEvents = "auto";
+		      inputs[i].style.pointerEvents = 'auto';
         }
       }
     }

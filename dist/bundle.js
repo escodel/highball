@@ -117,7 +117,7 @@ var resetRack = function () {
       var inputs = document.querySelectorAll('.row');
       for (var i = 0; i < inputs.length; i++) {
         if (!inputs[i].classList.contains('row-top')) {
-          inputs[i].style.pointerEvents = "auto";
+          inputs[i].style.pointerEvents = 'auto';
         }
       }
     }
@@ -318,8 +318,6 @@ var rackTable = function () {
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
       createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
       createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-    } else {
-      deleteColumn();
     }
 
     //adds rack-table-sm class to rack-table in order to restrict width and add scroll
@@ -359,7 +357,7 @@ var rackTable = function () {
     var inputs = document.querySelectorAll('.row');
     for (var i = 0; i < inputs.length; i++) {
       if (!inputs[i].classList.contains('row-top')) {
-        inputs[i].style.pointerEvents = "auto";
+        inputs[i].style.pointerEvents = 'auto';
       }
     }
   });
@@ -459,12 +457,16 @@ var scoring = function () {
       // Calculate score on each click. If modulo 10, reset rack functionality.
       var currentScore = calcScore();
       if (currentScore % 10 === 0) {
+        //    Add back once we decouple score and UI        
+        //        if (document.querySelectorAll('.neutral').length !== 0) {
+        //          return;
+        //        }
         rackTable.appendColumn(ev);
         resetRack.showRackButtons();
         var inputs = document.querySelectorAll('.row');
-        for (var i = 0; i < inputs.length; i++) {
-          if (!inputs[i].classList.contains('row-top')) {
-            inputs[i].style.pointerEvents = "none";
+        for (var _i = 0; _i < inputs.length; _i++) {
+          if (!inputs[_i].classList.contains('row-top')) {
+            inputs[_i].style.pointerEvents = 'none';
           }
         }
       }

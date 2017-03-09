@@ -25,8 +25,6 @@ const rackTable = (function () {
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'col-' + 1);
       createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
       createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-    } else {
-      deleteColumn();
     }
     
     //adds rack-table-sm class to rack-table in order to restrict width and add scroll
@@ -61,12 +59,12 @@ const rackTable = (function () {
     deleteColumn();
     nineBallsNeutral();
     resetRack.hideRackButtons();
-    var inputs = document.querySelectorAll('.row');
-for (var i = 0; i < inputs.length; i++) {
-    if (!inputs[i].classList.contains('row-top')){
-		inputs[i].style.pointerEvents = "auto";
+    let inputs = document.querySelectorAll('.row');
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')){
+        inputs[i].style.pointerEvents = 'auto';
+      }
     }
-}
   });
 
   return {
