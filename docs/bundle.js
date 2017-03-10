@@ -260,15 +260,16 @@ module.exports = diamond;
 var incrementer = function () {
   var incrementButton = document.querySelectorAll('.increment');
   var decrementButton = document.querySelectorAll('.decrement');
-
+  var number = "";
+  var numberHtml = "";
   var counter = function counter(increment, context) {
     if (increment) {
-      var number = context.target.previousElementSibling;
-      var numberHtml = number.innerHTML;
+      number = context.target.previousElementSibling;
+      numberHtml = number.innerHTML;
       numberHtml++;
     } else {
-      var number = context.target.nextElementSibling;
-      var numberHtml = number.innerHTML;
+      number = context.target.nextElementSibling;
+      numberHtml = number.innerHTML;
       if (numberHtml === '0') {
         return;
       }
@@ -307,10 +308,14 @@ var matchPoints = function () {
 
         if (!playerOneName) {
             playerOneName = "Player One";
+        } else {
+            playerOneName = playerOneName.replace(/&nbsp;/gi, '');
         }
 
         if (!playerTwoName) {
             playerTwoName = "Player Two";
+        } else {
+            playerTwoName = playerTwoName.replace(/&nbsp;/gi, '');
         }
 
         var inningsTable = document.querySelectorAll('.innings-table') || 0;
