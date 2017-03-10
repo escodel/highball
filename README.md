@@ -2,20 +2,21 @@
 9-ball pool score tracker
 
 # Recent changes:
-- End of match barely working (through alert, no UI yet)
+- Fixed rack table not activating when dead ball is the last selected
+- Trimmed spaces from names
+- Fixed issue on activate and de-activate the first ball
+- End of match working (alerts!)
 - Portrait end of rack score
 - Did not update docs (external facing github.io site) yet.
 - End of rack functionality: right now it only triggers when the 9 ball is tapped and module 0. Would like this to happen when any bal is tapped or dead ball is marked so that you don't have to tap the 9 ball to initiate end of rack.
 
+
 # To do:
 - more negative test cases
-- breaking on activate and de-activate the first ball
 - implement Hammertime to reduce click/touch delay.
 - lock zoom (iOS thing, escodel knows what this is).. may not be adding this.
 - Clean up function declaration in scoring.js
-- End of match functionality
-    - UI
-    - Data persistence (defer)
+- Data persistence (defer)
     - Modal to ask if they want to continue or reset. Also need "oops" button if the final point was marked in error - unmark most recently marked point. I think it should look like <player name> wins! Final score 14-6. Total Innings: 26. Then have two buttons: keep playing or Reset (maybe with a confirmation on the reset button)
 - Tablet responsiveness (button padding, fonts, 
 - Think about monetization, official hosting, license
