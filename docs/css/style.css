@@ -108,7 +108,7 @@ a {
   border-radius: 50%;
   border-style: solid;
   border-width: thin; 
-  border-color: black;
+  border-color: transparent;
   box-shadow: #333 0px 2px 12px;
 }
 
