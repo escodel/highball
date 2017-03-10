@@ -12,9 +12,16 @@ const matchPoints = (function() {
         if (!playerOneName) {
             playerOneName = "Player One";
         }
+        else {
+            playerOneName = playerOneName.replace(/&nbsp;/gi,'');
+        }
 
         if (!playerTwoName) {
             playerTwoName = "Player Two";
+        }
+
+        else {
+            playerTwoName = playerTwoName.replace(/&nbsp;/gi,'');
         }
 
         let inningsTable = document.querySelectorAll('.innings-table') || 0;
