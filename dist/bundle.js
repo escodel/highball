@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -139,8 +139,49 @@ module.exports = resetRack;
 "use strict";
 
 
+var rackTable = __webpack_require__(5);
+var resetRack = __webpack_require__(0);
+
+var dead9OTS = function () {
+  var nineOTSleft = document.querySelector('.nineOTS.left');
+  var nineOTSright = document.querySelector('.nineOTS.right');
+  var allBalls = document.querySelectorAll('.ball');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  var markDead = function markDead(ev) {
+    for (var i = 0; i < nineBall.length; i++) {
+      if (nineBall[i].classList.contains('active')) {
+        for (var j = 0; j < allBalls.length; j++) {
+          if (!allBalls[j].classList.contains('active') && !allBalls[j].classList.contains('inactive') && !allBalls[j].parentElement.classList.contains('spacer')) {
+            allBalls[j].classList.add('dead');
+            allBalls[j].classList.remove('neutral');
+            allBalls[j].classList.remove('inactive');
+            rackTable.appendColumn(ev);
+            resetRack.showRackButtons();
+            var deadBalls = document.querySelectorAll('.left-grid .dead');
+            deadBallScore.innerHTML = deadBalls.length;
+          }
+        }
+      }
+    }
+  };
+
+  nineOTSleft.addEventListener('click', markDead);
+  nineOTSright.addEventListener('click', markDead);
+}();
+
+module.exports = dead9OTS;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 /*jshint esversion: 6 */
-var scoring = __webpack_require__(5);
+var scoring = __webpack_require__(6);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -250,7 +291,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -289,7 +330,7 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1160,7 +1201,7 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1255,16 +1296,16 @@ var rackTable = function () {
 module.exports = rackTable;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var rackTable = __webpack_require__(4);
+var rackTable = __webpack_require__(5);
 var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(3);
+var matchPoints = __webpack_require__(4);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -1430,17 +1471,18 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var incrementer = __webpack_require__(2);
-var diamond = __webpack_require__(1);
+var incrementer = __webpack_require__(3);
+var diamond = __webpack_require__(2);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
+var dead9OTS = __webpack_require__(1);
 
 var lock = document.querySelector('.lock');
 
