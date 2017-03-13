@@ -234,9 +234,192 @@ module.exports = rackTable;
 "use strict";
 
 
+/*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var scoring = __webpack_require__(6);
+var matchPoints = __webpack_require__(6);
+
+var scoring = function () {
+  var ball = document.querySelectorAll('.ball');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var deadBalls = document.querySelector('.dead-ball-score');
+
+  var playerOneSkill = document.querySelector('.skill-level.left');
+  var playerTwoSkill = document.querySelector('.skill-level.right');
+  var playerOneGoal = document.querySelector('#leftPlayerGoal');
+  var playerTwoGoal = document.querySelector('#rightPlayerGoal');
+
+  var increase = function increase(obj) {
+    return obj + 1;
+  };
+  var decrease = function decrease(obj) {
+    return obj - 1;
+  };
+  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
+  var calcScore = function calcScore() {
+    var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
+    var deadBallTotal = 0;
+    for (var i = 0; i < deadBallTable.length; i++) {
+      deadBallTotal += Number(deadBallTable[i].innerHTML);
+    }
+
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
+  };
+
+  var checkRackEnd = function checkRackEnd(ev) {
+    // Calculate score on each click. If modulo 10, reset rack functionality.
+    var currentScore = calcScore();
+    if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
+      rackTable.appendColumn(ev);
+      resetRack.showRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'none';
+        }
+      }
+    }
+  };
+
+  for (var i = 0; i < ball.length; i++) {
+    ball[i].addEventListener('click', function (ev) {
+      var evTarget = ev.target;
+      // If ballLeft, score left and increment 9 ball twice
+      if (evTarget.classList.contains('left')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
+          }
+          //end of match checker
+          if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+            matchPoints.endOfMatch(1);
+          }
+        }
+        if (evTarget.classList.contains('active')) {
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          }
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          }
+        }
+      }
+      // If ballRight, score right and increment 9 ball twice
+      if (evTarget.classList.contains('right')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
+          }
+          //end of match checker
+          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+            matchPoints.endOfMatch(2);
+          }
+        }
+        if (evTarget.classList.contains('active')) {
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          }
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          }
+        }
+      }
+
+      checkRackEnd(ev);
+    });
+  }
+
+  playerOneSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerOneGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerOneGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerOneGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerOneGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerOneGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerOneGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerOneGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerOneGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerOneGoal.innerHTML = 75;
+        break;
+    }
+  });
+  playerTwoSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerTwoGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerTwoGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerTwoGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerTwoGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerTwoGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerTwoGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerTwoGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerTwoGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerTwoGoal.innerHTML = 75;
+        break;
+    }
+  });
+
+  return {
+    checkRackEnd: checkRackEnd
+  };
+}();
+
+module.exports = scoring;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var rackTable = __webpack_require__(1);
+var resetRack = __webpack_require__(0);
+var scoring = __webpack_require__(2);
 
 var dead9OTS = function () {
   var nineOTSleft = document.querySelector('.nineOTS.left');
@@ -283,14 +466,14 @@ var dead9OTS = function () {
 module.exports = dead9OTS;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var scoring = __webpack_require__(6);
+var scoring = __webpack_require__(2);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -400,7 +583,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -439,7 +622,7 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1310,201 +1493,18 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var rackTable = __webpack_require__(1);
-var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(5);
-
-var scoring = function () {
-  var ball = document.querySelectorAll('.ball');
-  var playerOneScore = document.querySelector('.player-one-score');
-  var playerTwoScore = document.querySelector('.player-two-score');
-  var deadBalls = document.querySelector('.dead-ball-score');
-
-  var playerOneSkill = document.querySelector('.skill-level.left');
-  var playerTwoSkill = document.querySelector('.skill-level.right');
-  var playerOneGoal = document.querySelector('#leftPlayerGoal');
-  var playerTwoGoal = document.querySelector('#rightPlayerGoal');
-
-  var increase = function increase(obj) {
-    return obj + 1;
-  };
-  var decrease = function decrease(obj) {
-    return obj - 1;
-  };
-  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
-  var calcScore = function calcScore() {
-    var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
-    var deadBallTotal = 0;
-    for (var i = 0; i < deadBallTable.length; i++) {
-      deadBallTotal += Number(deadBallTable[i].innerHTML);
-    }
-
-    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
-  };
-
-  var checkRackEnd = function checkRackEnd(ev) {
-    // Calculate score on each click. If modulo 10, reset rack functionality.
-    var currentScore = calcScore();
-    if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
-      rackTable.appendColumn(ev);
-      resetRack.showRackButtons();
-      var inputs = document.querySelectorAll('.row');
-      for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].classList.contains('row-top')) {
-          inputs[i].style.pointerEvents = 'none';
-        }
-      }
-    }
-  };
-
-  for (var i = 0; i < ball.length; i++) {
-    ball[i].addEventListener('click', function (ev) {
-      var evTarget = ev.target;
-      // If ballLeft, score left and increment 9 ball twice
-      if (evTarget.classList.contains('left')) {
-        if (evTarget.classList.contains('neutral')) {
-          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
-          }
-          //end of match checker
-          if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
-            matchPoints.endOfMatch(1);
-          }
-        }
-        if (evTarget.classList.contains('active')) {
-          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          }
-        }
-        if (evTarget.classList.contains('inactive')) {
-          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          }
-        }
-      }
-      // If ballRight, score right and increment 9 ball twice
-      if (evTarget.classList.contains('right')) {
-        if (evTarget.classList.contains('neutral')) {
-          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
-          }
-          //end of match checker
-          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
-            matchPoints.endOfMatch(2);
-          }
-        }
-        if (evTarget.classList.contains('active')) {
-          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          }
-        }
-        if (evTarget.classList.contains('inactive')) {
-          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          }
-        }
-      }
-
-      checkRackEnd();
-    });
-  }
-
-  playerOneSkill.addEventListener('change', function (ev) {
-    switch (ev.currentTarget.value) {
-      case "1":
-        playerOneGoal.innerHTML = 14;
-        break;
-      case "2":
-        playerOneGoal.innerHTML = 19;
-        break;
-      case "3":
-        playerOneGoal.innerHTML = 25;
-        break;
-      case "4":
-        playerOneGoal.innerHTML = 31;
-        break;
-      case "5":
-        playerOneGoal.innerHTML = 38;
-        break;
-      case "6":
-        playerOneGoal.innerHTML = 46;
-        break;
-      case "7":
-        playerOneGoal.innerHTML = 55;
-        break;
-      case "8":
-        playerOneGoal.innerHTML = 65;
-        break;
-      case "9":
-        playerOneGoal.innerHTML = 75;
-        break;
-    }
-  });
-  playerTwoSkill.addEventListener('change', function (ev) {
-    switch (ev.currentTarget.value) {
-      case "1":
-        playerTwoGoal.innerHTML = 14;
-        break;
-      case "2":
-        playerTwoGoal.innerHTML = 19;
-        break;
-      case "3":
-        playerTwoGoal.innerHTML = 25;
-        break;
-      case "4":
-        playerTwoGoal.innerHTML = 31;
-        break;
-      case "5":
-        playerTwoGoal.innerHTML = 38;
-        break;
-      case "6":
-        playerTwoGoal.innerHTML = 46;
-        break;
-      case "7":
-        playerTwoGoal.innerHTML = 55;
-        break;
-      case "8":
-        playerTwoGoal.innerHTML = 65;
-        break;
-      case "9":
-        playerTwoGoal.innerHTML = 75;
-        break;
-    }
-  });
-
-  return {
-    checkRackEnd: checkRackEnd
-  };
-}();
-
-module.exports = scoring;
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var incrementer = __webpack_require__(4);
-var diamond = __webpack_require__(3);
+var incrementer = __webpack_require__(5);
+var diamond = __webpack_require__(4);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
-var dead9OTS = __webpack_require__(2);
+var dead9OTS = __webpack_require__(3);
 
 var lock = document.querySelector('.lock');
 
