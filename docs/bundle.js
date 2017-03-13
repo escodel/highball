@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -140,7 +140,157 @@ module.exports = resetRack;
 
 
 /*jshint esversion: 6 */
-var scoring = __webpack_require__(5);
+var resetRack = __webpack_require__(0);
+
+var rackTable = function () {
+  var table = document.querySelector('.rack-table');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rackNumber = document.querySelector('.rack');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var innings = document.querySelector('.number-innings');
+  var deadBalls = document.querySelector('.dead-ball-score');
+  var editScore = document.querySelector('.edit-score');
+  var nextRack = document.querySelector('.next-rack');
+
+  var createCell = function createCell(cell, text, style) {
+    var div = document.createElement('div'); // create DIV element
+    var txt = document.createTextNode(text); // create text node
+    div.appendChild(txt); // append text node to the DIV
+    div.setAttribute('class', style); // set DIV class attribute
+    cell.appendChild(div); // append DIV to the table cell
+  };
+  var appendColumn = function appendColumn(ev) {
+    if (ev.target.classList.contains('neutral') || ev.target.classList.contains('dead') || ev.target.classList.contains('nineOTS')) {
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
+      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
+      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
+      portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
+    }
+
+    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
+    if (table.offsetWidth >= 250) {
+      table.classList.add('rack-table-sm');
+    }
+  };
+  var deleteColumn = function deleteColumn() {
+    var lastCol = table.rows[0].cells.length - 1;
+
+    for (var i = 0; i < table.rows.length; i++) {
+      table.rows[i].deleteCell(lastCol);
+    }
+  };
+  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
+  var nineBallsNeutral = function nineBallsNeutral() {
+    for (var i = 0; i < nineBall.length; i++) {
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
+        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
+      }
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
+        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
+      }
+      nineBall[i].classList.remove('active');
+      nineBall[i].classList.remove('inactive');
+      nineBall[i].classList.add('neutral');
+    }
+  };
+  var decrementPlayerScore = function decrementPlayerScore(obj) {
+    return obj - 2;
+  };
+
+  editScore.addEventListener('click', function () {
+    deleteColumn();
+    nineBallsNeutral();
+    resetRack.hideRackButtons();
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
+  });
+
+  var portraitTable = function portraitTable(p1Score, innings, dead, p2score) {
+    var portraitParent = document.querySelector('.screen-portrait');
+    var portraitContents = "";
+    portraitContents += '<div class="view"><div class="last-rack-column"><div class="portrait-Score">' + p1Score + '</div><div class="portrait-Score">' + innings + '</div><div class="portrait-Score">' + dead + '</div><div class="portrait-Score">' + p2score + '</div></div>';
+    portraitParent.innerHTML = portraitContents;
+  };
+
+  return {
+    appendColumn: appendColumn,
+    deleteColumn: deleteColumn
+  };
+}();
+
+module.exports = rackTable;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var rackTable = __webpack_require__(1);
+var resetRack = __webpack_require__(0);
+var scoring = __webpack_require__(6);
+
+var dead9OTS = function () {
+  var nineOTSleft = document.querySelector('.nineOTS.left');
+  var nineOTSright = document.querySelector('.nineOTS.right');
+  var allBalls = document.querySelectorAll('.ball');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var nineBallLeft = document.querySelector('.ball-9.left.active');
+  var nineBallRight = document.querySelector('.ball-9.right.active');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  var markDead = function markDead(ev) {
+    //    if (position === 'left' && nineBallRight.length === 1) {
+    //      return;
+    //    }
+    //    if (position === 'right' && nineBallLeft.length === 1) {
+    //      return;
+    //    }
+    if (ev.currentTarget.classList.contains('left') && document.querySelector('.ball-9.left.active') === null || ev.currentTarget.classList.contains('right') && document.querySelector('.ball-9.right.active') === null) {
+      return;
+    } else {
+      for (var i = 0; i < nineBall.length; i++) {
+        if (nineBall[i].classList.contains('active')) {
+          for (var j = 0; j < allBalls.length; j++) {
+            if (!allBalls[j].classList.contains('active') && !allBalls[j].classList.contains('inactive') && !allBalls[j].parentElement.classList.contains('spacer')) {
+              allBalls[j].classList.add('dead');
+              allBalls[j].classList.remove('neutral');
+              allBalls[j].classList.remove('inactive');
+              var deadBalls = document.querySelectorAll('.left-grid .dead');
+              deadBallScore.innerHTML = deadBalls.length;
+            }
+          }
+          //          rackTable.appendColumn(ev);
+          //          resetRack.showRackButtons();
+          scoring.checkRackEnd(ev);
+        }
+      }
+    }
+  };
+
+  nineOTSleft.addEventListener('click', markDead);
+  nineOTSright.addEventListener('click', markDead);
+}();
+
+module.exports = dead9OTS;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var scoring = __webpack_require__(6);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -250,7 +400,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -289,7 +439,7 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1160,111 +1310,16 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
+var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-
-var rackTable = function () {
-  var table = document.querySelector('.rack-table');
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rackNumber = document.querySelector('.rack');
-  var playerOneScore = document.querySelector('.player-one-score');
-  var playerTwoScore = document.querySelector('.player-two-score');
-  var innings = document.querySelector('.number-innings');
-  var deadBalls = document.querySelector('.dead-ball-score');
-  var editScore = document.querySelector('.edit-score');
-  var nextRack = document.querySelector('.next-rack');
-
-  var createCell = function createCell(cell, text, style) {
-    var div = document.createElement('div'); // create DIV element
-    var txt = document.createTextNode(text); // create text node
-    div.appendChild(txt); // append text node to the DIV
-    div.setAttribute('class', style); // set DIV class attribute
-    cell.appendChild(div); // append DIV to the table cell
-  };
-  var appendColumn = function appendColumn(ev) {
-    if (ev.target.classList.contains('neutral') || ev.target.classList.contains('dead')) {
-      createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
-      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
-      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
-      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
-      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-      portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
-    }
-
-    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
-    if (table.offsetWidth >= 250) {
-      table.classList.add('rack-table-sm');
-    }
-  };
-  var deleteColumn = function deleteColumn() {
-    var lastCol = table.rows[0].cells.length - 1;
-
-    for (var i = 0; i < table.rows.length; i++) {
-      table.rows[i].deleteCell(lastCol);
-    }
-  };
-  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
-  var nineBallsNeutral = function nineBallsNeutral() {
-    for (var i = 0; i < nineBall.length; i++) {
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
-        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
-      }
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
-        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
-      }
-      nineBall[i].classList.remove('active');
-      nineBall[i].classList.remove('inactive');
-      nineBall[i].classList.add('neutral');
-    }
-  };
-  var decrementPlayerScore = function decrementPlayerScore(obj) {
-    return obj - 2;
-  };
-
-  editScore.addEventListener('click', function () {
-    deleteColumn();
-    nineBallsNeutral();
-    resetRack.hideRackButtons();
-    var inputs = document.querySelectorAll('.row');
-    for (var i = 0; i < inputs.length; i++) {
-      if (!inputs[i].classList.contains('row-top')) {
-        inputs[i].style.pointerEvents = 'auto';
-      }
-    }
-  });
-
-  var portraitTable = function portraitTable(p1Score, innings, dead, p2score) {
-    var portraitParent = document.querySelector('.screen-portrait');
-    var portraitContents = "";
-    portraitContents += '<div class="view"><div class="last-rack-column"><div class="portrait-Score">' + p1Score + '</div><div class="portrait-Score">' + innings + '</div><div class="portrait-Score">' + dead + '</div><div class="portrait-Score">' + p2score + '</div></div>';
-    portraitParent.innerHTML = portraitContents;
-  };
-
-  return {
-    appendColumn: appendColumn,
-    deleteColumn: deleteColumn
-  };
-}();
-
-module.exports = rackTable;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var rackTable = __webpack_require__(4);
-var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(3);
+var matchPoints = __webpack_require__(5);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -1292,6 +1347,21 @@ var scoring = function () {
     }
 
     return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
+  };
+
+  var checkRackEnd = function checkRackEnd(ev) {
+    // Calculate score on each click. If modulo 10, reset rack functionality.
+    var currentScore = calcScore();
+    if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
+      rackTable.appendColumn(ev);
+      resetRack.showRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'none';
+        }
+      }
+    }
   };
 
   for (var i = 0; i < ball.length; i++) {
@@ -1348,18 +1418,7 @@ var scoring = function () {
         }
       }
 
-      // Calculate score on each click. If modulo 10, reset rack functionality.
-      var currentScore = calcScore();
-      if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
-        rackTable.appendColumn(ev);
-        resetRack.showRackButtons();
-        var inputs = document.querySelectorAll('.row');
-        for (var _i = 0; _i < inputs.length; _i++) {
-          if (!inputs[_i].classList.contains('row-top')) {
-            inputs[_i].style.pointerEvents = 'none';
-          }
-        }
-      }
+      checkRackEnd();
     });
   }
 
@@ -1425,22 +1484,27 @@ var scoring = function () {
         break;
     }
   });
+
+  return {
+    checkRackEnd: checkRackEnd
+  };
 }();
 
 module.exports = scoring;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var incrementer = __webpack_require__(2);
-var diamond = __webpack_require__(1);
+var incrementer = __webpack_require__(4);
+var diamond = __webpack_require__(3);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
+var dead9OTS = __webpack_require__(2);
 
 var lock = document.querySelector('.lock');
 
