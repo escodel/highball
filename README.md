@@ -2,6 +2,7 @@
 9-ball pool score tracker
 
 # Recent changes:
+- Logo modified to transparent background with slight shadow on 9 ball
 - Fixed rack table not activating when dead ball is the last selected
 - Trimmed spaces from names
 - Fixed issue on activate and de-activate the first ball
