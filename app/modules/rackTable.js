@@ -20,7 +20,7 @@ const rackTable = (function () {
     cell.appendChild(div); // append DIV to the table cell
   };
   const appendColumn = function (ev) {
-    if (ev.target.classList.contains('neutral') || (ev.target.classList.contains('dead'))) {
+    if (ev.target.classList.contains('neutral') || (ev.target.classList.contains('dead')) || ev.target.classList.contains('nineOTS')) {
       createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
       createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
       createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
