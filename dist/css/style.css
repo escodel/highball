@@ -1,3 +1,7 @@
+html {
+  font-size: calc(16px + (24 - 16) * (60vw - 400px) / (800 - 400));
+}
+
 body {
   background: #0c630c;
   color: white;
@@ -104,7 +108,7 @@ a {
   text-align: center;
   padding-top: 20%; 
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
-  font-size: calc(112.5% + 0.5vw);
+  font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
   border-radius: 50%;
   border-style: solid;
   border-width: thin; 
