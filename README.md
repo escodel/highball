@@ -1,7 +1,16 @@
 # highball
-9-ball pool score tracker
+Mobile-focused 9 ball pool score tracker
+- Enter a name for each player and select their skill level
+- Tap a ball to activate it and mark a point
+- Touch and hold to mark a ball as dead
+- Mark Innings, Defenses, Break & Runs, and 9 On The Snaps with the incrementer buttons (+/-).
+    - If you mark the 9 as active and then increment a 9 On The Snap, all neutral balls will be marked as dead
+- At the end of each rack (once all balls are either active or dead), the rack table will have a column added with player 1's point total, innings for that rack, dead balls for that rack, and player 2's point total.
+    - Tap Next Rack to save this score and begin the next rack
+    - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
 # Recent changes:
+- Detects if 9 ball is active and then 9OTS gets incremented and there are still neutral on the table. Marks all neutral balls dead.
 - Logo modified to transparent background with slight shadow on 9 ball
 - Fixed rack table not activating when dead ball is the last selected
 - Trimmed spaces from names
@@ -12,8 +21,7 @@
 
 
 # To do:
-- Detect if 9 ball is active and then 9OTS gets incremented and there are still neutral on the table, mark all neutrals as dead. Make sure end of rack works properly on 9OTS increment.
-- more negative test cases
+
 - implement Hammertime to reduce click/touch delay.
 - lock zoom (iOS thing, escodel knows what this is).. may not be adding this.
 - Clean up function declaration in scoring.js
@@ -23,10 +31,19 @@
 - Think about monetization, official hosting, license
 - Think about modifying logo - try different background color or leaving the main favicon the same but putting the vertical/welcome screen as darker/no background
 - Donate button
+- Lock left-most table column (th's)
 
 - Nice to have functionality
     - Load previous match
     - Keep track of multiple matches (like a full league night, maybe even checking skill level max 23)
+    
+- Browser Inconsistencies:
+    - Looks best on chrome android devices (phone size)
+        - When launched from home screen shortcut, the URL bar is always visible and the app scrolls a tiny bit (bottom buttons can be cut off or the top half of player names can be cut off).
+        - When launched in the chrome browser, URL bar can be hidden by scrolling up and down a few times
+    - Tablet sizing still isn't perfect, but not terrible.
+    - On iOS UI Web View (and older versions of Safari), tap delay of 300 ms can be annoying. Regular Safari is ok.
+    - On iOS Chrome, no tap delay but the URL bar is always visible
 
 
 # Less-recent changes:
