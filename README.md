@@ -31,6 +31,7 @@ Mobile-focused 9 ball pool score tracker
 - Think about monetization, official hosting, license
 - Think about modifying logo - try different background color or leaving the main favicon the same but putting the vertical/welcome screen as darker/no background
 - Donate button
+- Lock left-most table column (th's)
 
 - Nice to have functionality
     - Load previous match
