@@ -1,5 +1,13 @@
 # highball
-9-ball pool score tracker
+Mobile-focused 9 ball pool score tracker
+- Enter a name for each player and select their skill level
+- Tap a ball to activate it and mark a point
+- Touch and hold to mark a ball as dead
+- Mark Innings, Defenses, Break & Runs, and 9 On The Snaps with the incrementer buttons (+/-).
+    - If you mark the 9 as active and then increment a 9 On The Snap, all neutral balls will be marked as dead
+- At the end of each rack (once all balls are either active or dead), the rack table will have a column added with player 1's point total, innings for that rack, dead balls for that rack, and player 2's point total.
+    - Tap Next Rack to save this score and begin the next rack
+    - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
 # Recent changes:
 - Logo modified to transparent background with slight shadow on 9 ball
