@@ -320,3 +320,7 @@ th.label {
   justify-content: center;
   font-weight: bold;
 }
+
+.rack-buttons {
+  margin-top: .5rem;
+}
