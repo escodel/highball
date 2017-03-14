@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 const rackTable = require('./rackTable');
 const resetRack = require('./resetRack');
 const scoring = require('./scoring');

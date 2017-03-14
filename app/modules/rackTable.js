@@ -28,7 +28,7 @@ const rackTable = (function () {
       createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
       createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
       portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
-
+      document.querySelector('tr td:last-child').scrollIntoView();
     }
     
     //adds rack-table-sm class to rack-table in order to restrict width and add scroll

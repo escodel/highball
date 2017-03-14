@@ -40,7 +40,7 @@ const scoring = (function () {
         }
       }
     }
-  }
+  };
 
   for (let i = 0; i < ball.length; i++) {
     ball[i].addEventListener('click', function (ev) {
@@ -165,7 +165,7 @@ const scoring = (function () {
 
   return {
     checkRackEnd: checkRackEnd
-  }
+  };
 
 })();
 
