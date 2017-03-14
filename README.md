@@ -85,3 +85,9 @@ http://levid.com/cuescore-scoresheet.jpg
 http://forums.azbilliards.com/attachment.php?attachmentid=312822&stc=1&d=1389192454
 
 
+# Debug assistance:
+function quickRack() {
+document.querySelector(".ball-9.left").click()
+document.querySelector(".nineOTS.left").click()
+document.querySelector(".next-rack").click()
+}
