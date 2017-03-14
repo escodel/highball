@@ -248,8 +248,21 @@ a {
   border-bottom: 1px solid gray;
 }
 
+.rack-table th {
+  background: #094f09;
+  width: 45px;
+}
+
+.th-fixed {
+  position: fixed;
+}
+
 .rack-table th, td {
   padding: 0.2em 0.4em;
+}
+
+.td-padding {
+  padding-left: 4rem;
 }
 
 .rack-table-sm {

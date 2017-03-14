@@ -3,6 +3,7 @@ const resetRack = require('./resetRack');
 
 const rackTable = (function () {
   const table = document.querySelector('.rack-table');
+  const tableHeaders = document.querySelectorAll('.rack-table th');
   const nineBall = document.querySelectorAll('.ball-9');
   const rackNumber = document.querySelector('.rack');
   const playerOneScore = document.querySelector('.player-one-score');
@@ -32,7 +33,13 @@ const rackTable = (function () {
     
     //adds rack-table-sm class to rack-table in order to restrict width and add scroll
     if (table.offsetWidth >= 250) {
+      const tableHeadersNext = document.querySelectorAll('th + td');
+
       table.classList.add('rack-table-sm');
+      for (let i = 0; i < tableHeaders.length; i++) {
+        tableHeaders[i].classList.add('th-fixed');
+        tableHeadersNext[i].classList.add('td-padding');
+      }
     }
   };
   const deleteColumn = function () {
