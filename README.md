@@ -45,6 +45,16 @@ Mobile-focused 9 ball pool score tracker
     - On iOS UI Web View (and older versions of Safari), tap delay of 300 ms can be annoying. Regular Safari is ok.
     - On iOS Chrome, no tap delay but the URL bar is always visible
 
+# V2 ideas:
+- Make the portrait mode the "menu" screen - make a button to show latest rackScore column
+
+- Web Sockets: Make view-only version accessible - maybe have a room ID that people could connect to
+
+- Make league night version - keeps score for 5 matches... use the menu on the portrait screen to view match summaries
+
+- Make "finalize match" button end of match -- show table like last 5 columns of current score sheet: snaps, b&r, total innings, defenses, total points, match points earned.
+
+- From the portrait menu screen, see running total
 
 # Less-recent changes:
 - Orientation fixed so that portrait displays landing view and landscape displays main app view.
