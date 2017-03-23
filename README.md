@@ -10,32 +10,27 @@ Mobile-focused 9 ball pool score tracker
     - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
 # Recent changes:
+- Made dead ball check for end of rack -- fixed minor bug
 - Detects if 9 ball is active and then 9OTS gets incremented and there are still neutral on the table. Marks all neutral balls dead.
+- Froze left-most column of rack table
 - Logo modified to transparent background with slight shadow on 9 ball
 - Fixed rack table not activating when dead ball is the last selected
 - Trimmed spaces from names
 - Fixed issue on activate and de-activate the first ball
 - End of match working (alerts!)
 - Portrait end of rack score
-- End of rack functionality: right now it only triggers when the 9 ball is tapped and module 0. Would like this to happen when any bal is tapped or dead ball is marked so that you don't have to tap the 9 ball to initiate end of rack.
-
 
 # To do:
 
+- Donation button - see if venmo has a donation form that takes credit cards or if you have to have venmo to donate
+- Hosting (highball.io?)
+- Menu for rooms/display latest rack score in portrait
+- End of match UI (table? modal?)
 - implement Hammertime to reduce click/touch delay.
 - lock zoom (iOS thing, escodel knows what this is).. may not be adding this.
 - Clean up function declaration in scoring.js
 - Data persistence (defer)
-- (Vanilla modal js) Modal to ask if they want to continue or reset. Also need "oops" button if the final point was marked in error - unmark most recently marked point. I think it should look like <player name> wins! Match points earned 14-6. Total Innings: 26. PlayerOneName: score  PlayerTwoName: score. Then have two buttons: keep playing or Reset (maybe with a confirmation on the reset button)
-- Tablet responsiveness (button padding, fonts, 
-- Think about monetization, official hosting, license
 - Think about modifying logo - try different background color or leaving the main favicon the same but putting the vertical/welcome screen as darker/no background
-- Donate button
-- Lock left-most table column (th's)
-
-- Nice to have functionality
-    - Load previous match
-    - Keep track of multiple matches (like a full league night, maybe even checking skill level max 23)
     
 - Browser Inconsistencies:
     - Looks best on chrome android devices (phone size)
@@ -45,16 +40,8 @@ Mobile-focused 9 ball pool score tracker
     - On iOS UI Web View (and older versions of Safari), tap delay of 300 ms can be annoying. Regular Safari is ok.
     - On iOS Chrome, no tap delay but the URL bar is always visible
 
-# V2 ideas:
-- Make the portrait mode the "menu" screen - make a button to show latest rackScore column
-
-- Web Sockets: Make view-only version accessible - maybe have a room ID that people could connect to
-
+# Future:
 - Make league night version - keeps score for 5 matches... use the menu on the portrait screen to view match summaries
-
-- Make "finalize match" button end of match -- show table like last 5 columns of current score sheet: snaps, b&r, total innings, defenses, total points, match points earned.
-
-- From the portrait menu screen, see running total
 
 # Less-recent changes:
 - Orientation fixed so that portrait displays landing view and landscape displays main app view.
@@ -97,7 +84,7 @@ http://forums.azbilliards.com/attachment.php?attachmentid=312822&stc=1&d=1389192
 
 # Debug assistance:
 function quickRack() {
-document.querySelector(".ball-9.left").click()
-document.querySelector(".nineOTS.left").click()
-document.querySelector(".next-rack").click()
+document.querySelector(".ball-9.left").click() ;
+document.querySelector(".nineOTS.left").click();
+document.querySelector(".next-rack").click();
 }
