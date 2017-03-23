@@ -579,6 +579,7 @@ var diamond = function () {
     };
 
     mc.on('press', deadBallPress);
+    mc.on('press', scoring.checkRackEnd);
 
     // Active / Inactive
     ball[i].addEventListener('click', ballClick);
