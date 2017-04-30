@@ -82,7 +82,7 @@ a {
   border: none;
   color: white;
   font-family: inherit;
-  padding: 0 0.3em;
+  padding: 0 0.35666em;
 }
 
 .diamond {
@@ -340,4 +340,28 @@ th.label {
 
 .rack-buttons {
   margin-top: .5rem;
+}
+
+.instructions {
+  text-align: center;
+  color: #c2c4c3;
+}
+.gray {
+  color: #c2c4c3;
+}
+
+#donateLink {
+  background-color: #5ca6d6;
+  color: #fff;
+  border: none;
+  padding: .666em;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  text-decoration: none;
+
+  /*dammit, eric */
+  box-shadow: #550 0px 2px 12px;
+
 }
