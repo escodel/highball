@@ -357,9 +357,6 @@ th.label {
   padding: .666em;
   margin-bottom: 1rem;
   font-weight: bold;
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
   
   text-decoration: none;
 
