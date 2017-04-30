@@ -359,9 +359,10 @@ th.label {
   font-weight: bold;
   -webkit-appearance: button;
   -moz-appearance: button;
+  appearance: button;
+  
   text-decoration: none;
 
-  /*dammit, eric */
   box-shadow: #550 0px 2px 12px;
 
 }
