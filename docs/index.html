@@ -327,15 +327,19 @@
 
   <div class="screen-portrait">
     <div class="view">
-      <div class="row"></div>
       <div class="row">
-        <div class="column">
+      </div>
+      <div class="rotate">
+        <span class="rotate">rotate device</span>
+      </div>
+      <div class="row">
+        <div class="column" id="titleContainer">
           <div>
             <img src="img/highball_76_transparent.png" />
           </div>
-          <span class="label title">highball</span>
-          <div class="gray">
-            <span>9 ball score tracking app</span>
+          <span class="label title" id="title">highball</span>
+          <div class="gray" id="subtitle">
+            <span>9 ball scorekeeper</span>
           </div>
         </div>
       </div>
@@ -347,10 +351,7 @@
       </div>
       <div class="row">
         <div class="column">
-            <a id="donateLink" href="https://venmo.com/?txn=pay&audience=private&recipients=highball">Donate!</a>
-          <div class="margin-bottom">
-            <span class="title rotate">rotate device</span>
-          </div>
+            <a id="donateLink" href="https://venmo.com/?txn=pay&audience=private&recipients=highball" target="_blank">Donate!</a>
           <div class="title-sm">
             created by <a href="//github.com/wharpa" target="_blank">wharpa</a> and <a href="//github.com/escodel" target="_blank">escodel</a>
           </div>
@@ -362,6 +363,23 @@
   <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
   <script src="https://hammerjs.github.io/dist/hammer-time.min.js"></script>
   <script src="bundle.js"></script>
+  <script>
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-99021754-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  
 </body>
 
 </html>

@@ -74,7 +74,7 @@ a {
 }
 
 .title-sm {
-  font-size: 0.8rem;
+  font-size: 1rem;
 }
 
 .btn {
@@ -345,6 +345,7 @@ th.label {
 .instructions {
   text-align: center;
   color: #c2c4c3;
+  font-size: 1.25rem;
 }
 .gray {
   color: #c2c4c3;
@@ -360,8 +361,22 @@ th.label {
   -webkit-appearance: button;
   -moz-appearance: button;
   text-decoration: none;
-
-  /*dammit, eric */
   box-shadow: #550 0px 2px 12px;
+  font-size: 1.25rem;
+}
 
+.rotate {
+  margin: auto;
+  font-size: 2rem;
+  color: #ffff80;
+}
+
+#title {
+  font-size: 3rem;
+}
+#titleContainer{
+  line-height: 1.5;
+}
+#subtitle{
+  font-size: 1.5rem;
 }
