@@ -369,6 +369,7 @@ th.label {
   margin: auto;
   font-size: 2rem;
   color: #ffff80;
+  min-width: 1px;
 }
 
 #title {
