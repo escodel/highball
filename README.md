@@ -17,6 +17,7 @@ Mobile-focused 9 ball pool scorekeeper
 
 # To do:
 
+- SEO meta tags
 - Menu for rooms/display latest rack score in portrait
 - End of match UI (table? modal?)   
 - Browser Inconsistencies:
