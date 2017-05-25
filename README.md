@@ -18,6 +18,7 @@ Mobile-focused 9 ball pool scorekeeper
 # To do:
 
 - SEO meta tags
+- Donate button looks weird on iOS - maybe webkit-appearance?
 - Menu for rooms/display latest rack score in portrait
 - End of match UI (table? modal?)   
 - Browser Inconsistencies:
