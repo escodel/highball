@@ -370,6 +370,8 @@ th.label {
   font-size: 2rem;
   color: #ffff80;
   min-width: 1px;
+  text-align: center;
+  display: inline;
 }
 
 #title {
