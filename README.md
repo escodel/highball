@@ -10,6 +10,9 @@ Mobile-focused 9 ball pool score tracker
     - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
 # Recent changes:
+- Now live on [highball.pro](http://highball.pro)
+- Added donate button
+- Added instructions on welcome screen
 - Made dead ball check for end of rack -- fixed minor bug
 - Detects if 9 ball is active and then 9OTS gets incremented and there are still neutral on the table. Marks all neutral balls dead.
 - Froze left-most column of rack table
