@@ -21,7 +21,7 @@ Mobile-focused 9 ball pool scorekeeper
 - SEO meta tags
 - Donate button looks weird on iOS - maybe webkit-appearance?
 - Menu for rooms/display latest rack score in portrait
-- End of match UI (table? modal?)   
+- End of match UI (table? modal? Match Points Earned, total # innings, reset with confirmation)   
 - Browser Inconsistencies:
     - Looks best on chrome android devices (phone size)
         - When launched from home screen shortcut, the URL bar is always visible and the app scrolls a tiny bit (bottom buttons can be cut off or the top half of player names can be cut off).
@@ -32,6 +32,11 @@ Mobile-focused 9 ball pool scorekeeper
 
 # Future:
 - Make league night version - keeps score for 5 matches... use the menu on the portrait screen to view match summaries
+- Handicap/lineup calculator
+- 8 ball version (or non-points 9 ball)
+- Record player/team data, look into getting/posting to web services
+    
+    
 
 # Less-recent changes:
 - Made dead ball check for end of rack -- fixed minor bug
