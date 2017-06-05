@@ -380,3 +380,7 @@ th.label {
 #subtitle{
   font-size: 1.5rem;
 }
+
+.inactive div {
+  display: none;
+}
