@@ -10,6 +10,7 @@ Mobile-focused 9 ball pool scorekeeper
     - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
 # Recent changes:
+- Made inactive balls easier to see - white circle and ball # are hidden once the opposing rack has scored that ball
 - Now live on [highball.pro](http://highball.pro)
 - Added donate button
 - Added instructions on welcome screen
