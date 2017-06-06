@@ -389,10 +389,20 @@ th.label {
 
 .av {
   background: url('https://vignette1.wikia.nocookie.net/seinfeld/images/7/76/George-costanza.jpg/revision/latest?cb=20110406222711') !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
+  background-repeat: no-repeat;
+  background-size: contain !important;
 }
 
-.av div {
+.im {
+  background: url('http://68.media.tumblr.com/37a8094b181cda2ce2980a391e557552/tumblr_mt8y0pOhlY1r04lc7o1_500.jpg') !important;
+  background-repeat: no-repeat;
+  background-size: contain !important;  
+}
+
+.im div, .av div {
   display: none;
+}
+
+.final-score {
+  color: #ffff80;
 }

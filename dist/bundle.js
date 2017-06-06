@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -245,7 +245,7 @@ module.exports = rackTable;
 /*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(6);
+var matchPoints = __webpack_require__(7);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -639,6 +639,42 @@ module.exports = incrementer;
 
 
 /*jshint esversion: 6 */
+var player = function () {
+  var playerOne = document.getElementById('player-1-Name');
+  var playerTwo = document.getElementById('player-2-Name');
+  var nineBall = document.querySelectorAll('.ball-9');
+
+  function checkPlayer() {
+    var playerOneName = document.getElementById('player-1-Name');
+    var playerTwoName = document.getElementById('player-2-Name');
+
+    if ('art vandelay' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+      nineBall.forEach(function (ball) {
+        ball.classList.add('av');
+      });
+    }
+
+    if ('ian malcolm' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+      nineBall.forEach(function (ball) {
+        ball.classList.add('im');
+      });
+    }
+  }
+
+  playerOne.addEventListener('blur', checkPlayer);
+  playerTwo.addEventListener('blur', checkPlayer);
+}();
+
+module.exports = player;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
 var matchPoints = function () {
 
     var endOfMatch = function endOfMatch(winningPlayer) {
@@ -648,6 +684,7 @@ var matchPoints = function () {
         var playerTwoSkillVal = document.querySelector('.skill-level.right option:checked').value;
         var playerOneScore = document.querySelector('.player-one-score');
         var playerTwoScore = document.querySelector('.player-two-score');
+        var score = document.querySelector('.score');
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -670,11 +707,17 @@ var matchPoints = function () {
 
         if (winningPlayer == 1) {
             var matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            alert(playerOneName + " wins! Match Points Earned: " + matchScore.winnerScore + " - " + matchScore.loserScore + " | Total Innings: " + inningsTotal);
+            var finalScore = document.createElement('span');
+            finalScore.classList.add('final-score');
+            finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(finalScore, score.firstChild);
         }
         if (winningPlayer == 2) {
             var _matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
-            alert(playerTwoName + " wins! Match Points Earned: " + _matchScore.winnerScore + " - " + _matchScore.loserScore + " | Total Innings: " + inningsTotal);
+            var _finalScore = document.createElement('span');
+            _finalScore.classList.add('final-score');
+            _finalScore.innerHTML = playerTwoName + ' wins!<br/>MPE: ' + _matchScore.loserScore + ' - ' + _matchScore.winnerScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(_finalScore, score.firstChild);
         }
     };
 
@@ -1503,7 +1546,7 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1516,7 +1559,7 @@ var diamond = __webpack_require__(4);
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
 var dead9OTS = __webpack_require__(3);
-var player = __webpack_require__(8);
+var player = __webpack_require__(6);
 
 var rackNumberLabel = new Hammer(document.querySelector("#rackNumberLabel"));
 
@@ -1526,34 +1569,6 @@ var lockScreen = function lockScreen() {
 };
 
 rackNumberLabel.on('press', lockScreen);
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var player = function () {
-  var playerOne = document.getElementById('player-1-Name');
-  var nineBall = document.querySelectorAll('.ball-9');
-
-  function checkPlayer() {
-    var playerOneName = document.getElementById('player-1-Name');
-    var playerTwoName = document.getElementById('player-2-Name');
-
-    if (playerOneName.innerHTML.toLowerCase() === 'art vandelay') {
-      nineBall.forEach(function (ball) {
-        ball.classList.add('av');
-      });
-    }
-  }
-
-  playerOne.addEventListener('blur', checkPlayer);
-}();
-
-module.exports = player;
 
 /***/ })
 /******/ ]);

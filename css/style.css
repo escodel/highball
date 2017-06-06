@@ -393,6 +393,12 @@ th.label {
   background-size: cover;
 }
 
-.av div {
+.im {
+  background: url('http://www.lost-world.com/Lost_World02/Jurassic_Park.Site/stills/0630_01.GIF') !important;
+  background-repeat: no-repeat;
+  background-size: cover;  
+}
+
+.im div, .av div {
   display: none;
 }
