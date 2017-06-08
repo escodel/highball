@@ -6,8 +6,11 @@ const resetGame = (function() {
   const gameButtons = document.querySelector('.game-buttons');
   
   const resetGameDetails = function() {
-    confirm('Are you sure you\'ve finished your game?');
-    window.location.reload();
+    if (confirm('Are you sure you\'ve finished your game?')) {
+      window.location.reload();
+    } else {
+      return;
+    }
   }
   
   const showGameButtons = function() {

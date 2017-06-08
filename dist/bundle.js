@@ -255,8 +255,11 @@ var resetGame = function () {
   var gameButtons = document.querySelector('.game-buttons');
 
   var resetGameDetails = function resetGameDetails() {
-    confirm('Are you sure you\'ve finished your game?');
-    window.location.reload();
+    if (confirm('Are you sure you\'ve finished your game?')) {
+      window.location.reload();
+    } else {
+      return;
+    }
   };
 
   var showGameButtons = function showGameButtons() {
