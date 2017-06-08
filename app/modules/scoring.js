@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 const rackTable = require('./rackTable');
 const resetRack = require('./resetRack');
+const resetGame = require('./resetGame');
 const matchPoints = require('./matchPoints');
 
 const scoring = (function () {

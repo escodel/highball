@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -245,6 +245,7 @@ module.exports = rackTable;
 /*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
+var resetGame = __webpack_require__(8);
 var matchPoints = __webpack_require__(7);
 
 var scoring = function () {
@@ -675,6 +676,8 @@ module.exports = player;
 
 
 /*jshint esversion: 6 */
+var resetGame = __webpack_require__(8);
+
 var matchPoints = function () {
 
     var endOfMatch = function endOfMatch(winningPlayer) {
@@ -711,6 +714,8 @@ var matchPoints = function () {
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
         if (winningPlayer == 2) {
             var _matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
@@ -718,6 +723,17 @@ var matchPoints = function () {
             _finalScore.classList.add('final-score');
             _finalScore.innerHTML = playerTwoName + ' wins!<br/>MPE: ' + _matchScore.loserScore + ' - ' + _matchScore.winnerScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(_finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
+        }
+    };
+
+    var clickPrevent = function clickPrevent() {
+        var inputs = document.querySelectorAll('.row');
+        for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].classList.contains('row-top')) {
+                inputs[i].style.pointerEvents = 'none';
+            }
         }
     };
 
@@ -1547,6 +1563,41 @@ module.exports = matchPoints;
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var resetGame = function () {
+  var resetGameButton = document.querySelector('.reset-game');
+  var gameButtons = document.querySelector('.game-buttons');
+
+  var resetGameDetails = function resetGameDetails() {
+    confirm('Are you sure you\'ve finished your game?');
+    window.location.reload();
+  };
+
+  var showGameButtons = function showGameButtons() {
+    gameButtons.classList.remove('hidden');
+  };
+
+  var hideGameButtons = function hideGameButtons() {
+    gameButtons.classList.add('hidden');
+  };
+
+  resetGameButton.addEventListener('click', resetGameDetails);
+
+  return {
+    showGameButtons: showGameButtons,
+    hideGameButtons: hideGameButtons
+  };
+}();
+
+module.exports = resetGame;
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

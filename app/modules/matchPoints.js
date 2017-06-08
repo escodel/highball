@@ -1,4 +1,6 @@
 /*jshint esversion: 6 */
+const resetGame = require('./resetGame');
+
 const matchPoints = (function() {
 
     let endOfMatch = function(winningPlayer) {
@@ -38,6 +40,8 @@ const matchPoints = (function() {
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
         if (winningPlayer == 2) {
             let matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
@@ -45,8 +49,19 @@ const matchPoints = (function() {
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerTwoName + ' wins!<br/>MPE: ' + matchScore.loserScore + ' - ' + matchScore.winnerScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
     };
+  
+    let clickPrevent = function() {
+      let inputs = document.querySelectorAll('.row');
+      for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'none';
+        }
+      }
+    }
 
      let calculateFinalScore = function(loserSL, loserScore) {
         switch (loserSL) {
