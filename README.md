@@ -31,7 +31,10 @@ Mobile-focused 9 ball pool scorekeeper
     - On iOS Chrome, no tap delay but the URL bar is always visible
 
 # Future:
+- Menu system on portrait
 - Make league night version - keeps score for 5 matches... use the menu on the portrait screen to view match summaries
+    - Tournament edition could follow this - calculating match points needed to win the round (51 cumulative match points earned or 50 points with 3 wins)
+    - Need to decide if we want to go with single page version or separate pages with routing.
 - Handicap/lineup calculator
 - 8 ball version (or non-points 9 ball)
 - Record player/team data, look into getting/posting to web services
