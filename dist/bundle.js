@@ -90,6 +90,10 @@ var resetRack = function () {
     rackButtons.classList.add('hidden');
   };
 
+  var displayNone = function displayNone() {
+    rackButtons.style.display = 'none';
+  };
+
   var resetRack = function resetRack() {
     for (var i = 0; i < ballArray.length; i++) {
       ballArray[i].classList.remove('active');
@@ -126,7 +130,8 @@ var resetRack = function () {
 
   return {
     showRackButtons: showRackButtons,
-    hideRackButtons: hideRackButtons
+    hideRackButtons: hideRackButtons,
+    displayNone: displayNone
   };
 }();
 
@@ -243,10 +248,50 @@ module.exports = rackTable;
 
 
 /*jshint esversion: 6 */
+var resetRack = __webpack_require__(0);
+
+var resetGame = function () {
+  var resetGameButton = document.querySelector('.reset-game');
+  var gameButtons = document.querySelector('.game-buttons');
+
+  var resetGameDetails = function resetGameDetails() {
+    confirm('Are you sure you\'ve finished your game?');
+    window.location.reload();
+  };
+
+  var showGameButtons = function showGameButtons() {
+    resetRack.displayNone();
+    gameButtons.style.marginTop = '.5rem';
+    gameButtons.style.display = 'block';
+    gameButtons.classList.remove('hidden');
+  };
+
+  var hideGameButtons = function hideGameButtons() {
+    gameButtons.classList.add('hidden');
+  };
+
+  resetGameButton.addEventListener('click', resetGameDetails);
+
+  return {
+    showGameButtons: showGameButtons,
+    hideGameButtons: hideGameButtons
+  };
+}();
+
+module.exports = resetGame;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var resetGame = __webpack_require__(8);
-var matchPoints = __webpack_require__(7);
+var resetGame = __webpack_require__(2);
+var matchPoints = __webpack_require__(8);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -420,7 +465,7 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -429,7 +474,7 @@ module.exports = scoring;
 /*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var scoring = __webpack_require__(2);
+var scoring = __webpack_require__(3);
 
 var dead9OTS = function () {
   var nineOTSleft = document.querySelector('.nineOTS.left');
@@ -476,14 +521,14 @@ var dead9OTS = function () {
 module.exports = dead9OTS;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var scoring = __webpack_require__(2);
+var scoring = __webpack_require__(3);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -594,7 +639,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -633,7 +678,7 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -669,14 +714,14 @@ var player = function () {
 module.exports = player;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var resetGame = __webpack_require__(8);
+var resetGame = __webpack_require__(2);
 
 var matchPoints = function () {
 
@@ -1562,41 +1607,6 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var resetGame = function () {
-  var resetGameButton = document.querySelector('.reset-game');
-  var gameButtons = document.querySelector('.game-buttons');
-
-  var resetGameDetails = function resetGameDetails() {
-    confirm('Are you sure you\'ve finished your game?');
-    window.location.reload();
-  };
-
-  var showGameButtons = function showGameButtons() {
-    gameButtons.classList.remove('hidden');
-  };
-
-  var hideGameButtons = function hideGameButtons() {
-    gameButtons.classList.add('hidden');
-  };
-
-  resetGameButton.addEventListener('click', resetGameDetails);
-
-  return {
-    showGameButtons: showGameButtons,
-    hideGameButtons: hideGameButtons
-  };
-}();
-
-module.exports = resetGame;
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1604,13 +1614,13 @@ module.exports = resetGame;
 
 
 /*jshint esversion: 6 */
-var incrementer = __webpack_require__(5);
-var diamond = __webpack_require__(4);
+var incrementer = __webpack_require__(6);
+var diamond = __webpack_require__(5);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
-var dead9OTS = __webpack_require__(3);
-var player = __webpack_require__(6);
+var dead9OTS = __webpack_require__(4);
+var player = __webpack_require__(7);
 
 var rackNumberLabel = new Hammer(document.querySelector("#rackNumberLabel"));
 

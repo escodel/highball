@@ -1,4 +1,6 @@
 /*jshint esversion: 6 */
+const resetRack = require('./resetRack');
+
 const resetGame = (function() {
   const resetGameButton = document.querySelector('.reset-game');
   const gameButtons = document.querySelector('.game-buttons');
@@ -9,6 +11,9 @@ const resetGame = (function() {
   }
   
   const showGameButtons = function() {
+    resetRack.displayNone();
+    gameButtons.style.marginTop = '.5rem';
+    gameButtons.style.display = 'block';
     gameButtons.classList.remove('hidden');
   }
   
