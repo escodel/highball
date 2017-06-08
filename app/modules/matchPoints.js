@@ -1,4 +1,6 @@
 /*jshint esversion: 6 */
+const resetGame = require('./resetGame');
+
 const matchPoints = (function() {
 
     let endOfMatch = function(winningPlayer) {
@@ -8,6 +10,7 @@ const matchPoints = (function() {
         let playerTwoSkillVal = document.querySelector('.skill-level.right option:checked').value;
         const playerOneScore = document.querySelector('.player-one-score');
         const playerTwoScore = document.querySelector('.player-two-score');
+        const score = document.querySelector('.score');
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -33,14 +36,32 @@ const matchPoints = (function() {
 
         if (winningPlayer == 1) {
             let matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            alert(playerOneName + " wins! Match Points Earned: " + matchScore.winnerScore + " - " + matchScore.loserScore + " | Total Innings: " + inningsTotal);
+            let finalScore = document.createElement('span');
+            finalScore.classList.add('final-score');
+            finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
         if (winningPlayer == 2) {
             let matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
-            alert(playerTwoName + " wins! Match Points Earned: " + matchScore.winnerScore + " - " + matchScore.loserScore + " | Total Innings: " + inningsTotal);
-
+            let finalScore = document.createElement('span');
+            finalScore.classList.add('final-score');
+            finalScore.innerHTML = playerTwoName + ' wins!<br/>MPE: ' + matchScore.loserScore + ' - ' + matchScore.winnerScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
     };
+  
+    let clickPrevent = function() {
+      let inputs = document.querySelectorAll('.row');
+      for (let i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'none';
+        }
+      }
+    }
 
      let calculateFinalScore = function(loserSL, loserScore) {
         switch (loserSL) {

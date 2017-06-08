@@ -75,6 +75,7 @@ a {
 
 .title-sm {
   font-size: 1rem;
+  margin-top: 2rem;
 }
 
 .btn {
@@ -362,8 +363,6 @@ th.label {
   padding: .666em;
   margin-bottom: 1rem;
   font-weight: bold;
-  -webkit-appearance: button;
-  -moz-appearance: button;
   text-decoration: none;
   box-shadow: #550 0px 2px 12px;
   font-size: 1.25rem;
@@ -386,4 +385,24 @@ th.label {
 }
 #subtitle{
   font-size: 1.5rem;
+}
+
+.av {
+  background: url('https://vignette1.wikia.nocookie.net/seinfeld/images/7/76/George-costanza.jpg/revision/latest?cb=20110406222711') !important;
+  background-repeat: no-repeat;
+  background-size: contain !important;
+}
+
+.im {
+  background: url('http://68.media.tumblr.com/37a8094b181cda2ce2980a391e557552/tumblr_mt8y0pOhlY1r04lc7o1_500.jpg') !important;
+  background-repeat: no-repeat;
+  background-size: contain !important;  
+}
+
+.im div, .av div {
+  display: none;
+}
+
+.final-score {
+  color: #ffff80;
 }

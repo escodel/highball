@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
+
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-/******/
+
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,15 +55,15 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-/******/
+
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -88,6 +88,10 @@ var resetRack = function () {
 
   var hideRackButtons = function hideRackButtons() {
     rackButtons.classList.add('hidden');
+  };
+
+  var displayNone = function displayNone() {
+    rackButtons.style.display = 'none';
   };
 
   var resetRack = function resetRack() {
@@ -126,7 +130,8 @@ var resetRack = function () {
 
   return {
     showRackButtons: showRackButtons,
-    hideRackButtons: hideRackButtons
+    hideRackButtons: hideRackButtons,
+    displayNone: displayNone
   };
 }();
 
@@ -243,9 +248,50 @@ module.exports = rackTable;
 
 
 /*jshint esversion: 6 */
+var resetRack = __webpack_require__(0);
+
+var resetGame = function () {
+  var resetGameButton = document.querySelector('.reset-game');
+  var gameButtons = document.querySelector('.game-buttons');
+
+  var resetGameDetails = function resetGameDetails() {
+    confirm('Are you sure you\'ve finished your game?');
+    window.location.reload();
+  };
+
+  var showGameButtons = function showGameButtons() {
+    resetRack.displayNone();
+    gameButtons.style.marginTop = '.5rem';
+    gameButtons.style.display = 'block';
+    gameButtons.classList.remove('hidden');
+  };
+
+  var hideGameButtons = function hideGameButtons() {
+    gameButtons.classList.add('hidden');
+  };
+
+  resetGameButton.addEventListener('click', resetGameDetails);
+
+  return {
+    showGameButtons: showGameButtons,
+    hideGameButtons: hideGameButtons
+  };
+}();
+
+module.exports = resetGame;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(6);
+var resetGame = __webpack_require__(2);
+var matchPoints = __webpack_require__(8);
 
 var scoring = function () {
   var ball = document.querySelectorAll('.ball');
@@ -419,7 +465,7 @@ var scoring = function () {
 module.exports = scoring;
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -428,7 +474,7 @@ module.exports = scoring;
 /*jshint esversion: 6 */
 var rackTable = __webpack_require__(1);
 var resetRack = __webpack_require__(0);
-var scoring = __webpack_require__(2);
+var scoring = __webpack_require__(3);
 
 var dead9OTS = function () {
   var nineOTSleft = document.querySelector('.nineOTS.left');
@@ -475,14 +521,14 @@ var dead9OTS = function () {
 module.exports = dead9OTS;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var scoring = __webpack_require__(2);
+var scoring = __webpack_require__(3);
 
 var diamond = function () {
   var ball = document.querySelectorAll('.ball');
@@ -593,7 +639,7 @@ var diamond = function () {
 module.exports = diamond;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -632,13 +678,51 @@ var incrementer = function () {
 module.exports = incrementer;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
+var player = function () {
+  var playerOne = document.getElementById('player-1-Name');
+  var playerTwo = document.getElementById('player-2-Name');
+  var nineBall = document.querySelectorAll('.ball-9');
+
+  function checkPlayer() {
+    var playerOneName = document.getElementById('player-1-Name');
+    var playerTwoName = document.getElementById('player-2-Name');
+
+    if ('art vandelay' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+      nineBall.forEach(function (ball) {
+        ball.classList.add('av');
+      });
+    }
+
+    if ('ian malcolm' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+      nineBall.forEach(function (ball) {
+        ball.classList.add('im');
+      });
+    }
+  }
+
+  playerOne.addEventListener('blur', checkPlayer);
+  playerTwo.addEventListener('blur', checkPlayer);
+}();
+
+module.exports = player;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var resetGame = __webpack_require__(2);
+
 var matchPoints = function () {
 
     var endOfMatch = function endOfMatch(winningPlayer) {
@@ -648,6 +732,7 @@ var matchPoints = function () {
         var playerTwoSkillVal = document.querySelector('.skill-level.right option:checked').value;
         var playerOneScore = document.querySelector('.player-one-score');
         var playerTwoScore = document.querySelector('.player-two-score');
+        var score = document.querySelector('.score');
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -670,11 +755,30 @@ var matchPoints = function () {
 
         if (winningPlayer == 1) {
             var matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            alert(playerOneName + " wins! Match Points Earned: " + matchScore.winnerScore + " - " + matchScore.loserScore + " | Total Innings: " + inningsTotal);
+            var finalScore = document.createElement('span');
+            finalScore.classList.add('final-score');
+            finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
         }
         if (winningPlayer == 2) {
             var _matchScore = calculateFinalScore(playerOneSkillVal, playerOneScore.innerHTML);
-            alert(playerTwoName + " wins! Match Points Earned: " + _matchScore.winnerScore + " - " + _matchScore.loserScore + " | Total Innings: " + inningsTotal);
+            var _finalScore = document.createElement('span');
+            _finalScore.classList.add('final-score');
+            _finalScore.innerHTML = playerTwoName + ' wins!<br/>MPE: ' + _matchScore.loserScore + ' - ' + _matchScore.winnerScore + '<br/>Total Innings: ' + inningsTotal;
+            score.insertBefore(_finalScore, score.firstChild);
+            resetGame.showGameButtons();
+            clickPrevent();
+        }
+    };
+
+    var clickPrevent = function clickPrevent() {
+        var inputs = document.querySelectorAll('.row');
+        for (var i = 0; i < inputs.length; i++) {
+            if (!inputs[i].classList.contains('row-top')) {
+                inputs[i].style.pointerEvents = 'none';
+            }
         }
     };
 
@@ -1503,19 +1607,20 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 /*jshint esversion: 6 */
-var incrementer = __webpack_require__(5);
-var diamond = __webpack_require__(4);
+var incrementer = __webpack_require__(6);
+var diamond = __webpack_require__(5);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
-var dead9OTS = __webpack_require__(3);
+var dead9OTS = __webpack_require__(4);
+var player = __webpack_require__(7);
 
 var rackNumberLabel = new Hammer(document.querySelector("#rackNumberLabel"));
 

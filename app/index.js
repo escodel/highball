@@ -5,6 +5,7 @@ const diamond = require('./modules/diamond');
 const resetRack = require('./modules/resetRack');
 //const rackTable = require('./modules/rackTable');
 const dead9OTS = require('./modules/dead9OTS');
+const player = require('./modules/player');
 
 const rackNumberLabel = new Hammer(document.querySelector("#rackNumberLabel"));
 
