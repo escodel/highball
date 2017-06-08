@@ -3,6 +3,8 @@ const resetGame = require('./resetGame');
 
 const matchPoints = (function() {
 
+let lastClickedBall = "";
+
     let endOfMatch = function(winningPlayer) {
         let playerOneName = document.querySelector('#player-1-Name').innerHTML.toString();
         let playerTwoName = document.querySelector('#player-2-Name').innerHTML.toString();
@@ -11,6 +13,7 @@ const matchPoints = (function() {
         const playerOneScore = document.querySelector('.player-one-score');
         const playerTwoScore = document.querySelector('.player-two-score');
         const score = document.querySelector('.score');
+        lastClickedBall = event.currentTarget;
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -61,7 +64,11 @@ const matchPoints = (function() {
           inputs[i].style.pointerEvents = 'none';
         }
       }
-    }
+    };
+
+    let undoLastPoint = function() {
+        console.log(lastClickedBall);
+    };
 
      let calculateFinalScore = function(loserSL, loserScore) {
         switch (loserSL) {
@@ -881,7 +888,8 @@ const matchPoints = (function() {
         }
     };
     return {
-            endOfMatch: endOfMatch
+            endOfMatch: endOfMatch,
+            undoLastPoint: undoLastPoint
         };
 })();
 

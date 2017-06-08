@@ -17,7 +17,7 @@ const resetRack = (function() {
   
   const displayNone = function() {
     rackButtons.style.display = 'none';
-  }
+  };
   
   const resetRack = function() {
     for (let i = 0; i < ballArray.length; i++) {
