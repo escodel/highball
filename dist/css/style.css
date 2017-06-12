@@ -406,3 +406,7 @@ th.label {
 .final-score {
   color: #ffff80;
 }
+
+#lastClicked {
+  display: none;
+}

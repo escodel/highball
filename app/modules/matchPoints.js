@@ -3,8 +3,6 @@ const resetGame = require('./resetGame');
 
 const matchPoints = (function() {
 
-let lastClickedBall = "";
-
     let endOfMatch = function(winningPlayer) {
         let playerOneName = document.querySelector('#player-1-Name').innerHTML.toString();
         let playerTwoName = document.querySelector('#player-2-Name').innerHTML.toString();
@@ -13,7 +11,6 @@ let lastClickedBall = "";
         const playerOneScore = document.querySelector('.player-one-score');
         const playerTwoScore = document.querySelector('.player-two-score');
         const score = document.querySelector('.score');
-        lastClickedBall = event.currentTarget;
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -67,7 +64,10 @@ let lastClickedBall = "";
     };
 
     let undoLastPoint = function() {
-        console.log(lastClickedBall);
+        //I'm ashamed of this fix, trying to get this done quickly.
+        const lastClicked = document.querySelector('#lastClicked');
+        const lastClickedSelector = lastClicked.innerHTML;
+        //document.getElementsByClassName(lastClickedSelector)[0].click();
     };
 
      let calculateFinalScore = function(loserSL, loserScore) {

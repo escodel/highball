@@ -37,7 +37,7 @@ const resetGame = (function() {
   const hideGameButtons = function() {
     gameButtons.classList.add('hidden');
   };
-  undoLastPointButton.addEventListener('click', undoLastPointDetails());
+  undoLastPointButton.addEventListener('click', undoLastPointDetails);
   resetGameButton.addEventListener('click', resetGameDetails);
   
   return {

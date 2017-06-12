@@ -145,604 +145,9 @@ module.exports = resetRack;
 
 
 /*jshint esversion: 6 */
-var resetRack = __webpack_require__(0);
-
-var rackTable = function () {
-  var table = document.querySelector('.rack-table');
-  var tableHeaders = document.querySelectorAll('.rack-table th');
-  var nineBall = document.querySelectorAll('.ball-9');
-  var rackNumber = document.querySelector('.rack');
-  var playerOneScore = document.querySelector('.player-one-score');
-  var playerTwoScore = document.querySelector('.player-two-score');
-  var innings = document.querySelector('.number-innings');
-  var deadBalls = document.querySelector('.dead-ball-score');
-  var editScore = document.querySelector('.edit-score');
-  var nextRack = document.querySelector('.next-rack');
-
-  var createCell = function createCell(cell, text, style) {
-    var div = document.createElement('div'); // create DIV element
-    var txt = document.createTextNode(text); // create text node
-    div.appendChild(txt); // append text node to the DIV
-    div.setAttribute('class', style); // set DIV class attribute
-    cell.appendChild(div); // append DIV to the table cell
-  };
-  var appendColumn = function appendColumn(ev) {
-    if (ev.target.classList.contains('neutral') || ev.target.classList.contains('dead') || ev.target.classList.contains('nineOTS')) {
-      createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
-      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
-      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
-      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
-      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
-      portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
-      document.querySelector('tr td:last-child').scrollIntoView();
-    }
-
-    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
-    if (table.offsetWidth >= 250) {
-      var tableHeadersNext = document.querySelectorAll('th + td');
-
-      table.classList.add('rack-table-sm');
-      for (var i = 0; i < tableHeaders.length; i++) {
-        tableHeaders[i].classList.add('th-fixed');
-        tableHeadersNext[i].classList.add('td-padding');
-      }
-    }
-  };
-  var deleteColumn = function deleteColumn() {
-    var lastCol = table.rows[0].cells.length - 1;
-
-    for (var i = 0; i < table.rows.length; i++) {
-      table.rows[i].deleteCell(lastCol);
-    }
-  };
-  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
-  var nineBallsNeutral = function nineBallsNeutral() {
-    for (var i = 0; i < nineBall.length; i++) {
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
-        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
-      }
-      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
-        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
-      }
-      nineBall[i].classList.remove('active');
-      nineBall[i].classList.remove('inactive');
-      nineBall[i].classList.add('neutral');
-    }
-  };
-  var decrementPlayerScore = function decrementPlayerScore(obj) {
-    return obj - 2;
-  };
-
-  editScore.addEventListener('click', function () {
-    deleteColumn();
-    nineBallsNeutral();
-    resetRack.hideRackButtons();
-    var inputs = document.querySelectorAll('.row');
-    for (var i = 0; i < inputs.length; i++) {
-      if (!inputs[i].classList.contains('row-top')) {
-        inputs[i].style.pointerEvents = 'auto';
-      }
-    }
-  });
-
-  var portraitTable = function portraitTable(p1Score, innings, dead, p2score) {
-    var portraitParent = document.querySelector('.screen-portrait');
-    var portraitContents = "";
-    portraitContents += '<div class="view"><div class="last-rack-column"><div class="portrait-Score">' + p1Score + '</div><div class="portrait-Score">' + innings + '</div><div class="portrait-Score">' + dead + '</div><div class="portrait-Score">' + p2score + '</div></div>';
-    portraitParent.innerHTML = portraitContents;
-  };
-
-  return {
-    appendColumn: appendColumn,
-    deleteColumn: deleteColumn
-  };
-}();
-
-module.exports = rackTable;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(8);
-
-var resetGame = function () {
-  var undoLastPointButton = document.querySelector('.undo-last-point');
-  var resetGameButton = document.querySelector('.reset-game');
-  var gameButtons = document.querySelector('.game-buttons');
-
-  var undoLastPointDetails = function undoLastPointDetails() {
-
-    /*
-    resetRack.displayNone();
-    gameButtons.style.marginTop = '';
-    gameButtons.style.display = 'none';
-    gameButtons.classList.add('hidden');
-    */
-
-    matchPoints.undoLastPoint();
-  };
-
-  var resetGameDetails = function resetGameDetails() {
-    if (confirm('Are you sure you\'ve finished your game?')) {
-      window.location.reload();
-    } else {
-      return;
-    }
-  };
-
-  var showGameButtons = function showGameButtons() {
-    resetRack.displayNone();
-    gameButtons.style.marginTop = '.5rem';
-    gameButtons.style.display = 'block';
-    gameButtons.classList.remove('hidden');
-  };
-
-  var hideGameButtons = function hideGameButtons() {
-    gameButtons.classList.add('hidden');
-  };
-  undoLastPointButton.addEventListener('click', undoLastPointDetails());
-  resetGameButton.addEventListener('click', resetGameDetails);
-
-  return {
-    showGameButtons: showGameButtons,
-    hideGameButtons: hideGameButtons
-  };
-}();
-
-module.exports = resetGame;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var rackTable = __webpack_require__(1);
-var resetRack = __webpack_require__(0);
-var resetGame = __webpack_require__(2);
-var matchPoints = __webpack_require__(8);
-
-var scoring = function () {
-  var ball = document.querySelectorAll('.ball');
-  var playerOneScore = document.querySelector('.player-one-score');
-  var playerTwoScore = document.querySelector('.player-two-score');
-  var deadBalls = document.querySelector('.dead-ball-score');
-
-  var playerOneSkill = document.querySelector('.skill-level.left');
-  var playerTwoSkill = document.querySelector('.skill-level.right');
-  var playerOneGoal = document.querySelector('#leftPlayerGoal');
-  var playerTwoGoal = document.querySelector('#rightPlayerGoal');
-
-  var increase = function increase(obj) {
-    return obj + 1;
-  };
-  var decrease = function decrease(obj) {
-    return obj - 1;
-  };
-  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
-  var calcScore = function calcScore() {
-    var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
-    var deadBallTotal = 0;
-    for (var i = 0; i < deadBallTable.length; i++) {
-      deadBallTotal += Number(deadBallTable[i].innerHTML);
-    }
-
-    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
-  };
-
-  var checkRackEnd = function checkRackEnd(ev) {
-    // Calculate score on each click. If modulo 10, reset rack functionality.
-    var currentScore = calcScore();
-    if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
-      rackTable.appendColumn(ev);
-      resetRack.showRackButtons();
-      var inputs = document.querySelectorAll('.row');
-      for (var i = 0; i < inputs.length; i++) {
-        if (!inputs[i].classList.contains('row-top')) {
-          inputs[i].style.pointerEvents = 'none';
-        }
-      }
-    }
-  };
-
-  for (var i = 0; i < ball.length; i++) {
-    ball[i].addEventListener('click', function (ev) {
-      var evTarget = ev.target;
-      // If ballLeft, score left and increment 9 ball twice
-      if (evTarget.classList.contains('left')) {
-        if (evTarget.classList.contains('neutral')) {
-          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
-          }
-          //end of match checker
-          if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
-            matchPoints.endOfMatch(1);
-          }
-        }
-        if (evTarget.classList.contains('active')) {
-          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          }
-        }
-        if (evTarget.classList.contains('inactive')) {
-          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          }
-        }
-      }
-      // If ballRight, score right and increment 9 ball twice
-      if (evTarget.classList.contains('right')) {
-        if (evTarget.classList.contains('neutral')) {
-          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
-          }
-          //end of match checker
-          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
-            matchPoints.endOfMatch(2);
-          }
-        }
-        if (evTarget.classList.contains('active')) {
-          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
-          }
-        }
-        if (evTarget.classList.contains('inactive')) {
-          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          if (evTarget.classList.contains('ball-9')) {
-            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
-          }
-        }
-      }
-
-      checkRackEnd(ev);
-    });
-  }
-
-  playerOneSkill.addEventListener('change', function (ev) {
-    switch (ev.currentTarget.value) {
-      case "1":
-        playerOneGoal.innerHTML = 14;
-        break;
-      case "2":
-        playerOneGoal.innerHTML = 19;
-        break;
-      case "3":
-        playerOneGoal.innerHTML = 25;
-        break;
-      case "4":
-        playerOneGoal.innerHTML = 31;
-        break;
-      case "5":
-        playerOneGoal.innerHTML = 38;
-        break;
-      case "6":
-        playerOneGoal.innerHTML = 46;
-        break;
-      case "7":
-        playerOneGoal.innerHTML = 55;
-        break;
-      case "8":
-        playerOneGoal.innerHTML = 65;
-        break;
-      case "9":
-        playerOneGoal.innerHTML = 75;
-        break;
-    }
-  });
-  playerTwoSkill.addEventListener('change', function (ev) {
-    switch (ev.currentTarget.value) {
-      case "1":
-        playerTwoGoal.innerHTML = 14;
-        break;
-      case "2":
-        playerTwoGoal.innerHTML = 19;
-        break;
-      case "3":
-        playerTwoGoal.innerHTML = 25;
-        break;
-      case "4":
-        playerTwoGoal.innerHTML = 31;
-        break;
-      case "5":
-        playerTwoGoal.innerHTML = 38;
-        break;
-      case "6":
-        playerTwoGoal.innerHTML = 46;
-        break;
-      case "7":
-        playerTwoGoal.innerHTML = 55;
-        break;
-      case "8":
-        playerTwoGoal.innerHTML = 65;
-        break;
-      case "9":
-        playerTwoGoal.innerHTML = 75;
-        break;
-    }
-  });
-
-  return {
-    checkRackEnd: checkRackEnd
-  };
-}();
-
-module.exports = scoring;
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var rackTable = __webpack_require__(1);
-var resetRack = __webpack_require__(0);
-var scoring = __webpack_require__(3);
-
-var dead9OTS = function () {
-  var nineOTSleft = document.querySelector('.nineOTS.left');
-  var nineOTSright = document.querySelector('.nineOTS.right');
-  var allBalls = document.querySelectorAll('.ball');
-  var nineBall = document.querySelectorAll('.ball-9');
-  var nineBallLeft = document.querySelector('.ball-9.left.active');
-  var nineBallRight = document.querySelector('.ball-9.right.active');
-  var deadBallScore = document.querySelector('.dead-ball-score');
-
-  var markDead = function markDead(ev) {
-    //    if (position === 'left' && nineBallRight.length === 1) {
-    //      return;
-    //    }
-    //    if (position === 'right' && nineBallLeft.length === 1) {
-    //      return;
-    //    }
-    if (ev.currentTarget.classList.contains('left') && document.querySelector('.ball-9.left.active') === null || ev.currentTarget.classList.contains('right') && document.querySelector('.ball-9.right.active') === null) {
-      return;
-    } else {
-      for (var i = 0; i < nineBall.length; i++) {
-        if (nineBall[i].classList.contains('active')) {
-          for (var j = 0; j < allBalls.length; j++) {
-            if (!allBalls[j].classList.contains('active') && !allBalls[j].classList.contains('inactive') && !allBalls[j].parentElement.classList.contains('spacer')) {
-              allBalls[j].classList.add('dead');
-              allBalls[j].classList.remove('neutral');
-              allBalls[j].classList.remove('inactive');
-              var deadBalls = document.querySelectorAll('.left-grid .dead');
-              deadBallScore.innerHTML = deadBalls.length;
-            }
-          }
-          //          rackTable.appendColumn(ev);
-          //          resetRack.showRackButtons();
-          scoring.checkRackEnd(ev);
-        }
-      }
-    }
-  };
-
-  nineOTSleft.addEventListener('click', markDead);
-  nineOTSright.addEventListener('click', markDead);
-}();
-
-module.exports = dead9OTS;
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var scoring = __webpack_require__(3);
-
-var diamond = function () {
-  var ball = document.querySelectorAll('.ball');
-  var deadBallScore = document.querySelector('.dead-ball-score');
-
-  var _loop = function _loop(i) {
-    // Dead Balls
-    var mc = new Hammer(ball[i]);
-    var deadBallPress = function deadBallPress(ev) {
-      var deadBallTarget = ev.target;
-      var ballArray = Array.from(ball);
-      var classListArray = Array.from(ev.target.classList);
-      var targetClass = classListArray[1];
-
-      /*  Prevents ball-9 from being marked dead
-          Toggles dead state */
-      if (deadBallTarget.classList.contains('neutral') && !deadBallTarget.classList.contains('ball-9')) {
-
-        ballArray.filter(function (b) {
-          return b.classList.contains(targetClass);
-        }).forEach(function (b) {
-          b.classList.add('dead');
-          b.classList.remove('neutral');
-        });
-      } else if (deadBallTarget.classList.contains('dead')) {
-        deadBallTarget.classList.remove('dead');
-
-        ballArray.filter(function (b) {
-          return b.classList.contains(targetClass);
-        }).forEach(function (b) {
-          b.classList.remove('dead');
-          b.classList.add('neutral');
-        });
-        ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
-      }
-      var deadBalls = document.querySelectorAll('.left-grid .dead');
-      deadBallScore.innerHTML = deadBalls.length;
-    };
-    var ballClick = function ballClick(ev) {
-      var evTarget = ev.target;
-      var clickedTargetClassList = evTarget.classList;
-      var ballLeft = ball[i].classList.contains('left');
-      var ballRight = ball[i].classList.contains('right');
-
-      // Determine left or right, then inactive the opposite
-      if (ballLeft && clickedTargetClassList.contains('neutral')) {
-        var opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
-        clickedTargetClassList.remove('neutral');
-        opposite.classList.remove('neutral');
-        opposite.classList.add('inactive');
-        clickedTargetClassList.add('active');
-        return;
-      }
-      if (ballLeft && clickedTargetClassList.contains('active')) {
-        var _opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
-        _opposite.classList.remove('inactive');
-        clickedTargetClassList.remove('active');
-        _opposite.classList.add('neutral');
-        clickedTargetClassList.add('neutral');
-        return;
-      }
-      if (ballLeft && clickedTargetClassList.contains('inactive')) {
-        var _opposite2 = document.querySelector('.' + clickedTargetClassList[1] + '.right');
-        _opposite2.classList.remove('active');
-        clickedTargetClassList.remove('inactive');
-        _opposite2.classList.add('neutral');
-        clickedTargetClassList.add('neutral');
-        return;
-      }
-      if (ballRight && clickedTargetClassList.contains('neutral')) {
-        var _opposite3 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
-        clickedTargetClassList.remove('neutral');
-        _opposite3.classList.remove('neutral');
-        _opposite3.classList.add('inactive');
-        clickedTargetClassList.add('active');
-        return;
-      }
-      if (ballRight && clickedTargetClassList.contains('active')) {
-        var _opposite4 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
-        _opposite4.classList.remove('inactive');
-        clickedTargetClassList.remove('active');
-        _opposite4.classList.add('neutral');
-        clickedTargetClassList.add('neutral');
-        return;
-      }
-      if (ballRight && clickedTargetClassList.contains('inactive')) {
-        var _opposite5 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
-        _opposite5.classList.remove('active');
-        clickedTargetClassList.remove('inactive');
-        _opposite5.classList.add('neutral');
-        clickedTargetClassList.add('neutral');
-        return;
-      }
-    };
-
-    mc.on('press', deadBallPress);
-    mc.on('press', scoring.checkRackEnd);
-
-    // Active / Inactive
-    ball[i].addEventListener('click', ballClick);
-  };
-
-  for (var i = 0; i < ball.length; i++) {
-    _loop(i);
-  }
-}();
-
-module.exports = diamond;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var incrementer = function () {
-  var incrementButton = document.querySelectorAll('.increment');
-  var decrementButton = document.querySelectorAll('.decrement');
-  var number = "";
-  var numberHtml = "";
-  var counter = function counter(increment, context) {
-    if (increment) {
-      number = context.target.previousElementSibling;
-      numberHtml = number.innerHTML;
-      numberHtml++;
-    } else {
-      number = context.target.nextElementSibling;
-      numberHtml = number.innerHTML;
-      if (numberHtml === '0') {
-        return;
-      }
-      numberHtml--;
-    }
-    number.innerHTML = numberHtml;
-  };
-
-  for (var i = 0; i < incrementButton.length; i++) {
-    incrementButton[i].addEventListener('click', counter.bind(null, true));
-  }
-  for (var _i = 0; _i < decrementButton.length; _i++) {
-    decrementButton[_i].addEventListener('click', counter.bind(null, false));
-  }
-}();
-
-module.exports = incrementer;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var player = function () {
-  var playerOne = document.getElementById('player-1-Name');
-  var playerTwo = document.getElementById('player-2-Name');
-  var nineBall = document.querySelectorAll('.ball-9');
-
-  //  function checkPlayer() {
-  //    var playerOneName = document.getElementById('player-1-Name');
-  //    var playerTwoName = document.getElementById('player-2-Name');    
-  //    
-  //    if ('art vandelay' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
-  //      nineBall.forEach(function(ball) {
-  //        ball.classList.add('av');
-  //      });
-  //    }
-  //    
-  //    if ('ian malcolm' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
-  //      nineBall.forEach(function(ball) {
-  //        ball.classList.add('im');
-  //      });
-  //    }    
-  //  }
-  //  
-  //  playerOne.addEventListener('blur', checkPlayer);
-  //  playerTwo.addEventListener('blur', checkPlayer);
-}();
-
-module.exports = player;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*jshint esversion: 6 */
-var resetGame = __webpack_require__(2);
+var resetGame = __webpack_require__(3);
 
 var matchPoints = function () {
-
-    var lastClickedBall = "";
 
     var endOfMatch = function endOfMatch(winningPlayer) {
         var playerOneName = document.querySelector('#player-1-Name').innerHTML.toString();
@@ -752,7 +157,6 @@ var matchPoints = function () {
         var playerOneScore = document.querySelector('.player-one-score');
         var playerTwoScore = document.querySelector('.player-two-score');
         var score = document.querySelector('.score');
-        lastClickedBall = event.currentTarget;
 
         if (!playerOneName) {
             playerOneName = "Player One";
@@ -803,7 +207,10 @@ var matchPoints = function () {
     };
 
     var undoLastPoint = function undoLastPoint() {
-        console.log(lastClickedBall);
+        //I'm ashamed of this fix, trying to get this done quickly.
+        var lastClicked = document.querySelector('#lastClicked');
+        var lastClickedSelector = lastClicked.innerHTML;
+        //document.getElementsByClassName(lastClickedSelector)[0].click();
     };
 
     var calculateFinalScore = function calculateFinalScore(loserSL, loserScore) {
@@ -1632,6 +1039,603 @@ var matchPoints = function () {
 module.exports = matchPoints;
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var resetRack = __webpack_require__(0);
+
+var rackTable = function () {
+  var table = document.querySelector('.rack-table');
+  var tableHeaders = document.querySelectorAll('.rack-table th');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var rackNumber = document.querySelector('.rack');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var innings = document.querySelector('.number-innings');
+  var deadBalls = document.querySelector('.dead-ball-score');
+  var editScore = document.querySelector('.edit-score');
+  var nextRack = document.querySelector('.next-rack');
+
+  var createCell = function createCell(cell, text, style) {
+    var div = document.createElement('div'); // create DIV element
+    var txt = document.createTextNode(text); // create text node
+    div.appendChild(txt); // append text node to the DIV
+    div.setAttribute('class', style); // set DIV class attribute
+    cell.appendChild(div); // append DIV to the table cell
+  };
+  var appendColumn = function appendColumn(ev) {
+    if (ev.target.classList.contains('neutral') || ev.target.classList.contains('dead') || ev.target.classList.contains('nineOTS')) {
+      createCell(table.rows[0].insertCell(table.rows[0].cells.length), table.rows[0].cells.length - 1, 'label');
+      createCell(table.rows[1].insertCell(table.rows[1].cells.length), playerOneScore.innerHTML, 'col-' + 1);
+      createCell(table.rows[2].insertCell(table.rows[2].cells.length), innings.innerHTML, 'innings-table col-' + 1);
+      createCell(table.rows[3].insertCell(table.rows[3].cells.length), deadBalls.innerHTML, 'dead-ball-table');
+      createCell(table.rows[4].insertCell(table.rows[4].cells.length), playerTwoScore.innerHTML, 'col-' + 1);
+      portraitTable(playerOneScore.innerHTML, innings.innerHTML, deadBalls.innerHTML, playerTwoScore.innerHTML);
+      document.querySelector('tr td:last-child').scrollIntoView();
+    }
+
+    //adds rack-table-sm class to rack-table in order to restrict width and add scroll
+    if (table.offsetWidth >= 250) {
+      var tableHeadersNext = document.querySelectorAll('th + td');
+
+      table.classList.add('rack-table-sm');
+      for (var i = 0; i < tableHeaders.length; i++) {
+        tableHeaders[i].classList.add('th-fixed');
+        tableHeadersNext[i].classList.add('td-padding');
+      }
+    }
+  };
+  var deleteColumn = function deleteColumn() {
+    var lastCol = table.rows[0].cells.length - 1;
+
+    for (var i = 0; i < table.rows.length; i++) {
+      table.rows[i].deleteCell(lastCol);
+    }
+  };
+  //decrements the score by 2 based on which nine ball is active, marks both nine balls neutral
+  var nineBallsNeutral = function nineBallsNeutral() {
+    for (var i = 0; i < nineBall.length; i++) {
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('left')) {
+        playerOneScore.innerHTML = decrementPlayerScore(playerOneScore.innerHTML);
+      }
+      if (nineBall[i].classList.contains('active') && nineBall[i].classList.contains('right')) {
+        playerTwoScore.innerHTML = decrementPlayerScore(playerTwoScore.innerHTML);
+      }
+      nineBall[i].classList.remove('active');
+      nineBall[i].classList.remove('inactive');
+      nineBall[i].classList.add('neutral');
+    }
+  };
+  var decrementPlayerScore = function decrementPlayerScore(obj) {
+    return obj - 2;
+  };
+
+  editScore.addEventListener('click', function () {
+    deleteColumn();
+    nineBallsNeutral();
+    resetRack.hideRackButtons();
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
+  });
+
+  var portraitTable = function portraitTable(p1Score, innings, dead, p2score) {
+    var portraitParent = document.querySelector('.screen-portrait');
+    var portraitContents = "";
+    portraitContents += '<div class="view"><div class="last-rack-column"><div class="portrait-Score">' + p1Score + '</div><div class="portrait-Score">' + innings + '</div><div class="portrait-Score">' + dead + '</div><div class="portrait-Score">' + p2score + '</div></div>';
+    portraitParent.innerHTML = portraitContents;
+  };
+
+  return {
+    appendColumn: appendColumn,
+    deleteColumn: deleteColumn
+  };
+}();
+
+module.exports = rackTable;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var resetRack = __webpack_require__(0);
+var matchPoints = __webpack_require__(1);
+
+var resetGame = function () {
+  var undoLastPointButton = document.querySelector('.undo-last-point');
+  var resetGameButton = document.querySelector('.reset-game');
+  var gameButtons = document.querySelector('.game-buttons');
+
+  var undoLastPointDetails = function undoLastPointDetails() {
+
+    /*
+    resetRack.displayNone();
+    gameButtons.style.marginTop = '';
+    gameButtons.style.display = 'none';
+    gameButtons.classList.add('hidden');
+    */
+
+    matchPoints.undoLastPoint();
+  };
+
+  var resetGameDetails = function resetGameDetails() {
+    if (confirm('Are you sure you\'ve finished your game?')) {
+      window.location.reload();
+    } else {
+      return;
+    }
+  };
+
+  var showGameButtons = function showGameButtons() {
+    resetRack.displayNone();
+    gameButtons.style.marginTop = '.5rem';
+    gameButtons.style.display = 'block';
+    gameButtons.classList.remove('hidden');
+  };
+
+  var hideGameButtons = function hideGameButtons() {
+    gameButtons.classList.add('hidden');
+  };
+  undoLastPointButton.addEventListener('click', undoLastPointDetails);
+  resetGameButton.addEventListener('click', resetGameDetails);
+
+  return {
+    showGameButtons: showGameButtons,
+    hideGameButtons: hideGameButtons
+  };
+}();
+
+module.exports = resetGame;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var rackTable = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
+var resetGame = __webpack_require__(3);
+var matchPoints = __webpack_require__(1);
+
+var scoring = function () {
+  var ball = document.querySelectorAll('.ball');
+  var playerOneScore = document.querySelector('.player-one-score');
+  var playerTwoScore = document.querySelector('.player-two-score');
+  var deadBalls = document.querySelector('.dead-ball-score');
+
+  var playerOneSkill = document.querySelector('.skill-level.left');
+  var playerTwoSkill = document.querySelector('.skill-level.right');
+  var playerOneGoal = document.querySelector('#leftPlayerGoal');
+  var playerTwoGoal = document.querySelector('#rightPlayerGoal');
+
+  var lastClicked = document.querySelector('#lastClicked');
+
+  var increase = function increase(obj) {
+    return obj + 1;
+  };
+  var decrease = function decrease(obj) {
+    return obj - 1;
+  };
+  //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
+  var calcScore = function calcScore() {
+    var deadBallTable = document.querySelectorAll('.dead-ball-table') || 0;
+    var deadBallTotal = 0;
+    for (var i = 0; i < deadBallTable.length; i++) {
+      deadBallTotal += Number(deadBallTable[i].innerHTML);
+    }
+
+    return Number(playerOneScore.innerHTML) + Number(playerTwoScore.innerHTML) + Number(deadBalls.innerHTML) + Number(deadBallTotal);
+  };
+
+  var checkRackEnd = function checkRackEnd(ev) {
+    // Calculate score on each click. If modulo 10, reset rack functionality.
+    var currentScore = calcScore();
+    if (currentScore % 10 === 0 && currentScore !== 0 && document.querySelectorAll('.active').length + document.querySelectorAll('.dead').length >= 8) {
+      rackTable.appendColumn(ev);
+      resetRack.showRackButtons();
+      var inputs = document.querySelectorAll('.row');
+      for (var i = 0; i < inputs.length; i++) {
+        if (!inputs[i].classList.contains('row-top')) {
+          inputs[i].style.pointerEvents = 'none';
+        }
+      }
+    }
+  };
+
+  for (var i = 0; i < ball.length; i++) {
+    ball[i].addEventListener('click', function (ev) {
+      var evTarget = ev.target;
+      // If ballLeft, score left and increment 9 ball twice
+      if (evTarget.classList.contains('left')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = increase(Number(playerOneScore.innerHTML));
+          }
+          //end of match checker
+          if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
+            matchPoints.endOfMatch(1);
+          }
+        }
+        if (evTarget.classList.contains('active')) {
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          }
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          }
+        }
+      }
+      // If ballRight, score right and increment 9 ball twice
+      if (evTarget.classList.contains('right')) {
+        if (evTarget.classList.contains('neutral')) {
+          playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = increase(Number(playerTwoScore.innerHTML));
+          }
+          //end of match checker
+          if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
+            matchPoints.endOfMatch(2);
+          }
+        }
+        if (evTarget.classList.contains('active')) {
+          playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerTwoScore.innerHTML = decrease(Number(playerTwoScore.innerHTML));
+          }
+        }
+        if (evTarget.classList.contains('inactive')) {
+          playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          if (evTarget.classList.contains('ball-9')) {
+            playerOneScore.innerHTML = decrease(Number(playerOneScore.innerHTML));
+          }
+        }
+      }
+
+      checkRackEnd(ev);
+    });
+  }
+
+  playerOneSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerOneGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerOneGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerOneGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerOneGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerOneGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerOneGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerOneGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerOneGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerOneGoal.innerHTML = 75;
+        break;
+    }
+  });
+  playerTwoSkill.addEventListener('change', function (ev) {
+    switch (ev.currentTarget.value) {
+      case "1":
+        playerTwoGoal.innerHTML = 14;
+        break;
+      case "2":
+        playerTwoGoal.innerHTML = 19;
+        break;
+      case "3":
+        playerTwoGoal.innerHTML = 25;
+        break;
+      case "4":
+        playerTwoGoal.innerHTML = 31;
+        break;
+      case "5":
+        playerTwoGoal.innerHTML = 38;
+        break;
+      case "6":
+        playerTwoGoal.innerHTML = 46;
+        break;
+      case "7":
+        playerTwoGoal.innerHTML = 55;
+        break;
+      case "8":
+        playerTwoGoal.innerHTML = 65;
+        break;
+      case "9":
+        playerTwoGoal.innerHTML = 75;
+        break;
+    }
+  });
+
+  return {
+    checkRackEnd: checkRackEnd
+  };
+}();
+
+module.exports = scoring;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var rackTable = __webpack_require__(2);
+var resetRack = __webpack_require__(0);
+var scoring = __webpack_require__(4);
+
+var dead9OTS = function () {
+  var nineOTSleft = document.querySelector('.nineOTS.left');
+  var nineOTSright = document.querySelector('.nineOTS.right');
+  var allBalls = document.querySelectorAll('.ball');
+  var nineBall = document.querySelectorAll('.ball-9');
+  var nineBallLeft = document.querySelector('.ball-9.left.active');
+  var nineBallRight = document.querySelector('.ball-9.right.active');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  var markDead = function markDead(ev) {
+    //    if (position === 'left' && nineBallRight.length === 1) {
+    //      return;
+    //    }
+    //    if (position === 'right' && nineBallLeft.length === 1) {
+    //      return;
+    //    }
+    if (ev.currentTarget.classList.contains('left') && document.querySelector('.ball-9.left.active') === null || ev.currentTarget.classList.contains('right') && document.querySelector('.ball-9.right.active') === null) {
+      return;
+    } else {
+      for (var i = 0; i < nineBall.length; i++) {
+        if (nineBall[i].classList.contains('active')) {
+          for (var j = 0; j < allBalls.length; j++) {
+            if (!allBalls[j].classList.contains('active') && !allBalls[j].classList.contains('inactive') && !allBalls[j].parentElement.classList.contains('spacer')) {
+              allBalls[j].classList.add('dead');
+              allBalls[j].classList.remove('neutral');
+              allBalls[j].classList.remove('inactive');
+              var deadBalls = document.querySelectorAll('.left-grid .dead');
+              deadBallScore.innerHTML = deadBalls.length;
+            }
+          }
+          //          rackTable.appendColumn(ev);
+          //          resetRack.showRackButtons();
+          scoring.checkRackEnd(ev);
+        }
+      }
+    }
+  };
+
+  nineOTSleft.addEventListener('click', markDead);
+  nineOTSright.addEventListener('click', markDead);
+}();
+
+module.exports = dead9OTS;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var scoring = __webpack_require__(4);
+
+var diamond = function () {
+  var ball = document.querySelectorAll('.ball');
+  var deadBallScore = document.querySelector('.dead-ball-score');
+
+  var _loop = function _loop(i) {
+    // Dead Balls
+    var mc = new Hammer(ball[i]);
+    var deadBallPress = function deadBallPress(ev) {
+      var deadBallTarget = ev.target;
+      var ballArray = Array.from(ball);
+      var classListArray = Array.from(ev.target.classList);
+      var targetClass = classListArray[1];
+
+      /*  Prevents ball-9 from being marked dead
+          Toggles dead state */
+      if (deadBallTarget.classList.contains('neutral') && !deadBallTarget.classList.contains('ball-9')) {
+
+        ballArray.filter(function (b) {
+          return b.classList.contains(targetClass);
+        }).forEach(function (b) {
+          b.classList.add('dead');
+          b.classList.remove('neutral');
+        });
+      } else if (deadBallTarget.classList.contains('dead')) {
+        deadBallTarget.classList.remove('dead');
+
+        ballArray.filter(function (b) {
+          return b.classList.contains(targetClass);
+        }).forEach(function (b) {
+          b.classList.remove('dead');
+          b.classList.add('neutral');
+        });
+        ev.target.click(); //this is a really stupid temporary fix. please don't let this live for very long.
+      }
+      var deadBalls = document.querySelectorAll('.left-grid .dead');
+      deadBallScore.innerHTML = deadBalls.length;
+    };
+    var ballClick = function ballClick(ev) {
+      var evTarget = ev.target;
+      var clickedTargetClassList = evTarget.classList;
+      var ballLeft = ball[i].classList.contains('left');
+      var ballRight = ball[i].classList.contains('right');
+
+      // Determine left or right, then inactive the opposite
+      if (ballLeft && clickedTargetClassList.contains('neutral')) {
+        var opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        clickedTargetClassList.remove('neutral');
+        opposite.classList.remove('neutral');
+        opposite.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('active')) {
+        var _opposite = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        _opposite.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        _opposite.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballLeft && clickedTargetClassList.contains('inactive')) {
+        var _opposite2 = document.querySelector('.' + clickedTargetClassList[1] + '.right');
+        _opposite2.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        _opposite2.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('neutral')) {
+        var _opposite3 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        clickedTargetClassList.remove('neutral');
+        _opposite3.classList.remove('neutral');
+        _opposite3.classList.add('inactive');
+        clickedTargetClassList.add('active');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('active')) {
+        var _opposite4 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        _opposite4.classList.remove('inactive');
+        clickedTargetClassList.remove('active');
+        _opposite4.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+      if (ballRight && clickedTargetClassList.contains('inactive')) {
+        var _opposite5 = document.querySelector('.' + clickedTargetClassList[1] + '.left');
+        _opposite5.classList.remove('active');
+        clickedTargetClassList.remove('inactive');
+        _opposite5.classList.add('neutral');
+        clickedTargetClassList.add('neutral');
+        return;
+      }
+    };
+
+    mc.on('press', deadBallPress);
+    mc.on('press', scoring.checkRackEnd);
+
+    // Active / Inactive
+    ball[i].addEventListener('click', ballClick);
+  };
+
+  for (var i = 0; i < ball.length; i++) {
+    _loop(i);
+  }
+}();
+
+module.exports = diamond;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var incrementer = function () {
+  var incrementButton = document.querySelectorAll('.increment');
+  var decrementButton = document.querySelectorAll('.decrement');
+  var number = "";
+  var numberHtml = "";
+  var counter = function counter(increment, context) {
+    if (increment) {
+      number = context.target.previousElementSibling;
+      numberHtml = number.innerHTML;
+      numberHtml++;
+    } else {
+      number = context.target.nextElementSibling;
+      numberHtml = number.innerHTML;
+      if (numberHtml === '0') {
+        return;
+      }
+      numberHtml--;
+    }
+    number.innerHTML = numberHtml;
+  };
+
+  for (var i = 0; i < incrementButton.length; i++) {
+    incrementButton[i].addEventListener('click', counter.bind(null, true));
+  }
+  for (var _i = 0; _i < decrementButton.length; _i++) {
+    decrementButton[_i].addEventListener('click', counter.bind(null, false));
+  }
+}();
+
+module.exports = incrementer;
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/*jshint esversion: 6 */
+var player = function () {
+  var playerOne = document.getElementById('player-1-Name');
+  var playerTwo = document.getElementById('player-2-Name');
+  var nineBall = document.querySelectorAll('.ball-9');
+
+  //  function checkPlayer() {
+  //    var playerOneName = document.getElementById('player-1-Name');
+  //    var playerTwoName = document.getElementById('player-2-Name');    
+  //    
+  //    if ('art vandelay' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+  //      nineBall.forEach(function(ball) {
+  //        ball.classList.add('av');
+  //      });
+  //    }
+  //    
+  //    if ('ian malcolm' === playerOneName.innerHTML.toLowerCase() || playerTwoName.innerHTML.toLowerCase()) {
+  //      nineBall.forEach(function(ball) {
+  //        ball.classList.add('im');
+  //      });
+  //    }    
+  //  }
+  //  
+  //  playerOne.addEventListener('blur', checkPlayer);
+  //  playerTwo.addEventListener('blur', checkPlayer);
+}();
+
+module.exports = player;
+
+/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1639,13 +1643,13 @@ module.exports = matchPoints;
 
 
 /*jshint esversion: 6 */
-var incrementer = __webpack_require__(6);
-var diamond = __webpack_require__(5);
+var incrementer = __webpack_require__(7);
+var diamond = __webpack_require__(6);
 //const scoring = require('./modules/scoring');
 var resetRack = __webpack_require__(0);
 //const rackTable = require('./modules/rackTable');
-var dead9OTS = __webpack_require__(4);
-var player = __webpack_require__(7);
+var dead9OTS = __webpack_require__(5);
+var player = __webpack_require__(8);
 
 var rackNumberLabel = new Hammer(document.querySelector("#rackNumberLabel"));
 

@@ -15,6 +15,8 @@ const scoring = (function () {
   const playerOneGoal = document.querySelector('#leftPlayerGoal');
   const playerTwoGoal = document.querySelector('#rightPlayerGoal');
 
+  const lastClicked = document.querySelector('#lastClicked');
+
   const increase = obj => obj + 1;
   const decrease = obj => obj - 1;
   //calculates total number of dead balls in rack table and returns that value plus playerOneScore, playerTwoScore and current dead balls
@@ -55,6 +57,7 @@ const scoring = (function () {
           }
           //end of match checker
           if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
             matchPoints.endOfMatch(1);
           }
         }
@@ -80,6 +83,7 @@ const scoring = (function () {
           }
           //end of match checker
           if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
             matchPoints.endOfMatch(2);
           }
         }
