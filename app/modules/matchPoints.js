@@ -36,7 +36,7 @@ const matchPoints = (function() {
 
         if (winningPlayer == 1) {
             let matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            let finalScore = document.createElement('span');
+            let finalScore = document.createElement('div');
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);
@@ -61,13 +61,6 @@ const matchPoints = (function() {
           inputs[i].style.pointerEvents = 'none';
         }
       }
-    };
-
-    let undoLastPoint = function() {
-        //I'm ashamed of this fix, trying to get this done quickly.
-        const lastClicked = document.querySelector('#lastClicked');
-        const lastClickedSelector = lastClicked.innerHTML;
-        //document.getElementsByClassName(lastClickedSelector)[0].click();
     };
 
      let calculateFinalScore = function(loserSL, loserScore) {
@@ -888,8 +881,7 @@ const matchPoints = (function() {
         }
     };
     return {
-            endOfMatch: endOfMatch,
-            undoLastPoint: undoLastPoint
+            endOfMatch: endOfMatch
         };
 })();
 

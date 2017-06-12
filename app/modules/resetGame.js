@@ -1,22 +1,42 @@
 /*jshint esversion: 6 */
 const resetRack = require('./resetRack');
-const matchPoints = require('./matchPoints');
+//const matchPoints = require('./matchPoints');
 
 const resetGame = (function() {
   const undoLastPointButton = document.querySelector('.undo-last-point');
   const resetGameButton = document.querySelector('.reset-game');
   const gameButtons = document.querySelector('.game-buttons');
   
-  const undoLastPointDetails = function() {
-    
-    /*
+  let undoLastPoint = function() {
+    //I'm ashamed of this fix, trying to get this done quickly.
+    const finalScore = document.querySelector('.final-score');  
+    const lastClicked = document.querySelector('#lastClicked');
+    const lastClickedSelector = lastClicked.innerHTML;
+    const lastClickedClass = document.getElementsByClassName(lastClickedSelector);
+    lastClickedClass[0].classList.remove('active', 'inactive');
+    lastClickedClass[0].classList.add('neutral');
+    lastClickedClass[1].classList.remove('active', 'inactive');
+    lastClickedClass[1].classList.add('neutral');
     resetRack.displayNone();
     gameButtons.style.marginTop = '';
     gameButtons.style.display = 'none';
     gameButtons.classList.add('hidden');
-    */
-
-    matchPoints.undoLastPoint();
+    finalScore.innerHTML = '';
+    clickPreventUndo();
+    //document.getElementsByClassName(lastClickedSelector)[0].click();
+  };
+  
+  const undoLastPointDetails = function() {
+    undoLastPoint();
+  };
+  
+  const clickPreventUndo = function() {
+    let inputs = document.querySelectorAll('.row');
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
   };
 
   const resetGameDetails = function() {
@@ -28,7 +48,7 @@ const resetGame = (function() {
   };
   
   const showGameButtons = function() {
-    resetRack.displayNone();
+    resetRack.displayNone;
     gameButtons.style.marginTop = '.5rem';
     gameButtons.style.display = 'block';
     gameButtons.classList.remove('hidden');

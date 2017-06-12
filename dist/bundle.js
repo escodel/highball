@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
+
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -46,7 +46,7 @@
 /******/ 			});
 /******/ 		}
 /******/ 	};
-/******/
+
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -55,13 +55,13 @@
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-/******/
+
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
@@ -179,7 +179,7 @@ var matchPoints = function () {
 
         if (winningPlayer == 1) {
             var matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            var finalScore = document.createElement('span');
+            var finalScore = document.createElement('div');
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);
@@ -204,13 +204,6 @@ var matchPoints = function () {
                 inputs[i].style.pointerEvents = 'none';
             }
         }
-    };
-
-    var undoLastPoint = function undoLastPoint() {
-        //I'm ashamed of this fix, trying to get this done quickly.
-        var lastClicked = document.querySelector('#lastClicked');
-        var lastClickedSelector = lastClicked.innerHTML;
-        //document.getElementsByClassName(lastClickedSelector)[0].click();
     };
 
     var calculateFinalScore = function calculateFinalScore(loserSL, loserScore) {
@@ -1031,8 +1024,7 @@ var matchPoints = function () {
         }
     };
     return {
-        endOfMatch: endOfMatch,
-        undoLastPoint: undoLastPoint
+        endOfMatch: endOfMatch
     };
 }();
 
@@ -1150,23 +1142,43 @@ module.exports = rackTable;
 
 /*jshint esversion: 6 */
 var resetRack = __webpack_require__(0);
-var matchPoints = __webpack_require__(1);
+//const matchPoints = require('./matchPoints');
 
 var resetGame = function () {
   var undoLastPointButton = document.querySelector('.undo-last-point');
   var resetGameButton = document.querySelector('.reset-game');
   var gameButtons = document.querySelector('.game-buttons');
 
-  var undoLastPointDetails = function undoLastPointDetails() {
-
-    /*
+  var undoLastPoint = function undoLastPoint() {
+    //I'm ashamed of this fix, trying to get this done quickly.
+    var finalScore = document.querySelector('.final-score');
+    var lastClicked = document.querySelector('#lastClicked');
+    var lastClickedSelector = lastClicked.innerHTML;
+    var lastClickedClass = document.getElementsByClassName(lastClickedSelector);
+    lastClickedClass[0].classList.remove('active', 'inactive');
+    lastClickedClass[0].classList.add('neutral');
+    lastClickedClass[1].classList.remove('active', 'inactive');
+    lastClickedClass[1].classList.add('neutral');
     resetRack.displayNone();
     gameButtons.style.marginTop = '';
     gameButtons.style.display = 'none';
     gameButtons.classList.add('hidden');
-    */
+    finalScore.innerHTML = '';
+    clickPreventUndo();
+    //document.getElementsByClassName(lastClickedSelector)[0].click();
+  };
 
-    matchPoints.undoLastPoint();
+  var undoLastPointDetails = function undoLastPointDetails() {
+    undoLastPoint();
+  };
+
+  var clickPreventUndo = function clickPreventUndo() {
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
   };
 
   var resetGameDetails = function resetGameDetails() {
@@ -1178,7 +1190,7 @@ var resetGame = function () {
   };
 
   var showGameButtons = function showGameButtons() {
-    resetRack.displayNone();
+    resetRack.displayNone;
     gameButtons.style.marginTop = '.5rem';
     gameButtons.style.display = 'block';
     gameButtons.classList.remove('hidden');
