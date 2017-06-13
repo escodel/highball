@@ -19,6 +19,10 @@ const resetRack = (function() {
     rackButtons.style.display = 'none';
   };
   
+  const displayBlock = function() {
+    rackButtons.style.display = 'block';
+  };
+  
   const resetRack = function() {
     for (let i = 0; i < ballArray.length; i++) {
       ballArray[i].classList.remove('active');
@@ -56,7 +60,8 @@ const resetRack = (function() {
   return {
     showRackButtons: showRackButtons,
     hideRackButtons: hideRackButtons,
-    displayNone: displayNone
+    displayNone: displayNone,
+    displayBlock: displayBlock
   };
 
 })();

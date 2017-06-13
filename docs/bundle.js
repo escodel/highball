@@ -94,6 +94,10 @@ var resetRack = function () {
     rackButtons.style.display = 'none';
   };
 
+  var displayBlock = function displayBlock() {
+    rackButtons.style.display = 'block';
+  };
+
   var resetRack = function resetRack() {
     for (var i = 0; i < ballArray.length; i++) {
       ballArray[i].classList.remove('active');
@@ -131,7 +135,8 @@ var resetRack = function () {
   return {
     showRackButtons: showRackButtons,
     hideRackButtons: hideRackButtons,
-    displayNone: displayNone
+    displayNone: displayNone,
+    displayBlock: displayBlock
   };
 }();
 
@@ -251,8 +256,39 @@ module.exports = rackTable;
 var resetRack = __webpack_require__(0);
 
 var resetGame = function () {
+  var undoLastPointButton = document.querySelector('.undo-last-point');
   var resetGameButton = document.querySelector('.reset-game');
   var gameButtons = document.querySelector('.game-buttons');
+
+  var undoLastPoint = function undoLastPoint() {
+    var finalScore = document.querySelector('.final-score');
+    var lastClicked = document.querySelector('#lastClicked');
+    var lastClickedSelector = lastClicked.innerHTML;
+    var neutral = document.querySelectorAll('.neutral');
+    document.getElementsByClassName(lastClickedSelector)[0].click();
+    resetRack.displayBlock();
+    gameButtons.style.marginTop = '';
+    gameButtons.style.display = 'none';
+    gameButtons.classList.add('hidden');
+    finalScore.innerHTML = '';
+    clickPreventUndo();
+    if (neutral.length <= 8) {
+      document.querySelector('.edit-score').click();
+    }
+  };
+
+  var undoLastPointDetails = function undoLastPointDetails() {
+    undoLastPoint();
+  };
+
+  var clickPreventUndo = function clickPreventUndo() {
+    var inputs = document.querySelectorAll('.row');
+    for (var i = 0; i < inputs.length; i++) {
+      if (!inputs[i].classList.contains('row-top')) {
+        inputs[i].style.pointerEvents = 'auto';
+      }
+    }
+  };
 
   var resetGameDetails = function resetGameDetails() {
     if (confirm('Are you sure you\'ve finished your game?')) {
@@ -272,7 +308,7 @@ var resetGame = function () {
   var hideGameButtons = function hideGameButtons() {
     gameButtons.classList.add('hidden');
   };
-
+  undoLastPointButton.addEventListener('click', undoLastPointDetails);
   resetGameButton.addEventListener('click', resetGameDetails);
 
   return {
@@ -306,6 +342,8 @@ var scoring = function () {
   var playerTwoSkill = document.querySelector('.skill-level.right');
   var playerOneGoal = document.querySelector('#leftPlayerGoal');
   var playerTwoGoal = document.querySelector('#rightPlayerGoal');
+
+  var lastClicked = document.querySelector('#lastClicked');
 
   var increase = function increase(obj) {
     return obj + 1;
@@ -351,6 +389,7 @@ var scoring = function () {
           }
           //end of match checker
           if (Number(playerOneScore.innerHTML) >= Number(playerOneGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
             matchPoints.endOfMatch(1);
           }
         }
@@ -376,6 +415,7 @@ var scoring = function () {
           }
           //end of match checker
           if (Number(playerTwoScore.innerHTML) >= Number(playerTwoGoal.innerHTML)) {
+            lastClicked.innerHTML = evTarget.classList[1];
             matchPoints.endOfMatch(2);
           }
         }
@@ -758,7 +798,7 @@ var matchPoints = function () {
 
         if (winningPlayer == 1) {
             var matchScore = calculateFinalScore(playerTwoSkillVal, playerTwoScore.innerHTML);
-            var finalScore = document.createElement('span');
+            var finalScore = document.createElement('div');
             finalScore.classList.add('final-score');
             finalScore.innerHTML = playerOneName + ' wins!<br/>MPE: ' + matchScore.winnerScore + ' - ' + matchScore.loserScore + '<br/>Total Innings: ' + inningsTotal;
             score.insertBefore(finalScore, score.firstChild);

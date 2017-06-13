@@ -1,6 +1,5 @@
 /*jshint esversion: 6 */
 const resetRack = require('./resetRack');
-//const matchPoints = require('./matchPoints');
 
 const resetGame = (function() {
   const undoLastPointButton = document.querySelector('.undo-last-point');
@@ -8,22 +7,20 @@ const resetGame = (function() {
   const gameButtons = document.querySelector('.game-buttons');
   
   let undoLastPoint = function() {
-    //I'm ashamed of this fix, trying to get this done quickly.
     const finalScore = document.querySelector('.final-score');  
     const lastClicked = document.querySelector('#lastClicked');
     const lastClickedSelector = lastClicked.innerHTML;
-    const lastClickedClass = document.getElementsByClassName(lastClickedSelector);
-    lastClickedClass[0].classList.remove('active', 'inactive');
-    lastClickedClass[0].classList.add('neutral');
-    lastClickedClass[1].classList.remove('active', 'inactive');
-    lastClickedClass[1].classList.add('neutral');
-    resetRack.displayNone();
+    const neutral = document.querySelectorAll('.neutral');  
+    document.getElementsByClassName(lastClickedSelector)[0].click();
+    resetRack.displayBlock();
     gameButtons.style.marginTop = '';
     gameButtons.style.display = 'none';
     gameButtons.classList.add('hidden');
     finalScore.innerHTML = '';
     clickPreventUndo();
-    //document.getElementsByClassName(lastClickedSelector)[0].click();
+    if (neutral.length <= 8) {
+      document.querySelector('.edit-score').click();
+    }
   };
   
   const undoLastPointDetails = function() {
@@ -48,7 +45,7 @@ const resetGame = (function() {
   };
   
   const showGameButtons = function() {
-    resetRack.displayNone;
+    resetRack.displayNone();
     gameButtons.style.marginTop = '.5rem';
     gameButtons.style.display = 'block';
     gameButtons.classList.remove('hidden');
