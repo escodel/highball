@@ -1,20 +1,29 @@
 {
-  "name": "apa",
+  "name": "highball",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "9-ball score tracker",
+  "type": "module",
   "scripts": {
-    "build": "webpack",
-    "test": "mocha"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "author": "",
+  "keywords": [
+    "9-ball",
+    "pool",
+    "billiards"
+  ],
+  "author": "escodel@gmail.com, @wharpa",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-loader": "^6.3.1",
-    "babel-preset-env": "^1.1.8",
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "webpack": "^2.2.1"
+    "@preact/preset-vite": "^2.8.1",
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.1.2"
+  },
+  "dependencies": {
+    "preact": "^10.19.4",
+    "preact-router": "^4.1.2"
   }
 }

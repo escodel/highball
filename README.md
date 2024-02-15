@@ -9,6 +9,43 @@ Mobile-focused 9 ball pool scorekeeper
     - Tap Next Rack to save this score and begin the next rack
     - Tap Edit Score to de-activate the 9 ball and adjust balls, innings, and defenses as needed
 
+- localStorage for player names with attributes (skillLevel, games won), scores per game (along with current game score)
+    players: [
+        {
+            id: uuid,
+            name: string,
+            skillLevel: int,
+            gamesWon: int
+        },
+        ...
+    ],
+    scorekeeper: {
+        id: id (from players)
+    },
+    games: [
+        {
+            id: uuid,
+            inProgress: boolean,
+            player1id: id (from players),
+            player2id: id (from players),
+            p1score: int,
+            p2score: int.
+            winner: player1id / player2id <-- if !inProgress,
+            scoreKeeper: id (from players?),
+            startTime: Date.now(),
+            endTime: date object,
+            tableStatus: [
+                {
+                    // each ball has properties
+                },
+                ...
+            ]
+        },
+        ...
+    ]
+- existing vs new players
+- need current "who you are" player?
+
 # Recent changes:
 - Made inactive balls easier to see - white circle and ball # are hidden once the opposing rack has scored that ball
 - Now live on [highball.pro](http://highball.pro)
@@ -21,7 +58,7 @@ Mobile-focused 9 ball pool scorekeeper
 - SEO meta tags
 - Donate button looks weird on iOS - maybe webkit-appearance?
 - Menu for rooms/display latest rack score in portrait
-- End of match UI (table? modal? Match Points Earned, total # innings, reset with confirmation)   
+- End of match UI (table? modal? Match Points Earned, total # innings, reset with confirmation)
 - Browser Inconsistencies:
     - Looks best on chrome android devices (phone size)
         - When launched from home screen shortcut, the URL bar is always visible and the app scrolls a tiny bit (bottom buttons can be cut off or the top half of player names can be cut off).
@@ -38,8 +75,8 @@ Mobile-focused 9 ball pool scorekeeper
 - Handicap/lineup calculator
 - 8 ball version (or non-points 9 ball)
 - Record player/team data, look into getting/posting to web services
-    
-    
+
+
 
 # Less-recent changes:
 - Made dead ball check for end of rack -- fixed minor bug
