@@ -5,7 +5,7 @@ html {
 body {
   background: #0c630c;
   color: white;
-  font-family: 'Mada', sans-serif;
+  font-family: "Mada", sans-serif;
   font-weight: 300;
 }
 
@@ -101,18 +101,18 @@ a {
 .ball {
   box-sizing: border-box;
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   transform: rotate(-45deg);
   text-align: center;
-  padding-top: 20%; 
+  padding-top: 20%;
   /*might need to adjust padding-top for other devices - looks ok on emulated phone but not good on native browser.*/
   font-size: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400));
   border-radius: 50%;
   border-style: solid;
-  border-width: thin; 
+  border-width: thin;
   border-color: transparent;
   box-shadow: #333 0px 2px 12px;
 }
@@ -150,7 +150,7 @@ a {
 }
 
 .ball-9 {
-  background: linear-gradient(white 20%,#cece23 10%,#cece23 80%,white 80%);
+  background: linear-gradient(white 20%, #cece23 10%, #cece23 80%, white 80%);
 }
 
 .ball-container > .neutral {
@@ -174,7 +174,8 @@ a {
   background: darkgray;
 }
 
-.ball-space, .spacer{
+.ball-space,
+.spacer {
   visibility: hidden;
 }
 
@@ -195,32 +196,32 @@ a {
   padding-bottom: 21.833%;
   overflow: hidden;
   float: left;
-/*  background: #BBB;*/
+  /*  background: #BBB;*/
   transform: rotate(45deg);
   margin: 5.5%;
   margin-top: -11%;
-  border-radius: 50%
+  border-radius: 50%;
 }
 
 .ball-container:nth-child(1),
 .ball-container:nth-child(2),
 .ball-container:nth-child(3) {
-   margin-top: 5%;
+  margin-top: 5%;
 }
 
-.ball-container:nth-child(5n+4) {
-    margin-left: 21.9%;
+.ball-container:nth-child(5n + 4) {
+  margin-left: 21.9%;
 }
 
-.ball-container:nth-child(5n+6) {
-    clear:left;
+.ball-container:nth-child(5n + 6) {
+  clear: left;
 }
 
-.ball-container:nth-child(5n+6):last-of-type {
+.ball-container:nth-child(5n + 6):last-of-type {
   margin-left: 38.25%;
 }
 
-.white-background {  
+.white-background {
   color: black;
   background-color: white;
   pointer-events: none;
@@ -234,7 +235,7 @@ a {
   font-weight: bold;
 }
 
-[contenteditable=true]:empty:before{
+[contenteditable="true"]:empty:before {
   content: attr(placeholder);
   display: block; /* For Firefox */
 }
@@ -266,7 +267,8 @@ a {
   position: fixed;
 }
 
-.rack-table th, td {
+.rack-table th,
+td {
   padding: 0.2em 0.4em;
 }
 
@@ -308,7 +310,7 @@ th.label {
   .screen-landscape {
     display: block;
   }
-  
+
   .screen-portrait {
     display: none;
   }
@@ -318,11 +320,11 @@ th.label {
   .lock {
     visibility: visible;
   }
-  
+
   .screen-landscape {
     display: none;
   }
-  
+
   .screen-portrait {
     display: block;
   }
@@ -344,7 +346,7 @@ th.label {
 }
 
 .rack-buttons {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .instructions {
@@ -360,7 +362,7 @@ th.label {
   background-color: #5ca6d6;
   color: #fff;
   border: none;
-  padding: .666em;
+  padding: 0.666em;
   margin-bottom: 1rem;
   font-weight: bold;
   text-decoration: none;
@@ -380,26 +382,27 @@ th.label {
 #title {
   font-size: 3rem;
 }
-#titleContainer{
+#titleContainer {
   line-height: 1.5;
 }
-#subtitle{
+#subtitle {
   font-size: 1.5rem;
 }
 
 .av {
-  background: url('https://vignette1.wikia.nocookie.net/seinfeld/images/7/76/George-costanza.jpg/revision/latest?cb=20110406222711') !important;
+  background: url("https://vignette1.wikia.nocookie.net/seinfeld/images/7/76/George-costanza.jpg/revision/latest?cb=20110406222711") !important;
   background-repeat: no-repeat;
   background-size: contain !important;
 }
 
 .im {
-  background: url('http://68.media.tumblr.com/37a8094b181cda2ce2980a391e557552/tumblr_mt8y0pOhlY1r04lc7o1_500.jpg') !important;
+  background: url("http://68.media.tumblr.com/37a8094b181cda2ce2980a391e557552/tumblr_mt8y0pOhlY1r04lc7o1_500.jpg") !important;
   background-repeat: no-repeat;
-  background-size: contain !important;  
+  background-size: contain !important;
 }
 
-.im div, .av div {
+.im div,
+.av div {
   display: none;
 }
 
