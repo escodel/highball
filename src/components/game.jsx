@@ -6,6 +6,7 @@ export function Game(props) {
   const [currentPlayer, setCurrentPlayer] = useState(p1name);
   const [p1score, setP1score] = useState(0);
   const [p2score, setP2score] = useState(0);
+  const [total, setTotal] = useState(0)
   const [inningsCount, setInningsCount] = useState(0);
   const [innings, setInnings] = useState(null);
   const [deadBalls, setDeadBalls] = useState(0);
@@ -14,7 +15,7 @@ export function Game(props) {
   const [p1timeout, setP1timeout] = useState(false);
   const [p2timeout, setP2timeout] = useState(false);
   const [rack, setRack] = useState([]);
-  const [breakStatus, setBreakStatus] = useState(false);
+  const [breakStatus, setBreakStatus] = useState(true);
   // const [targetBall, setTargetBall] = useState(1)
 
   function BallDetails(num, status) {
@@ -27,8 +28,8 @@ export function Game(props) {
   function Inning() {
     return {
       "9S": false,
-      BR: false,
-      T: false,
+      "BR": false,
+      "T": false,
     };
   }
 
@@ -44,6 +45,10 @@ export function Game(props) {
     inning.count = 1;
     setInnings([inning]);
   }, []);
+
+  useEffect(() => {
+    setTotal(p1score + p2score + deadBalls)
+  }, [p1score, p2score, deadBalls])
 
   function increment(n) {
     return n === 9 ? 2 : 1;
@@ -93,37 +98,50 @@ export function Game(props) {
   }
 
   function endTurn() {
-    setBreakStatus(false);
-    if (currentPlayer === p2name) {
-      const inning = new Inning();
-      setInningsCount((prevState) => prevState++);
-      inning.count = inningsCount;
-      setInnings(innings.push(inning));
-    }
+    let nine = rack.find((obj) => obj.num === 9);
+    if (nine.status === "pocketed" && breakStatus === true) {
+        let count = 0
+        let countDead = rack.map(obj => {
+            if (obj.status !== 'pocketed') {
+                obj.status = 'dead'
+                count++
+            }
 
-    setCurrentPlayer((prevState) => (prevState === p1name ? p2name : p1name));
+            return obj
+        })
+
+        setRack(countDead)
+        setDeadBalls(count)
+        setInnings((prevState) => (prevState["9S"] = true));
+        return endGame()
+    } else {
+        setBreakStatus(false);
+
+        if (currentPlayer === p2name) {
+        const inning = new Inning();
+        setInningsCount((prevState) => prevState++);
+        inning.count = inningsCount;
+        setInnings(innings.push(inning));
+        }
+
+        setCurrentPlayer((prevState) => prevState === p1name ? p2name : p1name);
+    }
   }
 
   function endGame() {
-    let nine = rack.find((obj) => obj.num === 9);
-    if (nine.status === "pocketed" && breakStatus === true) {
-      // TODO: mark 9 plus pocketed ones
-      setInnings((prevState) => (prevState["9S"] = true));
-    }
     if (p1score === 10 && breakStatus === true) {
       setP1score(10);
       setP2score(0);
       setInnings((prevState) => (prevState["BR"] = true));
     }
-    const total = p1score + p2score + deadBalls;
     if (total === 10) {
-      // record game score
+      alert('game over!')
     }
   }
 
   return (
     <div className="table">
-      <h2>{currentPlayer}</h2>
+      <h2>Current Player: {currentPlayer}</h2>
       <div className="scoreboard">
         <div>
           <h2>{p1name}</h2>
@@ -146,7 +164,11 @@ export function Game(props) {
         })}
       </div>
       <button onClick={scratchFoul}>Scratch/Foul</button>
-      <button onClick={endTurn}>End Turn</button>
+      {total !== 10 ?
+          <button onClick={endTurn}>End turn</button>
+          :
+          <button onClick={endGame}>End game</button>
+      }
     </div>
   );
 }
