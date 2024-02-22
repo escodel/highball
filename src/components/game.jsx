@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useReducer, useState } from "preact/hooks";
 import { Ball } from "./ball";
 
 export function Game(props) {
@@ -6,7 +6,7 @@ export function Game(props) {
   const [currentPlayer, setCurrentPlayer] = useState(p1name);
   const [p1score, setP1score] = useState(0);
   const [p2score, setP2score] = useState(0);
-  const [total, setTotal] = useState(0)
+  const [total, setTotal] = useState(0);
   const [inningsCount, setInningsCount] = useState(0);
   const [innings, setInnings] = useState(null);
   const [deadBalls, setDeadBalls] = useState(0);
@@ -16,6 +16,7 @@ export function Game(props) {
   const [p2timeout, setP2timeout] = useState(false);
   const [rack, setRack] = useState([]);
   const [breakStatus, setBreakStatus] = useState(true);
+  const [show9S, setShow9S] = useState(false);
   // const [targetBall, setTargetBall] = useState(1)
 
   function BallDetails(num, status) {
@@ -28,16 +29,16 @@ export function Game(props) {
   function Inning() {
     return {
       "9S": false,
-      "BR": false,
-      "T": false,
+      BR: false,
+      T: false,
     };
   }
 
   useEffect(() => {
     let rack = [8, 7, 5, 6, 9, 3, 4, 2, 1];
     rack.forEach((num, i) => {
-      let status = num === 1 ? "active" : "neutral";
-      rack[i] = new BallDetails(num, status);
+      //   let status = num === 1 ? "active" : "neutral";
+      rack[i] = new BallDetails(num, "neutral");
     });
     setRack(rack);
 
@@ -47,35 +48,45 @@ export function Game(props) {
   }, []);
 
   useEffect(() => {
-    setTotal(p1score + p2score + deadBalls)
-  }, [p1score, p2score, deadBalls])
+    setTotal(p1score + p2score + deadBalls);
+  }, [p1score, p2score, deadBalls]);
 
   function increment(n) {
     return n === 9 ? 2 : 1;
   }
 
-  function pocketBall(num) {
-    let curr = rack.find((obj) => obj.num === num);
-    curr.status = "pocketed";
-    setRack((prevState) => {
-      let obj = prevState.find((obj) => obj.num === num);
-      obj = curr;
-      return prevState;
-    });
-
-    if (currentPlayer === p1name) {
-      setP1score((prevState) => prevState + increment(num));
-    } else {
-      setP2score((prevState) => prevState + increment(num));
-    }
+  function decrement(n) {
+    return n === 9 ? -2 : -1;
   }
 
-  function markDead(num) {
-    let curr = rack.find((obj) => obj.num === num);
-    curr.status = "dead";
+  function handleBallStatus(num) {
+    let curr = rack.find((obj) => Number(obj.num) === Number(num));
+    let callHook;
+    if (currentPlayer === p1name) {
+      callHook = (val) => setP1score((prevState) => prevState + val);
+    } else {
+      callHook = (val) => setP2score((prevState) => prevState + val);
+    }
+
+    switch (curr.status) {
+      case "neutral":
+        curr.status = "pocketed";
+        callHook(increment(num));
+        break;
+      case "pocketed":
+        curr.status = "dead";
+        setDeadBalls(prevState => prevState + 1)
+        callHook(decrement(num));
+        break;
+      case "dead":
+        curr.status = "neutral";
+        setDeadBalls(prevState => prevState - 1)
+        break;
+    }
+
     setRack((prevState) => {
-      let obj = prevState.find((obj) => obj.num === num);
-      obj = curr;
+      let objRack = prevState.find((obj) => Number(obj.num) === Number(num));
+      objRack = curr;
       return prevState;
     });
   }
@@ -99,32 +110,35 @@ export function Game(props) {
 
   function endTurn() {
     let nine = rack.find((obj) => obj.num === 9);
-    if (nine.status === "pocketed" && breakStatus === true) {
-        let count = 0
-        let countDead = rack.map(obj => {
-            if (obj.status !== 'pocketed') {
-                obj.status = 'dead'
-                count++
-            }
+    if (nine.status === "pocketed") {
+      let count = 0;
+      let countDead = rack.map((obj) => {
+        if (obj.status !== "pocketed") {
+          obj.status = "dead";
+          count++;
+        }
 
-            return obj
-        })
+        return obj;
+      });
 
-        setRack(countDead)
-        setDeadBalls(count)
+      setRack(countDead);
+      setDeadBalls(count);
+      if (breakStatus) {
+        setShow9S(true);
         setInnings((prevState) => (prevState["9S"] = true));
-        return endGame()
+      }
+      return endGame();
     } else {
-        setBreakStatus(false);
+      setBreakStatus(false);
 
-        if (currentPlayer === p2name) {
+      if (currentPlayer === p2name) {
         const inning = new Inning();
         setInningsCount((prevState) => prevState++);
         inning.count = inningsCount;
         setInnings(innings.push(inning));
-        }
+      }
 
-        setCurrentPlayer((prevState) => prevState === p1name ? p2name : p1name);
+      setCurrentPlayer((prevState) => (prevState === p1name ? p2name : p1name));
     }
   }
 
@@ -135,7 +149,23 @@ export function Game(props) {
       setInnings((prevState) => (prevState["BR"] = true));
     }
     if (total === 10) {
-      alert('game over!')
+      alert("game over!");
+    }
+  }
+
+  function undo() {
+    let undo = rack.map((obj) => {
+      if (obj.status === "dead") {
+        obj.status = "neutral";
+      }
+
+      return obj;
+    });
+
+    setRack(undo);
+    setDeadBalls(0);
+    if (show9S) {
+      setShow9S(false);
     }
   }
 
@@ -152,23 +182,31 @@ export function Game(props) {
           <div>{p2score}</div>
         </div>
       </div>
-      <div className="flex flex-row flex-wrap w-16 rotate-45">
+      <div
+        className={`${show9S ? "pointer-events-none" : ""} flex flex-row flex-wrap relative z-0 w-16 rotate-45`}
+      >
         {rack?.map((ball) => {
           return (
             <Ball
               number={ball.num}
               status={ball.status}
-              onClick={() => pocketBall(ball.num)}
+              onClick={() => handleBallStatus(Number(ball.num))}
             />
           );
         })}
+        <div
+          className={`${show9S ? "visible" : "invisible"} absolute -rotate-45 z-10`}
+        >
+          9 ON THE SNAP
+        </div>
       </div>
       <button onClick={scratchFoul}>Scratch/Foul</button>
-      {total !== 10 ?
-          <button onClick={endTurn}>End turn</button>
-          :
-          <button onClick={endGame}>End game</button>
-      }
+      {total !== 10 ? (
+        <button onClick={endTurn}>End turn</button>
+      ) : (
+        <button onClick={endGame}>End game</button>
+      )}
+      <button onClick={undo}>Undo</button>
     </div>
   );
 }
