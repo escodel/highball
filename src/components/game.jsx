@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from "preact/hooks";
 import { Ball } from "./ball";
 
 export function Game(props) {
-  const { p1name, p2name } = props;
+  const { p1name, p2name, endGame, breakingPlayer } = props;
   const [currentPlayer, setCurrentPlayer] = useState(p1name);
   const [p1score, setP1score] = useState(0);
   const [p2score, setP2score] = useState(0);
@@ -15,9 +15,10 @@ export function Game(props) {
   const [p1timeout, setP1timeout] = useState(false);
   const [p2timeout, setP2timeout] = useState(false);
   const [rack, setRack] = useState([]);
-  const [breakStatus, setBreakStatus] = useState(true);
   const [show9S, setShow9S] = useState(false);
+  const [breakStatus, setBreakStatus] = useState(true)
   // const [targetBall, setTargetBall] = useState(1)
+  const [gameData, setGameData] = useState({})
 
   function BallDetails(num, status) {
     return {
@@ -45,6 +46,15 @@ export function Game(props) {
     const inning = new Inning();
     inning.count = 1;
     setInnings([inning]);
+    setGameData({
+        id: Math.floor(Math.random() * 100000),
+        inProgress: true,
+        p1score: 0,
+        p2score: 0,
+        winner: null,
+        startTime: Date.now(),
+        endTime: null,
+    })
   }, []);
 
   useEffect(() => {
@@ -127,7 +137,7 @@ export function Game(props) {
         setShow9S(true);
         setInnings((prevState) => (prevState["9S"] = true));
       }
-      return endGame();
+      return endGame(gameData);
     } else {
       setBreakStatus(false);
 
@@ -139,17 +149,6 @@ export function Game(props) {
       }
 
       setCurrentPlayer((prevState) => (prevState === p1name ? p2name : p1name));
-    }
-  }
-
-  function endGame() {
-    if (p1score === 10 && breakStatus === true) {
-      setP1score(10);
-      setP2score(0);
-      setInnings((prevState) => (prevState["BR"] = true));
-    }
-    if (total === 10) {
-      alert("game over!");
     }
   }
 
@@ -171,6 +170,7 @@ export function Game(props) {
 
   return (
     <div className="table">
+        <h2>Breaking: {breakingPlayer}</h2>
       <h2>Current Player: {currentPlayer}</h2>
       <div className="scoreboard">
         <div>
@@ -204,9 +204,9 @@ export function Game(props) {
       {total !== 10 ? (
         <button onClick={endTurn}>End turn</button>
       ) : (
-        <button onClick={endGame}>End game</button>
+        <button onClick={() => endGame(gameData)}>End game</button>
       )}
-      <button onClick={undo}>Undo</button>
+      <button onClick={undo}>Undo turn</button>
     </div>
   );
 }

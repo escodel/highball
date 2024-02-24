@@ -1,20 +1,13 @@
 import { useState, useEffect } from "preact/hooks";
 
 export function MatchScore(props) {
-  const { p1score, p2score, deadBalls, innings } = props;
-  const [rows, setRows] = useState([]);
-
-  useEffect(() => {
-    setRows((prevState) =>
-      prevState.push({ p1score, p2score, deadBalls, innings }),
-    );
-  }, []);
+  const { gameNumber } = props;
 
   return (
     <>
-      {rows.length > 0 && (
+        <h3>{gameNumber}</h3>
         <table>
-          <tr>
+          {/* <tr>
             <th>Score</th>
             <td>{p1score}</td>
           </tr>
@@ -29,9 +22,9 @@ export function MatchScore(props) {
           <tr>
             <th>Score</th>
             <td>{p2score}</td>
-          </tr>
+          </tr> */}
         </table>
-      )}
+
     </>
   );
 }
