@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useState } from 'preact/hooks';
 import { Ball } from './ball';
-import { newGame } from '../utils/types';
+import { NewGame } from '../utils/types';
 
 export function Game(props) {
     const {
@@ -38,6 +38,7 @@ export function Game(props) {
         setRack(rack);
 
         const inning = new Inning();
+        const newGame = new NewGame();
         inning.count = 1;
         setInnings([inning]);
         setGameData(newGame);

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'preact/hooks';
 import { Game } from '../components/game';
 import { MatchScore } from '../components/matchScore';
 import { getItem, setItem } from '../utils/localStorage';
-import { newGame } from '../utils/types';
 
 export function Match(props) {
     const { winnerBreak } = props;
@@ -26,13 +25,8 @@ export function Match(props) {
         const matches = getItem('matches');
         const updatedMatches = matches.map((obj) => {
             if (obj.id === matchId) {
-                obj.games[gameNumber - 1] = {
-                    ...obj.games[gameNumber - 1],
-                    ...gameData,
-                };
+                obj.games[gameNumber - 1] = gameData;
             }
-
-            // obj.games = [...obj.games, newGame];
 
             return obj;
         });

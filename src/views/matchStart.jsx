@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { getItem, setItem } from '../utils/localStorage';
 import { route } from 'preact-router';
-import { newGame } from '../utils/types';
+import { NewGame } from '../utils/types';
 
 export function MatchStart() {
     // select players.. conditional based on team vs. singles?
@@ -31,6 +31,7 @@ export function MatchStart() {
             }
         });
 
+        const newGame = new NewGame();
         const newMatch = {
             id: Math.floor(Math.random() * 10000),
             inProgress: true,
