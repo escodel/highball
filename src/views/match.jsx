@@ -21,11 +21,10 @@ export function Match() {
     function nextGame(gameData) {
         const matches = getItem('matches');
         const updatedMatches = matches.map((obj) => {
-            obj.p1runningTotal += gameData.p1score;
-            obj.p1runningTotal += gameData.p2score;
-
             if (obj.id === matchId) {
                 obj.games[gameNumber - 1] = gameData;
+                obj.p1runningTotal += gameData.p1score;
+                obj.p1runningTotal += gameData.p2score;
             }
 
             if (obj.p1runningTotal >= obj.p1pointsToWin) {
@@ -43,21 +42,13 @@ export function Match() {
 
         if (matchData.winnerBreak) {
             setBreakingPlayer(gameData.winner);
-            // setCurrentPlayer(gameData.winner);
         } else {
             setBreakingPlayer((prevState) =>
                 prevState === matchData.p1name
                     ? matchData.p2name
                     : matchData.p1name
             );
-            // setCurrentPlayer((prevState) =>
-            //     prevState === matchData.p1name
-            //         ? matchData.p2name
-            //         : matchData.p1name
-            // );
         }
-
-        // setCurrentPlayer(breakingPlayer);
     }
 
     return (
@@ -70,8 +61,6 @@ export function Match() {
                         p1name={matchData.p1name}
                         p2name={matchData.p2name}
                         breakingPlayer={breakingPlayer}
-                        // currentPlayer={currentPlayer}
-                        // setCurrentPlayer={setCurrentPlayer}
                         gameNumber={gameNumber}
                         setGameNumber={setGameNumber}
                         nextGame={nextGame}

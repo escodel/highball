@@ -3,14 +3,7 @@ import { Ball } from './ball';
 import { NewGame } from '../utils/types';
 
 export function Game(props) {
-    const {
-        p1name,
-        p2name,
-        nextGame,
-        breakingPlayer,
-        // currentPlayer,
-        // setCurrentPlayer,
-    } = props;
+    const { p1name, p2name, nextGame, breakingPlayer } = props;
     const [p1score, setP1score] = useState(0);
     const [p2score, setP2score] = useState(0);
     const [total, setTotal] = useState(0);
@@ -174,9 +167,6 @@ export function Game(props) {
             });
         } else {
             setBreakStatus(false);
-            // setCurrentPlayer((prevState) =>
-            //     prevState === p1name ? p2name : p1name
-            // );
         }
     }
 
