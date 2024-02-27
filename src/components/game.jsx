@@ -167,6 +167,9 @@ export function Game(props) {
             });
         } else {
             setBreakStatus(false);
+            setCurrentPlayer((prevState) =>
+                prevState === p1name ? p2name : p1name
+            );
         }
     }
 

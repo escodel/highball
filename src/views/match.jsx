@@ -55,7 +55,7 @@ export function Match() {
         <>
             {matchData && breakingPlayer && (
                 <>
-                    <MatchScore gameNumber={gameNumber} />
+                    <MatchScore matchId={matchId} gameNumber={gameNumber} />
                     <Game
                         key={`game-${gameNumber}`}
                         p1name={matchData.p1name}
