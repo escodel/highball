@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useState } from 'preact/hooks';
 import { getItem, setItem } from '../utils/localStorage';
 import { route } from 'preact-router';
 import { NewGame } from '../utils/types';
@@ -50,7 +50,7 @@ export function MatchStart() {
             startTime: Date.now(),
             endTime: null,
             games: [newGame],
-            winnerBreak,
+            winnerBreak: winnerBreak,
         };
 
         if (!matches) {
@@ -126,19 +126,23 @@ export function MatchStart() {
                     </label>
                     <label>
                         <input
+                            id="winner-yes"
                             type="radio"
                             name="winner-break"
-                            checked={winnerBreak}
-                            onChange={() => setWinnerBreak(true)}
+                            value={true}
+                            checked={winnerBreak === true}
+                            onChange={(e) => setWinnerBreak(e.target.value)}
                         />
                         Winner Break
                     </label>
                     <label>
                         <input
+                            id="winner-no"
                             type="radio"
                             name="winner-break"
-                            checked={!winnerBreak}
-                            onChange={() => setWinnerBreak(false)}
+                            value={false}
+                            checked={winnerBreak === false}
+                            onChange={(e) => setWinnerBreak(e.target.value)}
                         />
                         Alternate Break
                     </label>

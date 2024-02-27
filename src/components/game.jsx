@@ -8,8 +8,8 @@ export function Game(props) {
         p2name,
         nextGame,
         breakingPlayer,
-        currentPlayer,
-        setCurrentPlayer,
+        // currentPlayer,
+        // setCurrentPlayer,
     } = props;
     const [p1score, setP1score] = useState(0);
     const [p2score, setP2score] = useState(0);
@@ -26,6 +26,7 @@ export function Game(props) {
     const [breakStatus, setBreakStatus] = useState(true);
     // const [targetBall, setTargetBall] = useState(1)
     const [gameData, setGameData] = useState({});
+    const [currentPlayer, setCurrentPlayer] = useState('');
 
     useEffect(() => {
         let rack = [8, 7, 5, 6, 9, 3, 4, 2, 1];
@@ -39,6 +40,7 @@ export function Game(props) {
         const newGame = new NewGame();
         inning.count = 1;
         setInnings([inning]);
+        setCurrentPlayer(breakingPlayer);
         setGameData(newGame);
     }, []);
 
@@ -172,9 +174,9 @@ export function Game(props) {
             });
         } else {
             setBreakStatus(false);
-            setCurrentPlayer((prevState) =>
-                prevState === p1name ? p2name : p1name
-            );
+            // setCurrentPlayer((prevState) =>
+            //     prevState === p1name ? p2name : p1name
+            // );
         }
     }
 

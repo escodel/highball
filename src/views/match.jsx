@@ -3,14 +3,12 @@ import { Game } from '../components/game';
 import { MatchScore } from '../components/matchScore';
 import { getItem, setItem } from '../utils/localStorage';
 
-export function Match(props) {
-    const { winnerBreak } = props;
+export function Match() {
     const path = window.location.pathname.split('/');
     const [matchData, setMatchData] = useState({});
     const [matchId, setMatchId] = useState(null);
     const [gameNumber, setGameNumber] = useState(1);
-    const [breakingPlayer, setBreakingPlayer] = useState(null);
-    const [currentPlayer, setCurrentPlayer] = useState(null);
+    const [breakingPlayer, setBreakingPlayer] = useState('');
 
     useEffect(() => {
         let data = getItem('matches');
@@ -18,7 +16,6 @@ export function Match(props) {
         setMatchId(result[0].id);
         setMatchData(result[0]);
         setBreakingPlayer(result[0].p1name);
-        setCurrentPlayer(result[0].p1name);
     }, []);
 
     function nextGame(gameData) {
@@ -31,28 +28,41 @@ export function Match(props) {
                 obj.games[gameNumber - 1] = gameData;
             }
 
-            if (
-                obj.p1runningTotal >= obj.p1pointsToWin ||
-                obj.p2runningTotal >= obj.p2pointsToWin
-            ) {
-                alert('win!');
+            if (obj.p1runningTotal >= obj.p1pointsToWin) {
+                alert(`${matchData.p1name} wins the match!`);
+            }
+            if (obj.p2runningTotal >= obj.p2pointsToWin) {
+                alert(`${matchData.p2name} wins the match!`);
             }
 
             return obj;
         });
+
         setItem('matches', updatedMatches);
         setGameNumber((prevState) => prevState + 1);
-        if (winnerBreak) {
-        }
-    }
 
-    function endMatch() {
-        // TODO
+        if (matchData.winnerBreak) {
+            setBreakingPlayer(gameData.winner);
+            // setCurrentPlayer(gameData.winner);
+        } else {
+            setBreakingPlayer((prevState) =>
+                prevState === matchData.p1name
+                    ? matchData.p2name
+                    : matchData.p1name
+            );
+            // setCurrentPlayer((prevState) =>
+            //     prevState === matchData.p1name
+            //         ? matchData.p2name
+            //         : matchData.p1name
+            // );
+        }
+
+        // setCurrentPlayer(breakingPlayer);
     }
 
     return (
         <>
-            {matchData && (
+            {matchData && breakingPlayer && (
                 <>
                     <MatchScore gameNumber={gameNumber} />
                     <Game
@@ -60,8 +70,8 @@ export function Match(props) {
                         p1name={matchData.p1name}
                         p2name={matchData.p2name}
                         breakingPlayer={breakingPlayer}
-                        currentPlayer={currentPlayer}
-                        setCurrentPlayer={setCurrentPlayer}
+                        // currentPlayer={currentPlayer}
+                        // setCurrentPlayer={setCurrentPlayer}
                         gameNumber={gameNumber}
                         setGameNumber={setGameNumber}
                         nextGame={nextGame}
