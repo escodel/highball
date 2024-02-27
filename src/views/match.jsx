@@ -26,7 +26,10 @@ export function Match(props) {
         const matches = getItem('matches');
         const updatedMatches = matches.map((obj) => {
             if (obj.id === matchId) {
-                obj.games = [...obj.games, gameData];
+                obj.games[gameNumber - 1] = {
+                    ...obj.games[gameNumber - 1],
+                    ...gameData,
+                };
             }
 
             // obj.games = [...obj.games, newGame];
@@ -49,12 +52,14 @@ export function Match(props) {
                 <>
                     <MatchScore gameNumber={gameNumber} />
                     <Game
+                        key={`game-${gameNumber}`}
                         p1name={matchData.p1name}
                         p2name={matchData.p2name}
                         breakingPlayer={breakingPlayer}
                         currentPlayer={currentPlayer}
                         setCurrentPlayer={setCurrentPlayer}
                         gameNumber={gameNumber}
+                        setGameNumber={setGameNumber}
                         nextGame={nextGame}
                     />
                 </>

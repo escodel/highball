@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'preact/hooks';
 import { Ball } from './ball';
+import { newGame } from '../utils/types';
 
 export function Game(props) {
     const {
@@ -10,6 +11,7 @@ export function Game(props) {
         currentPlayer,
         setCurrentPlayer,
         gameNumber,
+        setGameNumber,
     } = props;
     const [p1score, setP1score] = useState(0);
     const [p2score, setP2score] = useState(0);
@@ -35,18 +37,10 @@ export function Game(props) {
         });
         setRack(rack);
 
-        // const inning = new Inning();
-        // inning.count = 1;
-        // setInnings([inning]);
-        setGameData({
-            id: Math.floor(Math.random() * 100000),
-            inProgress: true,
-            p1score: 0,
-            p2score: 0,
-            winner: null,
-            startTime: Date.now(),
-            endTime: null,
-        });
+        const inning = new Inning();
+        inning.count = 1;
+        setInnings([inning]);
+        setGameData(newGame);
     }, []);
 
     useEffect(() => {
@@ -128,6 +122,27 @@ export function Game(props) {
     }
 
     function endTurn() {
+        if (currentPlayer === p2name) {
+            const inning = new Inning();
+            setInningsCount((prevState) => prevState + 1);
+            inning.count = inningsCount;
+            setInnings((prevState) => [...prevState, inning]);
+            setGameData((prevState) => {
+                return {
+                    ...prevState,
+                    p2score: p2score,
+                };
+            });
+        } else {
+            setGameData((prevState) => {
+                return {
+                    ...prevState,
+                    p1score: p1score,
+                };
+            });
+            console.log('player1', gameData);
+        }
+
         let nine = rack.find((obj) => Number(obj.num) === 9);
         if (nine.status === 'pocketed') {
             let count = 0;
@@ -142,46 +157,30 @@ export function Game(props) {
 
             setRack(countDead);
             setDeadBalls(count);
-            // setTotal(p1score + p2score + count);
             if (breakStatus) {
                 setShow9S(true);
-                // setInnings((prevState) => (prevState['9S'] = true));
+                setInnings((prevState) => (prevState['9S'] = true));
             }
-            let properties = {
-                p1score,
-                p2score,
-                inProgress: false,
-                winner: p1score > p2score ? p1name : p2name,
-                endTime: Date.now(),
-            };
+            // setGameData({
+            //         id: gameData.id,
+            //         p1score: p1score,
+            //         p2score: p2score,
+            //         inProgress: false,
+            //         winner: p1score > p2score ? p1name : p2name,
+            //         endTime: Date.now(),
+            // });
             setGameData((prevState) => {
-                return { ...prevState, ...properties };
+                return {
+                    ...prevState,
+                    p1score: p1score,
+                    p2score: p2score,
+                    inProgress: false,
+                    winner: p1score > p2score ? p1name : p2name,
+                    endTime: Date.now(),
+                };
             });
-
-            return nextGame(gameData);
         } else {
             setBreakStatus(false);
-
-            if (currentPlayer === p2name) {
-                const inning = new Inning();
-                setInningsCount((prevState) => prevState++);
-                inning.count = inningsCount;
-                setInnings(innings.push(inning));
-                setGameData((prevState) => {
-                    return {
-                        ...prevState,
-                        p2score: p2score,
-                    };
-                });
-            } else {
-                setGameData((prevState) => {
-                    return {
-                        ...prevState,
-                        p1score: p1score,
-                    };
-                });
-            }
-
             setCurrentPlayer((prevState) =>
                 prevState === p1name ? p2name : p1name
             );
