@@ -10,8 +10,6 @@ export function Game(props) {
         breakingPlayer,
         currentPlayer,
         setCurrentPlayer,
-        gameNumber,
-        setGameNumber,
     } = props;
     const [p1score, setP1score] = useState(0);
     const [p2score, setP2score] = useState(0);
@@ -141,9 +139,9 @@ export function Game(props) {
                     p1score: p1score,
                 };
             });
-            console.log('player1', gameData);
         }
 
+        // Checking that 9 ball is pocketed and whether 9 on the Snap
         let nine = rack.find((obj) => Number(obj.num) === 9);
         if (nine.status === 'pocketed') {
             let count = 0;
@@ -162,14 +160,6 @@ export function Game(props) {
                 setShow9S(true);
                 setInnings((prevState) => (prevState['9S'] = true));
             }
-            // setGameData({
-            //         id: gameData.id,
-            //         p1score: p1score,
-            //         p2score: p2score,
-            //         inProgress: false,
-            //         winner: p1score > p2score ? p1name : p2name,
-            //         endTime: Date.now(),
-            // });
             setGameData((prevState) => {
                 return {
                     ...prevState,
@@ -236,7 +226,7 @@ export function Game(props) {
                     9 ON THE SNAP
                 </div>
             </div>
-            {/* <button onClick={scratchFoul}>Scratch/Foul</button> */}
+            <button onClick={() => scratchFoul()}>Scratch/Foul</button>
             {total !== 10 ? (
                 <button onClick={() => endTurn()}>End turn</button>
             ) : (

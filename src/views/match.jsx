@@ -24,8 +24,18 @@ export function Match(props) {
     function nextGame(gameData) {
         const matches = getItem('matches');
         const updatedMatches = matches.map((obj) => {
+            obj.p1runningTotal += gameData.p1score;
+            obj.p1runningTotal += gameData.p2score;
+
             if (obj.id === matchId) {
                 obj.games[gameNumber - 1] = gameData;
+            }
+
+            if (
+                obj.p1runningTotal >= obj.p1pointsToWin ||
+                obj.p2runningTotal >= obj.p2pointsToWin
+            ) {
+                alert('win!');
             }
 
             return obj;
