@@ -7,6 +7,7 @@ export function Match() {
     const path = window.location.pathname.split('/');
     const [matchData, setMatchData] = useState({});
     const [matchId, setMatchId] = useState(null);
+    const [games, setGames] = useState([]);
     const [gameNumber, setGameNumber] = useState(1);
     const [breakingPlayer, setBreakingPlayer] = useState('');
 
@@ -15,16 +16,18 @@ export function Match() {
         let result = data.filter((obj) => obj.id === Number(path[2]));
         setMatchId(result[0].id);
         setMatchData(result[0]);
+        setGames(result[0].games);
         setBreakingPlayer(result[0].p1name);
     }, []);
 
     function nextGame(gameData) {
+        if (!gameData) return;
         const matches = getItem('matches');
         const updatedMatches = matches.map((obj) => {
             if (obj.id === matchId) {
                 obj.games[gameNumber - 1] = gameData;
                 obj.p1runningTotal += gameData.p1score;
-                obj.p1runningTotal += gameData.p2score;
+                obj.p2runningTotal += gameData.p2score;
             }
 
             if (obj.p1runningTotal >= obj.p1pointsToWin) {
@@ -37,9 +40,6 @@ export function Match() {
             return obj;
         });
 
-        setItem('matches', updatedMatches);
-        setGameNumber((prevState) => prevState + 1);
-
         if (matchData.winnerBreak) {
             setBreakingPlayer(gameData.winner);
         } else {
@@ -49,20 +49,24 @@ export function Match() {
                     : matchData.p1name
             );
         }
+
+        setItem('matches', updatedMatches);
+        setGames((prevState) => [...prevState, gameData]);
+        setGameNumber((prevState) => prevState + 1);
     }
 
     return (
         <>
-            {matchData && breakingPlayer && (
+            {matchData && (
                 <>
-                    <MatchScore matchId={matchId} gameNumber={gameNumber} />
+                    <MatchScore games={games} gameNumber={gameNumber} />
                     <Game
                         key={`game-${gameNumber}`}
                         p1name={matchData.p1name}
                         p2name={matchData.p2name}
                         breakingPlayer={breakingPlayer}
-                        gameNumber={gameNumber}
-                        setGameNumber={setGameNumber}
+                        // gameNumber={gameNumber}
+                        // setGameNumber={setGameNumber}
                         nextGame={nextGame}
                     />
                 </>

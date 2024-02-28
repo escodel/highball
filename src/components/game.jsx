@@ -1,13 +1,13 @@
 import { useEffect, useReducer, useState } from 'preact/hooks';
 import { Ball } from './ball';
-import { NewGame } from '../utils/types';
+import { NewGame, Inning } from '../utils/types';
 
 export function Game(props) {
-    const { p1name, p2name, nextGame, breakingPlayer } = props;
+    const { p1name, p2name, breakingPlayer, nextGame } = props;
     const [p1score, setP1score] = useState(0);
     const [p2score, setP2score] = useState(0);
     const [total, setTotal] = useState(0);
-    const [inningsCount, setInningsCount] = useState(0);
+    // const [inningsCount, setInningsCount] = useState(0);
     const [innings, setInnings] = useState(null);
     const [deadBalls, setDeadBalls] = useState(0);
     const [p1fouls, setP1fouls] = useState(0);
@@ -29,13 +29,16 @@ export function Game(props) {
         });
         setRack(rack);
 
-        const inning = new Inning();
-        const newGame = new NewGame();
-        inning.count = 1;
-        setInnings([inning]);
-        setCurrentPlayer(breakingPlayer);
+        let inning = new Inning();
+        let newGame = new NewGame();
+
+        setInnings(inning);
         setGameData(newGame);
     }, []);
+
+    useEffect(() => {
+        setCurrentPlayer(breakingPlayer);
+    }, [breakingPlayer]);
 
     useEffect(() => {
         setTotal(p1score + p2score + deadBalls);
@@ -45,14 +48,6 @@ export function Game(props) {
         return {
             num,
             status,
-        };
-    }
-
-    function Inning() {
-        return {
-            '9S': false,
-            BR: false,
-            T: false,
         };
     }
 
@@ -116,15 +111,16 @@ export function Game(props) {
     }
 
     function endTurn() {
-        if (currentPlayer === p2name) {
-            const inning = new Inning();
-            setInningsCount((prevState) => prevState + 1);
-            inning.count = inningsCount;
-            setInnings((prevState) => [...prevState, inning]);
+        if (currentPlayer !== breakingPlayer) {
+            // setInnings((prevState) => [...prevState, new Inning()]);
+            setInnings((prevState) => {
+                return { ...prevState, count: prevState.count + 1 };
+            });
             setGameData((prevState) => {
                 return {
                     ...prevState,
                     p2score: p2score,
+                    // innings: innings,
                 };
             });
         } else {
@@ -155,14 +151,15 @@ export function Game(props) {
                 setShow9S(true);
                 setInnings((prevState) => (prevState['9S'] = true));
             }
+
             setGameData((prevState) => {
                 return {
                     ...prevState,
                     p1score: p1score,
                     p2score: p2score,
-                    inProgress: false,
-                    winner: p1score > p2score ? p1name : p2name,
+                    winner: currentPlayer === p1name ? p1name : p2name,
                     endTime: Date.now(),
+                    innings: innings,
                 };
             });
         } else {

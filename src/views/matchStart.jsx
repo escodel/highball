@@ -31,7 +31,7 @@ export function MatchStart() {
             }
         });
 
-        const newGame = new NewGame();
+        let newGame = new NewGame();
         const newMatch = {
             id: Math.floor(Math.random() * 10000),
             inProgress: true,

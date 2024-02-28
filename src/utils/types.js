@@ -8,5 +8,15 @@ export function NewGame() {
         startTime: Date.now(),
         endTime: null,
         tableStatus: [],
+        innings: {},
+    };
+}
+
+export function Inning() {
+    return {
+        '9S': false,
+        BR: false,
+        timeout: false,
+        count: 0,
     };
 }
