@@ -69,11 +69,12 @@ export function MatchStart() {
     return (
         <>
             {players && (
-                <form>
+                <form className="flex flex-col space-y-4">
                     <label>
                         <select
                             value={player1}
                             onChange={(e) => setPlayer1(e.target.value)}
+                            className="form-input"
                         >
                             <option value="placeholder" selected disabled>
                                 Select player
@@ -92,6 +93,7 @@ export function MatchStart() {
                         <select
                             value={player2}
                             onChange={(e) => setPlayer2(e.target.value)}
+                            className="form-input"
                         >
                             <option value="placeholder" selected disabled>
                                 Select player
@@ -110,6 +112,7 @@ export function MatchStart() {
                         <select
                             value={scoreKeeper}
                             onChange={(e) => setScoreKeeper(e.target.value)}
+                            className="form-input"
                         >
                             <option value="placeholder" selected disabled>
                                 Select scorekeeper
@@ -132,6 +135,7 @@ export function MatchStart() {
                             value={true}
                             checked={winnerBreak === true}
                             onChange={(e) => setWinnerBreak(e.target.value)}
+                            className="form-input"
                         />
                         Winner Break
                     </label>
@@ -143,10 +147,13 @@ export function MatchStart() {
                             value={false}
                             checked={winnerBreak === false}
                             onChange={(e) => setWinnerBreak(e.target.value)}
+                            className="form-input"
                         />
                         Alternate Break
                     </label>
-                    <button onClick={(e) => startMatch(e)}>Start match</button>
+                    <button onClick={(e) => startMatch(e)} className="border">
+                        Start match
+                    </button>
 
                     {matches && (
                         <>
@@ -155,6 +162,7 @@ export function MatchStart() {
                                 onChange={(e) =>
                                     setSelectedMatch(e.target.value)
                                 }
+                                className="form-input"
                             >
                                 <option value="placeholder" selected disabled>
                                     Select match
@@ -167,7 +175,10 @@ export function MatchStart() {
                                     );
                                 })}
                             </select>
-                            <button onClick={(e, id) => loadMatch(id)}>
+                            <button
+                                onClick={(e, id) => loadMatch(id)}
+                                className="border"
+                            >
                                 Resume match
                             </button>
                         </>

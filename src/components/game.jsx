@@ -112,7 +112,6 @@ export function Game(props) {
 
     function endTurn() {
         if (currentPlayer !== breakingPlayer) {
-            // setInnings((prevState) => [...prevState, new Inning()]);
             setInnings((prevState) => {
                 return { ...prevState, count: prevState.count + 1 };
             });
@@ -120,7 +119,6 @@ export function Game(props) {
                 return {
                     ...prevState,
                     p2score: p2score,
-                    // innings: innings,
                 };
             });
         } else {

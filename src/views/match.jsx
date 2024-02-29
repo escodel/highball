@@ -65,8 +65,6 @@ export function Match() {
                         p1name={matchData.p1name}
                         p2name={matchData.p2name}
                         breakingPlayer={breakingPlayer}
-                        // gameNumber={gameNumber}
-                        // setGameNumber={setGameNumber}
                         nextGame={nextGame}
                     />
                 </>

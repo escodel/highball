@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'preact/hooks';
-import { getItem } from '../utils/localStorage';
-
 export function MatchScore(props) {
     const { games, gameNumber } = props;
 
