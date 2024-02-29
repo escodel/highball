@@ -135,7 +135,6 @@ export function MatchStart() {
                             value={true}
                             checked={winnerBreak === true}
                             onChange={(e) => setWinnerBreak(e.target.value)}
-                            className="form-input"
                         />
                         Winner Break
                     </label>
@@ -147,7 +146,6 @@ export function MatchStart() {
                             value={false}
                             checked={winnerBreak === false}
                             onChange={(e) => setWinnerBreak(e.target.value)}
-                            className="form-input"
                         />
                         Alternate Break
                     </label>
@@ -170,7 +168,10 @@ export function MatchStart() {
                                 {matches.map((obj) => {
                                     return (
                                         <option value={obj.id}>
-                                            {obj.player1} v. {obj.player2}
+                                            {obj.p1name} v. {obj.p2name} $
+                                            {new Date(
+                                                obj.startTime
+                                            ).toDateString()}
                                         </option>
                                     );
                                 })}
